@@ -1,20 +1,41 @@
 CREATE TABLE registered_users(
-    user_id INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     username VARCHAR(25) NOT NULL,
     password VARCHAR(255) NOT NULL,
     reputation_score INT(255),
+    user_type VARCHAR(20) NOT NULL,
     UNIQUE KEY (email),
     UNIQUE KEY (username)
 );
 
 CREATE TABLE groups(
-    group_id INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    group_name VARCHAR(25) NOT NULL,
-    group_size INT(255) NOT NULL
+    group_id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(25) NOT NULL,
+    creator VARCHAR(25) NOT NULL,
+    members VARCHAR(25) NOT NULL
+    size INT(255) NOT NULL,
+    FOREIGN KEY(creator) REFERENCES registered_users(username),
+    FOREIGN KEY(members) REFERENCES registered_users(username)
 );
 
 CREATE TABLE projects(
-    project_id INT(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    project_id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     project_name VARCHAR(25) NOT NULL
 );
+
+CREATE TABLE black_list(
+    id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id INT(255) NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES registered_users(user_id)
+);
+
+CREATE TABLE white_list(
+    id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id INT(255) NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES registered_users(user_id)
+);
+
+
+*documents, how many users and who (username) is in one group, how many and what groups is user in, storing events sceduled in groups
+user_type = Ordinary, VIP, SUPER
