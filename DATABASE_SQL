@@ -1,27 +1,29 @@
 CREATE TABLE registered_users(
-    user_id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     username VARCHAR(25) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    reputation_score INT(255),
+    reputation_score INT NOT NULL,
     user_type VARCHAR(20) NOT NULL,
     UNIQUE KEY (email),
     UNIQUE KEY (username)
 );
 
 CREATE TABLE groups(
-    group_id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    group_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
-    creator VARCHAR(25) NOT NULL,
-    members VARCHAR(25) NOT NULL
-    size INT(255) NOT NULL,
-    FOREIGN KEY(creator) REFERENCES registered_users(username),
-    FOREIGN KEY(members) REFERENCES registered_users(username)
+    members INT,
+    creator INT,
+    size INT NOT NULL,
+    FOREIGN KEY(creator) REFERENCES registered_users(user_id) ON DELETE SET NULL
+    FOREIGN KEY(members) REFERENCES registered_users(user_id) ON DELETE SET NULL
 );
 
 CREATE TABLE projects(
-    project_id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    project_name VARCHAR(25) NOT NULL
+    project_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    project_name VARCHAR(25) NOT NULL,
+    user_id INT,
+    FOREIGN KEY(user_id) REFERENCES registered_users(user_id) ON DELETE SET NULL
 );
 
 CREATE TABLE black_list(
