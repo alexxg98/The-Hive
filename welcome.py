@@ -1,5 +1,6 @@
 from tkinter import *
 import login
+import register
 
 
 class WelcomeWindow:
@@ -33,7 +34,6 @@ class WelcomeWindow:
         self.frame.place(x=80, y=50)
 
         # place the photo in the frame
-        # you can find the images from flaticon.com site
         self.img = PhotoImage(file='images/icon.png')
         self.label = Label(self.frame, image=self.img)
         self.label.place(x=150, y=20)
@@ -47,7 +47,7 @@ class WelcomeWindow:
         self.button.place(x=90, y=220)
 
         self.button = Button(self.frame, text="Register", font=('helvetica', 20)
-                             , bg='dark green', fg='white', command=self.login)
+                             , bg='dark green', fg='white', command=self.register)
         self.button.place(x=200, y=220)
 
         self.win.mainloop()
@@ -60,6 +60,14 @@ class WelcomeWindow:
         #open the new window
         log = login.LoginWindow()
         log.add_frame()
+
+    def register(self):
+        # destroy current window
+        self.win.destroy()
+
+        #open the new window
+        reg = register.RegisterWindow()
+        reg.add_frame()
 
 
 if __name__ == "__main__":
