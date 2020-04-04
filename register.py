@@ -27,30 +27,47 @@ class RegisterWindow:
 
     def add_frame(self):
 
+
         self.label = Label(text="The Hive")
         self.label.config(font=("Courier", 18, 'bold'))
-        self.label.place(x=50, y=170)
+        self.label.place(x=50, y=100)
+
+        self.namelabel = Label(text="Enter Name")
+        self.namelabel.config(font=("Courier", 12, 'bold'))
+        self.namelabel.place(x=50, y=150)
+
+        self.name = Entry(font='Courier 12')
+        self.name.place(x=200, y=150)
 
         self.emlabel = Label(text="Enter Email")
         self.emlabel.config(font=("Courier", 12, 'bold'))
-        self.emlabel.place(x=50, y=250)
+        self.emlabel.place(x=50, y=180)
 
         self.email = Entry(font='Courier 12')
-        self.email.place(x=200, y=250)
+        self.email.place(x=200, y=180)
 
-        self.unlabel = Label(text="Enter Username")
-        self.unlabel.config(font=("Courier", 12, 'bold'))
-        self.unlabel.place(x=50, y=280)
+        self.interestlabel = Label(text="Enter Interest")
+        self.interestlabel.config(font=("Courier", 12, 'bold'))
+        self.interestlabel.place(x=50, y=210)
 
-        self.username = Entry(font='Courier 12')
-        self.username.place(x=200, y=280)
+        self.interest = Entry(font='Courier 12')
+        self.interest.place(x=200, y=210)
 
-        self.pslabel = Label(text="Enter Password")
-        self.pslabel.config(font=("Courier", 12, 'bold'))
-        self.pslabel.place(x=50, y=310)
+        self.credlabel = Label(text="Enter Credentials")
+        self.credlabel.config(font=("Courier", 12, 'bold'))
+        self.credlabel.place(x=50, y=240)
 
-        self.password = Entry(show='*', font='Courier 12')
-        self.password.place(x=200, y=310)
+        self.credentials = Entry(font='Courier 12')
+        self.credentials.place(x=230, y=240)
+
+        self.reflabel = Label(text="Enter Reference")
+        self.reflabel.config(font=("Courier", 12, 'bold'))
+        self.reflabel.place(x=50, y=270)
+
+        self.reference = Entry(font='Courier 12')
+        self.reference.place(x=230, y=270)
+
+
 
         self.button = Button(text="Register", font=('Courier Bold', 30),
                              bg='dark green', fg='white', command=self.profile)
