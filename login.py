@@ -1,6 +1,6 @@
 from tkinter import *
-from tkinter import messagebox
-import dashboard
+import profile
+import welcome
 
 
 class LoginWindow:
@@ -26,36 +26,41 @@ class LoginWindow:
         self.win.title("Login")
 
     def add_frame(self):
-        self.frame = Frame(self.win, height=400, width=450)
-        self.frame.place(x=80, y=50)
-        self.label = Label(self.frame)
-        self.label.place(x = 150, y = 20)
-
-        #now create a login form
-        self.label = Label(self.frame, text="User Login")
+        # now create a login form
+        self.label = Label(text="The Hive")
         self.label.config(font=("Courier", 20, 'bold'))
-        self.label.place(x=140, y = 170)
+        self.label.place(x=140, y=170)
 
-        self.emlabel = Label(self.frame, text="Enter Email")
+        self.emlabel = Label(text="Enter Username")
         self.emlabel.config(font=("Courier", 12, 'bold'))
-        self.emlabel.place(x=50, y= 250)
+        self.emlabel.place(x=50, y=250)
 
-        self.email = Entry(self.frame, font='Courier 12')
-        self.email.place(x=200, y= 250)
+        self.email = Entry(font='Courier 12')
+        self.email.place(x=200, y=250)
 
-        self.pslabel = Label(self.frame, text="Enter Password")
+        self.pslabel = Label(text="Enter Password")
         self.pslabel.config(font=("Courier", 12, 'bold'))
-        self.pslabel.place(x = 50, y = 280)
+        self.pslabel.place(x=50, y=280)
 
-        self.password = Entry(self.frame,show='*', font='Courier 12')
-        self.password.place(x = 200, y = 280)
+        self.password = Entry(show='*', font='Courier 12')
+        self.password.place(x=200, y=280)
 
-        self.button = Button(self.frame, text="Login", font='Courier 15 bold',
-                             command=self.login)
-        self.button.place(x = 170, y = 310)
+        self.button = Button(text="Login", font=('helvetica', 20),
+                             bg='dark green', fg='white', command=self.profile)
+        self.button.place(x=170, y=310)
+
+        self.button = Button(text="Back", font=('helvetica', 10),
+                             bg='dark green', fg='white', command=self.welcome)
+        self.button.place(x=10, y=400)
 
         self.win.mainloop()
 
+    def profile(self):
+        self.win.destroy()
+        prof = profile.ProfileWindow()
+        prof.add_frame()
 
-
-
+    def welcome(self):
+        self.win.destroy()
+        wel = welcome.WelcomeWindow()
+        wel.add_frame()
