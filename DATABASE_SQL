@@ -1,5 +1,5 @@
 CREATE TABLE registered_users(
-    user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     username VARCHAR(25) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -10,32 +10,37 @@ CREATE TABLE registered_users(
 );
 
 CREATE TABLE groups(
-    group_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
-    members INT,
-    creator INT,
+    creator_id INT,
     size INT NOT NULL,
-    FOREIGN KEY(creator) REFERENCES registered_users(user_id) ON DELETE SET NULL
-    FOREIGN KEY(members) REFERENCES registered_users(user_id) ON DELETE SET NULL
+    FOREIGN KEY(creator) REFERENCES registered_users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE group_membership(
+    user_id INT, 
+    group_id INT,
+    FOREIGN KEY(user_id) REFERENCES registered_users(id) ON DELETE SET NULL
+    FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE SET NULL
 );
 
 CREATE TABLE projects(
     project_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     project_name VARCHAR(25) NOT NULL,
-    user_id INT,
-    FOREIGN KEY(user_id) REFERENCES registered_users(user_id) ON DELETE SET NULL
+    creator_id INT,
+    FOREIGN KEY(creator_id) REFERENCES registered_users(id) ON DELETE SET NULL
 );
 
 CREATE TABLE black_list(
     id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT(255) NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES registered_users(user_id)
+    FOREIGN KEY(user_id) REFERENCES registered_users(id)
 );
 
 CREATE TABLE white_list(
     id INT(255) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT(255) NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES registered_users(user_id)
+    FOREIGN KEY(user_id) REFERENCES registered_users(id)
 );
 
 
