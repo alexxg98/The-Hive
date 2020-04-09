@@ -45,4 +45,5 @@ CREATE TABLE white_list(
 
 
 *documents, how many users and who (username) is in one group, how many and what groups is user in, storing events sceduled in groups
-user_type = Ordinary, VIP, SUPER
+user_type = Ordinary, VIP, SUPER, black list should have user who blacklisted and users who have been blacklisted and another column 
+to specify type. same for white list. 
