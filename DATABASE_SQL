@@ -46,4 +46,4 @@ CREATE TABLE white_list(
 );
 
 *storing events sceduled in groups, user_type = Ordinary, VIP, SUPER, 
-blacklist/whitelist could have column to specify type
+blacklist/whitelist could have column to specify reason user was black/white listed
