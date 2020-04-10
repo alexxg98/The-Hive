@@ -3,8 +3,8 @@ CREATE TABLE registered_users(
     email VARCHAR(255) NOT NULL,
     username VARCHAR(25) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    reputation_score INT NOT NULL,
-    user_type VARCHAR(20) NOT NULL,
+    reputation_score INT,
+    user_type VARCHAR(20),
     UNIQUE KEY (email),
     UNIQUE KEY (username)
 );
