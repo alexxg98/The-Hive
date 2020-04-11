@@ -1,18 +1,15 @@
 import mysql.connector
 
-con = mysql.connector.connect(
+db = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="alfheim",
-    database="testing"
+    database="TheHive"
 )
 
-cursor = con.cursor()
+cursor = db.cursor()
 
-#make a function to access the db
-def user_login(tup):
-    try:
-        cursor.execute("SELECT * FROM `admin` WHERE `email`=%s AND `password`=%s",tup)
-        return (cursor.fetchone())
-    except:
-        return False
+cursor.execute("SELECT * FROM users")
+
+result = cursor.fetchall()
+for row in result: print(row)
