@@ -1,5 +1,5 @@
 from tkinter import *
-import profile
+import su
 import welcome
 
 
@@ -25,18 +25,17 @@ class LoginWindow:
         # change the title of the window
         self.win.title("Login")
 
-    def add_frame(self):
-        # now create a login form
+    def main(self):
         self.label = Label(text="The Hive")
         self.label.config(font=("Courier", 20, 'bold'))
         self.label.place(x=140, y=170)
 
-        self.emlabel = Label(text="Enter Username")
-        self.emlabel.config(font=("Courier", 12, 'bold'))
-        self.emlabel.place(x=50, y=250)
+        self.unlabel = Label(text="Enter Username")
+        self.unlabel.config(font=("Courier", 12, 'bold'))
+        self.unlabel.place(x=50, y=250)
 
-        self.email = Entry(font='Courier 12')
-        self.email.place(x=200, y=250)
+        self.username = Entry(font='Courier 12')
+        self.username.place(x=200, y=250)
 
         self.pslabel = Label(text="Enter Password")
         self.pslabel.config(font=("Courier", 12, 'bold'))
@@ -45,22 +44,20 @@ class LoginWindow:
         self.password = Entry(show='*', font='Courier 12')
         self.password.place(x=200, y=280)
 
-        self.button = Button(text="Login", font=('helvetica', 20),
-                             bg='dark green', fg='white', command=self.profile)
+        self.button = Button(text="Login", font=('helvetica', 20), bg='dark green', fg='white', command=self.su)
         self.button.place(x=170, y=310)
 
-        self.button = Button(text="Back", font=('helvetica', 10),
-                             bg='dark green', fg='white', command=self.welcome)
+        self.button = Button(text="Back", font=('helvetica', 10), bg='dark green', fg='white', command=self.welcome)
         self.button.place(x=10, y=400)
 
         self.win.mainloop()
 
-    def profile(self):
+    def su(self):
         self.win.destroy()
-        prof = profile.ProfileWindow()
-        prof.add_frame()
+        super = su.main()
+        super.main()
 
     def welcome(self):
         self.win.destroy()
         wel = welcome.WelcomeWindow()
-        wel.add_frame()
+        wel.main()
