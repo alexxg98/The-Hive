@@ -95,14 +95,22 @@ class RegisterWindow:
     def insert(self):
         email = self.email.get()
         username = self.username.get()
+        password = self.password.get()
+        interest = self.interest.get()
+        credential = self.credentials.get()
+        reference = self.reference.get()
+        
         try:
-            cursor.execute("INSERT INTO users (email, username, password) VALUES (%s, %s, %s)",
-                           (email, username, self.password.get()))
-            db.commit()
-            self.su()
+            if (username=="" or email=="" or password=="" or interest=="" or credential=="" or reference==""):
+                MessageBox.showinfo("Registration Status", "All Fields are Required")
+            else:
+                cursor.execute("INSERT INTO users (email, username, password) VALUES (%s, %s, %s)",
+                               (email, username, self.password.get()))
+                db.commit()
+                self.su()
         except mysql.connector.errors.IntegrityError:
             messagebox.showerror("error", "Account already exists!")
-
+            
     def su(self):
         self.win.destroy()
         super = su.main()
@@ -112,24 +120,4 @@ class RegisterWindow:
         self.win.destroy()
         wel = welcome.WelcomeWindow()
         wel.main()
-        
-    def registerBtn():
-        username = name.get()
-        email = email.get()
-        interest = interest.get()
-        credential = credentials.get()
-        reference = reference.get()
-        if(username=="" or email=="" or interest=="" or credential=="" or reference==""):
-            MessageBox.showinfo("Registration Status", "All Fields are Required")
-        else:
-            con = mysql.connector.connect(host="localhost",
-                user="root",
-                passwd="alfheim",
-                database="testing")
-            cursor = con.cursor()
-            #cursor.execute("INSERT INTO
-            cursor.execute("commit")
-            con.close()
-        wel.main()     
-        
         
