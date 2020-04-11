@@ -68,6 +68,20 @@ class RegisterWindow:
 
         self.reference = Entry(font='Courier 12')
         self.reference.place(x=200, y=340)
+        
+        self.interestlabel = Label(text="Enter Interest")
+        self.interestlabel.config(font=("Courier", 12, 'bold'))
+        self.interestlabel.place(x=50, y=210)
+       
+        self.interest = Entry(font='Courier 12')
+        self.interest.place(x=200, y=210)
+       
+        self.credlabel = Label(text="Enter Credentials")
+        self.credlabel.config(font=("Courier", 12, 'bold'))
+        self.credlabel.place(x=50, y=240)
+        
+        self.credentials = Entry(font='Courier 12')
+        self.credentials.place(x=230, y=240)
 
         self.button = Button(text="Register", font=('Courier Bold', 30), bg='dark green', fg='white',
                              command=self.insert)
@@ -98,3 +112,24 @@ class RegisterWindow:
         self.win.destroy()
         wel = welcome.WelcomeWindow()
         wel.main()
+        
+    def registerBtn():
+        username = name.get()
+        email = email.get()
+        interest = interest.get()
+        credential = credentials.get()
+        reference = reference.get()
+        if(username=="" or email=="" or interest=="" or credential=="" or reference==""):
+            MessageBox.showinfo("Registration Status", "All Fields are Required")
+        else:
+            con = mysql.connector.connect(host="localhost",
+                user="root",
+                passwd="alfheim",
+                database="testing")
+            cursor = con.cursor()
+            #cursor.execute("INSERT INTO
+            cursor.execute("commit")
+            con.close()
+        wel.main()     
+        
+        
