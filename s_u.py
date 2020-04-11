@@ -82,7 +82,3 @@ def main():
     frame = hexagon()
     root.geometry("800x800")
     root.mainloop()
-    
-
-if __name__ == '__main__':
-    main()
