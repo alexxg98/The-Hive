@@ -28,25 +28,21 @@ class WelcomeWindow:
         #change the title of the window
         self.win.title("The Hive")
 
-    def add_frame(self):
-        #create a inner frame
-        self.frame = Frame(self.win, height=300, width=450)
-        self.frame.place(x=80, y=50)
-
+    def main(self):
         # place the photo in the frame
         self.img = PhotoImage(file='images/icon.png')
-        self.label = Label(self.frame, image=self.img)
+        self.label = Label(image=self.img)
         self.label.place(x=150, y=20)
 
-        self.labeltitle = Label(self.frame, text="Welcome to The Hive")
+        self.labeltitle = Label(text="Welcome to The Hive")
         self.labeltitle.config(font=("Courier", 20, 'bold'))
         self.labeltitle.place(x=40, y=170)
 
-        self.button = Button(self.frame, text="Login", font=('helvetica', 20)
+        self.button = Button(text="Login", font=('helvetica', 20)
                              , bg='dark green', fg='white', command=self.login)
         self.button.place(x=90, y=220)
 
-        self.button = Button(self.frame, text="Register", font=('helvetica', 20)
+        self.button = Button(text="Register", font=('helvetica', 20)
                              , bg='dark green', fg='white', command=self.register)
         self.button.place(x=200, y=220)
 
@@ -59,7 +55,7 @@ class WelcomeWindow:
 
         #open the new window
         log = login.LoginWindow()
-        log.add_frame()
+        log.main()
 
     def register(self):
         # destroy current window
@@ -67,9 +63,4 @@ class WelcomeWindow:
 
         #open the new window
         reg = register.RegisterWindow()
-        reg.add_frame()
-
-
-if __name__ == "__main__":
-    x = WelcomeWindow()
-    x.add_frame()
+        reg.main()
