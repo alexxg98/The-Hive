@@ -1,7 +1,7 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
 
 # Class to create the hexagon framework
-class hexagon(Frame):
+class Hexagon(Frame):
 
     def __init__(self):
         super().__init__()
@@ -79,6 +79,6 @@ def main():
         height=5
     )
     label.pack()
-    frame = hexagon()
+    frame = Hexagon()
     root.geometry("800x800")
     root.mainloop()
