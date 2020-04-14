@@ -68,23 +68,9 @@ class RegisterWindow:
 
         self.reference = Entry(font='Courier 12')
         self.reference.place(x=200, y=340)
-        
-        self.interestlabel = Label(text="Enter Interest")
-        self.interestlabel.config(font=("Courier", 12, 'bold'))
-        self.interestlabel.place(x=50, y=210)
-       
-        self.interest = Entry(font='Courier 12')
-        self.interest.place(x=200, y=210)
-       
-        self.credlabel = Label(text="Enter Credentials")
-        self.credlabel.config(font=("Courier", 12, 'bold'))
-        self.credlabel.place(x=50, y=240)
-        
-        self.credentials = Entry(font='Courier 12')
-        self.credentials.place(x=230, y=240)
 
         self.button = Button(text="Register", font=('Courier Bold', 30), bg='dark green', fg='white',
-                             command=self.insert)
+                             command=self.reg_btn())
         self.button.place(x=170, y=400)
 
         self.button = Button(text="Back", font=('helvetica', 10), bg='dark green', fg='white', command=self.welcome)
@@ -92,25 +78,21 @@ class RegisterWindow:
 
         self.win.mainloop()
 
-    def insert(self):
+    def reg_btn(self):
         email = self.email.get()
         username = self.username.get()
         password = self.password.get()
-        interest = self.interest.get()
-        credential = self.credentials.get()
-        reference = self.reference.get()
-        
         try:
-            if (username=="" or email=="" or password=="" or interest=="" or credential=="" or reference==""):
-                MessageBox.showinfo("Registration Status", "All Fields are Required")
-            else:
-                cursor.execute("INSERT INTO users (email, username, password) VALUES (%s, %s, %s)",
-                               (email, username, self.password.get()))
-                db.commit()
-                self.su()
+            cursor.execute("INSERT INTO users (email, username, password) VALUES (%s, %s, %s)",
+                           (email, username, password))
+            db.commit()
+            self.su()
         except mysql.connector.errors.IntegrityError:
-            messagebox.showerror("error", "Account already exists!")
-            
+            messagebox.showerror("Error", "Account already exists!")
+
+        if username == "" or email == "" or password == "":
+            messagebox.showinfo("Registration Status", "All Fields are Required")
+
     def su(self):
         self.win.destroy()
         super = su.main()
