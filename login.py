@@ -6,10 +6,10 @@ import welcome
 import mysql.connector
 
 db = mysql.connector.connect(
-    host="localhost",
+    host="127.0.0.1",
     user="root",
-    passwd="alfheim",
-    database="TheHive"
+    passwd="cscD@t@Bas3",
+    database="thehive"
 )
 
 cursor = db.cursor()
@@ -56,7 +56,7 @@ class LoginWindow:
         self.password = Entry(show='*', font='Courier 12')
         self.password.place(x=200, y=280)
 
-        self.button = Button(text="Login", font=('helvetica', 20), bg='dark green', fg='white', command=self.log_btn())
+        self.button = Button(text="Login", font=('helvetica', 20), bg='dark green', fg='white', command=self.log_btn)
         self.button.place(x=170, y=310)
 
         self.button = Button(text="Back", font=('helvetica', 10), bg='dark green', fg='white', command=self.welcome)

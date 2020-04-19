@@ -6,10 +6,10 @@ import welcome
 import mysql.connector
 
 db = mysql.connector.connect(
-    host="localhost",
+    host="127.0.0.1",
     user="root",
-    passwd="alfheim",
-    database="TheHive"
+    passwd="cscD@t@Bas3",
+    database="thehive"
 )
 
 cursor = db.cursor()
@@ -70,7 +70,7 @@ class RegisterWindow:
         self.reference.place(x=200, y=340)
 
         self.button = Button(text="Register", font=('Courier Bold', 30), bg='dark green', fg='white',
-                             command=self.reg_btn())
+                             command=self.reg_btn)
         self.button.place(x=170, y=400)
 
         self.button = Button(text="Back", font=('helvetica', 10), bg='dark green', fg='white', command=self.welcome)
@@ -83,15 +83,15 @@ class RegisterWindow:
         username = self.username.get()
         password = self.password.get()
         try:
-            cursor.execute("INSERT INTO users (email, username, password) VALUES (%s, %s, %s)",
-                           (email, username, password))
-            db.commit()
-            self.su()
+            if username == "" or email == "" or password == "":
+                messagebox.showinfo("Registration Status", "All Fields are Required")
+            else:
+                cursor.execute("INSERT INTO users (email, username, password) VALUES (%s, %s, %s)",
+                               (email, username, password))
+                db.commit()
+                self.su()
         except mysql.connector.errors.IntegrityError:
             messagebox.showerror("Error", "Account already exists!")
-
-        if username == "" or email == "" or password == "":
-            messagebox.showinfo("Registration Status", "All Fields are Required")
 
     def su(self):
         self.win.destroy()
@@ -102,4 +102,3 @@ class RegisterWindow:
         self.win.destroy()
         wel = welcome.WelcomeWindow()
         wel.main()
-        
