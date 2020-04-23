@@ -72,15 +72,27 @@ class hexagon(Frame):
         canvas.create_polygon(p3,fill='white', width=1)
 
         # hexagon for user select
-        # o1_select = [520,265,500,249,
-        #              500,249,480,265,
-        #              480,265,480,283,
-        #              480,283,500,299,
-        #              500,299,520,283,
-        #              520,283,520,265]
-        # canvas.create_polygon(o1_select,fill='white',width=1)
-        # o2_select = []
-        # o3_select = []
+        s1 = [520,167,500,156,
+              500,156,480,167,
+              480,167,480,185,
+              480,185,500,196,
+              500,196,520,185,
+              520,185,520,167]
+        canvas.create_polygon(s1,fill='white', width=1)
+        s2 = [412,355,392,344,
+              392,344,372,355,
+              372,355,372,373,
+              372,373,392,384,
+              392,384,412,373,
+              412,373,412,355]
+        canvas.create_polygon(s2,fill='white', width=1)
+        s3 = [629,355,609,344,
+              609,344,589,355,
+              589,355,589,373,
+              589,373,609,384,
+              609,384,629,373,
+              629,373,629,355]
+        canvas.create_polygon(s3,fill='white', width=1)
 
         canvas.create_text(150, 400, text = "Project 1", font = ("Pursia",15),
             fill = "white")
@@ -88,7 +100,6 @@ class hexagon(Frame):
             fill = "white")
         canvas.create_text(150, 600, text = "Project 3", font = ("Pursia",15),
             fill = "white")
-
         # hexagon for groups
         g1 = [795,391,775,380,
               775,380,755,391,
