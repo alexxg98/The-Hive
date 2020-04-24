@@ -52,18 +52,18 @@ class hexagon(Frame):
               55,409,75,420,
               75,420,95,409,
               95,409,95,391]
-        p2 = [95,491,75,480,
-              75,480,55,491,
-              55,491,55,509,
-              55,509,75,520,
-              75,520,95,509,
-              95,509,95,491]
-        p3 = [95,591,75,580,
-              75,580,55,591,
-              55,591,55,609,
-              55,609,75,620,
-              75,620,95,609,
-              95,609,95,591]
+        p2 = [95,466,75,455,
+              75,455,55,466,
+              55,466,55,484,
+              55,484,75,495,
+              75,495,95,484,
+              95,484,95,466]
+        p3 = [95,541,75,530,
+              75,530,55,541,
+              55,541,55,559,
+              55,559,75,570,
+              75,570,95,559,
+              95,559,95,541]
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
@@ -93,9 +93,9 @@ class hexagon(Frame):
 
         canvas.create_text(150, 400, text = "Project 1", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(150, 500, text = "Project 2", font = ("Pursia",15),
+        canvas.create_text(150, 475, text = "Project 2", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(150, 600, text = "Project 3", font = ("Pursia",15),
+        canvas.create_text(150, 550, text = "Project 3", font = ("Pursia",15),
             fill = "white")
         # hexagon for groups
         g1 = [795,391,775,380,
@@ -104,26 +104,26 @@ class hexagon(Frame):
               755,409,775,420,
               775,420,795,409,
               795,409,795,391]
-        g2 = [795,491,775,480,
-              775,480,755,491,
-              755,491,755,509,
-              755,509,775,520,
-              775,520,795,509,
-              795,509,795,491]
-        g3 = [795,591,775,580,
-              775,580,755,591,
-              755,591,755,609,
-              755,609,775,620,
-              775,620,795,609,
-              795,609,795,591]
+        g2 = [795,466,775,455,
+              775,455,755,466,
+              755,466,755,484,
+              755,484,775,495,
+              775,495,795,484,
+              795,484,795,466]
+        g3 = [795,541,775,530,
+              775,530,755,541,
+              755,541,755,559,
+              755,559,775,570,
+              775,570,795,559,
+              795,559,795,541]
         canvas.create_polygon(g1, fill='white', width=1)
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
         canvas.create_text(850, 400, text = "Group 1", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 500, text = "Group 2", font = ("Pursia",15),
+        canvas.create_text(850, 475, text = "Group 2", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 600, text = "Group 3", font = ("Pursia",15),
+        canvas.create_text(850, 550, text = "Group 3", font = ("Pursia",15),
             fill = "white")
 
 
