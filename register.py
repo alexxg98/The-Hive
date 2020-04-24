@@ -1,102 +1,107 @@
 from tkinter import *
 from tkinter import messagebox
+import smtplib
 
-import su
 import welcome
 import mysql.connector
 
 db = mysql.connector.connect(
-    host="127.0.0.1",
+    host="localhost",
     user="root",
-    passwd="cscD@t@Bas3",
-    database="thehive"
+    passwd="alfheim",
+    database="TheHive"
 )
 
 cursor = db.cursor()
+
+
+def send_email(receiver):
+    sender = "thehiveof4men@gmail.com"
+    password = "thehive111"
+    message = "Hey, this was sent from Super User"
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(sender, password)
+    server.sendmail(sender, receiver, message)
+    server.quit()
 
 
 class RegisterWindow:
 
     def __init__(self):
         self.win = Tk()
-        # reset the window and background color
-        self.canvas = Canvas(self.win, width=600, height=500, bg='white')
-        self.canvas.pack(expand=YES, fill=BOTH)
-        # show window in center of the screen
-        width = self.win.winfo_screenwidth()
-        height = self.win.winfo_screenheight()
-        x = int(width / 2 - 600 / 2)
-        y = int(height / 2 - 500 / 2)
-        str1 = "600x500+" + str(x) + "+" + str(y)
-        self.win.geometry(str1)
+        self.win.title("The Hive")
+        self.win.geometry('{}x{}'.format(800, 450))
+        self.canvas = Canvas(self.win, bg='#454b54')
 
-        # disable resize of the window
-        self.win.resizable(width=False, height=False)
+        self.nameLabel = Label(self.canvas, text="Name", font='Arial 15 bold', bg='#454b54',
+                               fg='#f7cc35')
+        self.name = Entry(self.canvas, font='Arial 15 bold', bg='white')
 
-        # change the title of the window
-        self.win.title("Register")
+        self.emailLabel = Label(self.canvas, text="Email", font='Arial 15 bold', bg='#454b54',
+                                fg='#f7cc35')
+        self.email = Entry(self.canvas, font='Arial 15 bold', bg='white')
+
+        self.refLabel = Label(self.canvas, text="Reference", font='Arial 15 bold', bg='#454b54',
+                              fg='#f7cc35')
+        self.reference = Entry(self.canvas, font='Arial 15 bold', bg='white')
+
+        self.interestLabel = Label(self.canvas, text="Interest", font='Arial 15 bold', bg='#454b54',
+                                   fg='#f7cc35')
+        self.interest = Entry(self.canvas, font='Arial 15 bold', bg='white')
+
+        self.credLabel = Label(self.canvas, text="Credential", font='Arial 15 bold', bg='#454b54',
+                               fg='#f7cc35')
+        self.credential = Entry(self.canvas, font='Arial 15 bold', bg='white')
+
+        self.backButton = Button(self.canvas, text="Back", font='Arial 15 bold', bg='#454b54',
+                                 fg='#f7cc35', command=self.welcome)
+        self.regButton = Button(self.canvas, text="Register", font='Arial 15 bold', bg='#454b54', fg='#f7cc35',
+                                command=lambda: self.reg_btn())
 
     def main(self):
-        self.label = Label(text="The Hive")
-        self.label.config(font=("Courier", 18, 'bold'))
-        self.label.place(x=50, y=170)
+        self.canvas.pack(expand=TRUE, fill=BOTH)
 
-        self.emlabel = Label(text="Enter Email")
-        self.emlabel.config(font=("Courier", 12, 'bold'))
-        self.emlabel.place(x=50, y=250)
+        self.nameLabel.pack(expand=TRUE)
+        self.name.pack(expand=TRUE)
 
-        self.email = Entry(font='Courier 12')
-        self.email.place(x=200, y=250)
+        self.emailLabel.pack(expand=TRUE)
+        self.email.pack(expand=TRUE)
 
-        self.unlabel = Label(text="Enter Username")
-        self.unlabel.config(font=("Courier", 12, 'bold'))
-        self.unlabel.place(x=50, y=280)
+        self.refLabel.pack(expand=TRUE)
+        self.reference.pack(expand=TRUE)
 
-        self.username = Entry(font='Courier 12')
-        self.username.place(x=200, y=280)
+        self.interestLabel.pack(expand=TRUE)
+        self.interest.pack(expand=TRUE)
 
-        self.pslabel = Label(text="Enter Password")
-        self.pslabel.config(font=("Courier", 12, 'bold'))
-        self.pslabel.place(x=50, y=310)
+        self.credLabel.pack(expand=TRUE)
+        self.credential.pack(expand=TRUE)
 
-        self.password = Entry(show='*', font='Courier 12')
-        self.password.place(x=200, y=310)
-
-        self.reflabel = Label(text="Enter Reference")
-        self.reflabel.config(font=("Courier", 12, 'bold'))
-        self.reflabel.place(x=50, y=340)
-
-        self.reference = Entry(font='Courier 12')
-        self.reference.place(x=200, y=340)
-
-        self.button = Button(text="Register", font=('Courier Bold', 30), bg='dark green', fg='white',
-                             command=self.reg_btn)
-        self.button.place(x=170, y=400)
-
-        self.button = Button(text="Back", font=('helvetica', 10), bg='dark green', fg='white', command=self.welcome)
-        self.button.place(x=10, y=400)
+        self.backButton.pack(expand=TRUE)
+        self.regButton.pack(expand=TRUE)
 
         self.win.mainloop()
 
     def reg_btn(self):
+        name = self.name.get()
         email = self.email.get()
-        username = self.username.get()
-        password = self.password.get()
-        try:
-            if username == "" or email == "" or password == "":
-                messagebox.showinfo("Registration Status", "All Fields are Required")
-            else:
-                cursor.execute("INSERT INTO users (email, username, password) VALUES (%s, %s, %s)",
-                               (email, username, password))
-                db.commit()
-                self.su()
-        except mysql.connector.errors.IntegrityError:
-            messagebox.showerror("Error", "Account already exists!")
+        reference = self.reference.get()
+        interest = self.interest.get()
+        credential = self.credential.get()
 
-    def su(self):
-        self.win.destroy()
-        super = su.main()
-        super.main()
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        account = cursor.fetchone()
+
+        if name == "" or email == "" or reference == "" or interest == "" or credential == "":
+            messagebox.showwarning("Registration Status", "All fields are required!")
+        elif not account:
+            messagebox.showinfo("Registration Status", "Thank You! A SuperUser will review your application "
+                                                       "and if approved, an email will be sent to you with "
+                                                       "your login details.")
+            send_email(email)
+        else:
+            messagebox.showerror("Registration Status", "Account with this email already exists!")
 
     def welcome(self):
         self.win.destroy()
