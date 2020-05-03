@@ -1,5 +1,7 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
 from tkinter import * 
+from tkinter.ttk import * 
+from time import strftime 
 
 
 # Class to create the hexagon framework
@@ -19,30 +21,30 @@ class Hexagon(Frame):
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
         # heaxagons
-        user_select_1 = [587,350,500,300,
-                    500,300,413,350,
-                    413,350,413,450,
-                    413,450,500,500,
-                    500,500,587,450,
-                    587,450,587,350]
-        user_select_2 = [412,350,325,300,
-                    325,300,238,350,
-                    238,350,238,450,
-                    238,450,325,500,
-                    325,500,412,450,
-                    412,450,412,350]
-        user_select_3 = [500,200,413,150,
-                    413,150,326,200,
-                    326,200,326,300,
-                    326,300,413,350,
-                    413,350,500,300,
-                    500,300,500,200]
-        user_display_name = [478,313,413,275,
-                    413,275,348,313,
-                    348,313,348,388,
-                    348,388,413,425,
-                    413,425,478,388,
-                    478,388,478,313]
+        user_select_1 = [674,401,587,351,
+                    587,351,500,401,
+                    500,401,500,501,
+                    500,501,587,551,
+                    587,551,674,501,
+                    674,501,674,401]
+        user_select_2 = [499,401,412,351,
+                    412,351,325,401,
+                    325,401,325,501,
+                    325,501,412,551,
+                    412,551,499,501,
+                    499,501,499,401]
+        user_select_3 = [587,250,500,200,
+                    500,200,413,250,
+                    413,250,413,350,
+                    413,350,500,400,
+                    500,400,587,350,
+                    587,350,587,250]
+        user_display_name = [552,370,500,340,
+                    500,340,448,370,
+                    448,370,448,430,
+                    448,430,500,460,
+                    500,460,552,430,
+                    552,430,552,370]
 
         canvas.create_polygon(user_select_1, outline='black',
             fill='#2C92D6', width=2)
@@ -53,58 +55,90 @@ class Hexagon(Frame):
         canvas.create_polygon(user_display_name, outline='black',
             fill='#ffffff', width=2)   
 
-        # hexagon for projects
-        points_1 = [326,276,304,263,
-                    304,263,282,276,
-                    282,276,282,301,
-                    282,301,304,313,
-                    304,313,326,301,
-                    326,301,326,276]
-        points_2 = [544,276,522,263,
-                    522,263,500,276,
-                    500,276,500,301,
-                    500,301,522,313,
-                    522,313,544,301,
-                    544,301,544,276]
-        points_3 = [435,463,413,450,
-                    413,450,391,463,
-                    391,463,391,488,
-                    391,488,413,500,
-                    413,500,435,488,
-                    435,488,435,463]
+        # hexagon for user select
+        s1 = [412,325,390,312,
+            390,312,368,325,
+            368,325,368,350,
+            368,350,390,362,
+            390,362,412,350,
+            412,350,412,325]
+        s2 = [632,325,610,312,
+            610,312,588,325,
+            588,325,588,350,
+            588,350,610,362,
+            610,362,632,350,
+            632,350,632,325]
+        s3 = [522,515,500,502,
+            500,502,478,515,
+            478,515,478,540,
+            478,540,500,552,
+            500,552,522,540,
+            522,540,522,515]
 
-        canvas.create_polygon(points_1, fill='#2C92D6', width=2)
-        canvas.create_polygon(points_2, fill='#37CAEF', width=2)
-        canvas.create_polygon(points_3, fill='#3EDAD8', width=2)
+        canvas.create_polygon(s1, fill='white', width=1)
+        canvas.create_polygon(s2, fill='white', width=1)
+        canvas.create_polygon(s3, fill='white', width=1)
+
+        # Left Side Hexagon
+        p1 = [97,388,75,375,
+            75,375,53,388,
+            53,388,53,413,
+            53,413,75,425,
+            75,425,97,413,
+            97,413,97,388]
+        p2 = [97,463,75,450,
+            75,450,53,463,
+            53,463,53,488,
+            53,488,75,500,
+            75,500,97,488,
+            97,488,97,463]
+        p3 = [97,538,75,525,
+            75,525,53,538,
+            53,538,53,563,
+            53,563,75,575,
+            75,575,97,563,
+            97,563,97,538]
         
-        # hexagon for groups
-        g1 = [795,391,775,380,
-              775,380,755,391,
-              755,391,755,409,
-              755,409,775,420,
-              775,420,795,409,
-              795,409,795,391]
-        g2 = [795,466,775,455,
-              775,455,755,466,
-              755,466,755,484,
-              755,484,775,495,
-              775,495,795,484,
-              795,484,795,466]
-        g3 = [795,541,775,530,
-              775,530,755,541,
-              755,541,755,559,
-              755,559,775,570,
-              775,570,795,559,
-              795,559,795,541]
+        canvas.create_polygon(p1,fill='#2C92D6', width=1)
+        canvas.create_polygon(p2,fill='#37CAEF', width=1)
+        canvas.create_polygon(p3,fill='#3EDAD8', width=1)
+        # Left labels
+        canvas.create_text(150, 400, text = "My Projects", font = ("Pursia",15),
+            fill = "white")
+        canvas.create_text(150, 475, text = "Users", font = ("Pursia",15),
+            fill = "white")
+        canvas.create_text(150, 550, text = "Groups", font = ("Pursia",15),
+            fill = "white")
+
+        # Right Side Hexagon
+        g1 = [947,388,925,375,
+            925,375,903,388,
+            903,388,903,413,
+            903,413,925,425,
+            925,425,947,413,
+            947,413,947,388]
+        g2 = [947,463,925,450,
+            925,450,903,463,
+            903,463,903,488,
+            903,488,925,500,
+            925,500,947,488,
+            947,488,947,463]
+        g3 = [947,538,925,525,
+            925,525,903,538,
+            903,538,903,563,
+            903,563,925,575,
+            925,575,947,563,
+            947,563,947,538]
 
         canvas.create_polygon(g1, fill='white', width=1)
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
-        canvas.create_text(850, 400, text = "Group 1", font = ("Pursia",15),
+        # group Labels
+        canvas.create_text(850, 400, text = "Evaluate", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 475, text = "Group 2", font = ("Pursia",15),
+        canvas.create_text(850, 475, text = "Complains", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 550, text = "Group 3", font = ("Pursia",15),
+        canvas.create_text(850, 550, text = "Other", font = ("Pursia",15),
             fill = "white")
         
         
@@ -112,13 +146,12 @@ class Hexagon(Frame):
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
         # place holder for username
-        canvas.create_text(500, 300, text = "USERNAME", fill = "black")
+        canvas.create_text(500, 400, text = "SUPER USER", fill = "black")
         # greeting for user
         canvas.create_text(120, 35, text = "Hello . . .", font = ("Pursia",25),
             fill = "#7289DB")
-        # My Projects
-        canvas.create_text(120, 500, text = "MY PROJECTS", font = ("Pursia",15),
-            fill = "#7289DB")
+
+
         # Button for social
         # photo = PhotoImage(file = "user.png")
         # Button(canvas, text = 'Click Me !', image = photo).pack()
@@ -127,8 +160,12 @@ class Hexagon(Frame):
 def main():
     root = Tk()
     frame = Hexagon()
+    root.resizable(height = None, width = None)
     
-    root.geometry("1000x800")
+    root.geometry("1000x800")  
+    # Allowing root window to change 
+    # it's size according to user's need 
+    root.resizable(False, False) 
     root.mainloop()
 
 if __name__ == '__main__':
