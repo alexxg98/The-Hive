@@ -2,13 +2,14 @@ from tkinter import *
 from tkinter import messagebox
 
 import su
+import ou
 import welcome
 import mysql.connector
 
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="alfheim",
+    passwd="cscD@t@Bas3",
     database="TheHive"
 )
 
@@ -49,6 +50,11 @@ class LoginWindow:
 
         self.win.mainloop()
 
+    def ou(self):
+        self.win.destroy()
+        ordUser = ou.main()
+        ordUser.main()
+
     def su(self):
         self.win.destroy()
         superUser = su.main()
@@ -67,7 +73,14 @@ class LoginWindow:
         account = cursor.fetchone()
 
         if account:
-            self.su()
+            cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
+            acct_type = cursor.fetchone()[0]
+            if acct_type == "OU":
+                self.ou()
+            # elif acct_type == "VIP":
+            #     self.vip()
+            elif acct_type == "SU":
+                self.su()
         elif username == "" or password == "":
             messagebox.showwarning("Login Status", "All fields are required!")
         else:
