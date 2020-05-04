@@ -1,5 +1,16 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
 from tkinter import*
+import mysql.connector
+
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="cscD@t@Bas3",
+    database="TheHive",
+    autocommit=True
+)
+
+cursor = db.cursor()
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -12,6 +23,15 @@ class hexagon(Frame):
     def initUI(self):
         self.master.title("Ordinary User")
         self.pack(fill=BOTH, expand=TRUE)
+
+        #Get and store user info from database
+        cursor.execute("SELECT username FROM users WHERE status = 'ON'")
+        name = cursor.fetchone()[0]
+        cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
+        rep_score = cursor.fetchone()[0]
+
+        hello = "Hello " + name
+        cursor.close()
 
 
         canvas = Canvas(self)
@@ -126,13 +146,12 @@ class hexagon(Frame):
         canvas.create_text(850, 550, text = "Group 3", font = ("Pursia",15),
             fill = "white")
 
-
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
         # place holder for username
         canvas.create_text(500, 300, text = "USERNAME", fill = "black")
         # greeting for user
-        canvas.create_text(120, 50, text = "Hello . . .", font = ("Pursia",25),
+        canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
             fill = "#7289DB")
         # My Projects
         canvas.create_text(120, 340, text = "MY PROJECTS", font = ("Pursia",15),

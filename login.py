@@ -10,7 +10,8 @@ db = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="cscD@t@Bas3",
-    database="TheHive"
+    database="TheHive",
+    autocommit=True
 )
 
 cursor = db.cursor()
@@ -73,13 +74,21 @@ class LoginWindow:
         account = cursor.fetchone()
 
         if account:
+            #set user status to ON and all other users to NULL
+            #Keep track of which user is logged in on this devide
+            cursor.execute("Update users set status = NULL")
+            cursor.execute("UPDATE users SET status = 'ON' where username = '%s'" %username)
+
+            #Direct to user page based on type
             cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
             acct_type = cursor.fetchone()[0]
             if acct_type == "OU":
+                cursor.close()
                 self.ou()
             # elif acct_type == "VIP":
             #     self.vip()
             elif acct_type == "SU":
+                cursor.close()
                 self.su()
         elif username == "" or password == "":
             messagebox.showwarning("Login Status", "All fields are required!")
