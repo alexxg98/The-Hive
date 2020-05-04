@@ -18,7 +18,7 @@ CREATE TABLE groups(
 );
 
 CREATE TABLE group_membership(
-    user_id INT PRIMARY KEY, 
+    user_id INT PRIMARY KEY,
     group_id INT PRIMARY KEY,
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
     FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE SET NULL
@@ -45,5 +45,11 @@ CREATE TABLE white_list(
     FOREIGN KEY(whitelisted_id) REFERENCES users(id)
 );
 
-*storing events sceduled in groups, user_type = Ordinary, VIP, SUPER, 
+*Create sample users
+INSERT INTO users VALUES (1, 'su@example.com', 'su', 'ex', 55, 'SU', NULL);
+INSERT INTO users VALUES (2, 'ex1@example.com', 'Example1', 'example', 10, 'OU', NULL);
+INSERT INTO users VALUES (3, 'ex2@example.com', 'Example2', 'example', 20, 'VIP', NULL);
+INSERT INTO users VALUES (4, 'ex3@example.com', 'Ex3', 'ex', 15, 'OU', NULL);
+
+*storing events sceduled in groups, user_type = Ordinary, VIP, SUPER,
 blacklist/whitelist could have column to specify reason user was black/white listed
