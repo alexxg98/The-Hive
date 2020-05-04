@@ -5,6 +5,7 @@ CREATE TABLE users(
     password VARCHAR(255) NOT NULL,
     reputation_score INT,
     user_type ENUM('OU', 'VIP', 'SU'),
+    status VARCHAR(5) NULL,
     UNIQUE KEY (email),
     UNIQUE KEY (username)
 );
