@@ -34,6 +34,11 @@ def send_email(subject, content, receiver):
     server.sendmail(sender, receiver, message.as_string())
     server.quit()
 
+def generate_username(name):
+    letters = name[0] + " ".join(name.split()[1:2])
+    number = random.randint(100, 999)
+    username = letters + str(number)
+    return username.lower()
 
 class PendingUser:
 
@@ -78,14 +83,15 @@ class PendingUser:
     
     #this funtion is invoked when clicking on accept button on selected item
     def accept(self):
-        #generates random username and password, however, username should be generated using 1st of firstname+lastname+number
-        username = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
-        password = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
+        #generates random password
+        password = ''.join(random.choice(string.ascii_lowercase) for i in range(6))
         
-        #takes the email from selected item
+        #takes the email and name from selected item
+        # a, b, c, d, e, f represents the columns in TreeView List (ID, name, email, etc..)
         for selected_item in self.list.selection():
             a, b, c, d, e, f = self.list.item(selected_item, 'values')
             email = c
+            username = generate_username(b)
         
         #selected item is deleted from list
         for selected_item in self.list.selection():
