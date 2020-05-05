@@ -1,31 +1,18 @@
 from tkinter import *
 from tkinter import messagebox
-import smtplib
+
+import mysql.connector
 
 import welcome
-import mysql.connector
 
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="cscD@t@Bas3",
-    database="TheHive",
-    autocommit=True
+    passwd="alfheim",
+    database="TheHive"
 )
 
 cursor = db.cursor()
-
-
-def send_email(receiver):
-    sender = "thehiveof4men@gmail.com"
-    password = "thehive111"
-    message = "Hey, this was sent from Super User"
-
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login(sender, password)
-    server.sendmail(sender, receiver, message)
-    server.quit()
 
 
 class RegisterWindow:
@@ -100,7 +87,10 @@ class RegisterWindow:
             messagebox.showinfo("Registration Status", "Thank You! A SuperUser will review your application "
                                                        "and if approved, an email will be sent to you with "
                                                        "your login details.")
-            send_email(email)
+            cursor.execute('INSERT INTO pending_users (name, email, reference, interest, credential) VALUES (%s, %s, '
+                           '%s, %s, %s)', (name, email, reference, interest, credential))
+            db.commit()
+            self.welcome()
         else:
             messagebox.showerror("Registration Status", "Account with this email already exists!")
 
@@ -108,3 +98,4 @@ class RegisterWindow:
         self.win.destroy()
         wel = welcome.WelcomeWindow()
         wel.main()
+
