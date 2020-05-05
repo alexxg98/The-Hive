@@ -1,5 +1,6 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
 from tkinter import*
+import datetime
 import mysql.connector
 
 db = mysql.connector.connect(
@@ -148,8 +149,12 @@ class hexagon(Frame):
 
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
-        # place holder for username
-        canvas.create_text(500, 300, text = "USERNAME", fill = "black")
+        # display date
+        date = datetime.datetime.now()
+        current_date = date.strftime("%B %d")
+        current_time = date.strftime("%H:%M:%S")
+        canvas.create_text(500, 300, text = current_date, font = ("Pursia",20), fill = "black")
+        canvas.create_text(500, 330, text = current_time, fill = "black")
         # greeting for user
         canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
             fill = "#7289DB")
@@ -158,22 +163,9 @@ class hexagon(Frame):
             fill = "#7289DB")
         canvas.create_text(815, 340, text = "MY GROUPS", font = ("Pursia",15),
             fill = "#7289DB")
-        # Button for social
-        # photo = PhotoImage(file = "user.png")
-        # Button(canvas, text = 'Click Me !', image = photo).pack()
-
 
 def main():
     root = Tk()
-    # label = Label(
-    #     text="The HIVE",
-    #     fg="white",
-    #     bg="black",
-    #     width=200,
-    #     height=3
-    # )
-    # label.pack()
-
     frame = hexagon()
     # Buttons
     photo1 = PhotoImage(file = r"images\chat.png")
@@ -190,6 +182,7 @@ def main():
     button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
 
     root.geometry("1000x800")
+    root.resizable(False, False)
     root.mainloop()
 
 
