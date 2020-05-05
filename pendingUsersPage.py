@@ -16,7 +16,8 @@ db = mysql.connector.connect(
 
 cursor = db.cursor()
 
-
+#function to send email to pending users
+#subject & content changes depending on acceptance of user
 def send_email(subject, content, receiver):
     sender = "thehiveof4men@gmail.com"
     password = "thehive111"
@@ -26,6 +27,7 @@ def send_email(subject, content, receiver):
     message['From'] = sender
     message['To'] = receiver
     message.set_content(content)
+    
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(sender, password)
@@ -33,7 +35,7 @@ def send_email(subject, content, receiver):
     server.quit()
 
 
-class SuperUser:
+class PendingUser:
 
     def __init__(self):
         self.win = Tk()
@@ -62,7 +64,8 @@ class SuperUser:
         self.list.column(5, width=100)
         self.list.heading(6, text="Credential")
         self.list.column(6, width=100)
-
+        
+        #inserts entries from pending_users database table to list 
         cursor.execute('SELECT * FROM pending_users')
         records = cursor.fetchall()
         for row in records:
@@ -72,42 +75,55 @@ class SuperUser:
         self.rejectButton.pack(expand=TRUE, side=LEFT)
 
         self.win.mainloop()
-
+    
+    #this funtion is invoked when clicking on accept button on selected item
     def accept(self):
+        #generates random username and password, however, username should be generated using 1st of firstname+lastname+number
         username = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
         password = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
-
+        
+        #takes the email from selected item
         for selected_item in self.list.selection():
             a, b, c, d, e, f = self.list.item(selected_item, 'values')
             email = c
-
+        
+        #selected item is deleted from list
         for selected_item in self.list.selection():
             self.list.delete(selected_item)
-
+        
+        #accepted applicant is added to users database table
+        cursor.execute('INSERT INTO users (email, username, password, user_type) VALUES (%s, %s, %s, "OU")',
+                       (email, username, password))
+        db.commit()
+        
+        #accepted applicant is deleted from pending_users database table
+        cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
+        db.commit()
+        
+        #email is sent to applicant with generated username + password
         subject = "Application Accepted!"
         content = '''\
             Congratz! Please change your password once you log in with the following credentials. \n
             Username: {username} \n
             Password: {password} \
             '''.format(username=username, password=password)
-
-        cursor.execute('INSERT INTO users (email, username, password, user_type) VALUES (%s, %s, %s, "OU")',
-                       (email, username, password))
-        db.commit()
-
-        cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
-        db.commit()
-
         send_email(subject, content, email)
 
+    #function is called when clicking reject button on selected item
     def reject(self):
+        #select email from selected item from list
         for selected_item in self.list.selection():
             a, b, c, d, e, f = self.list.item(selected_item, 'values')
             email = c
-
+        
+        #delete selected item from list
         for selected_item in self.list.selection():
             self.list.delete(selected_item)
-
+        
+        #delete item from pending_users table
+        cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
+        db.commit()
+        
         subject = "Application Denied"
         content = '''\
             Sorry, but your application has been denied. \n
@@ -115,13 +131,9 @@ class SuperUser:
             reverse the rejection. If you receive another rejection, then you \n
             will be put in blacklist forever.  \
             '''
-
-        cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
-        db.commit()
-
         send_email(subject, content, email)
 
 
 if __name__ == "__main__":
-    x = SuperUser()
+    x = PendingUser()
     x.main()
