@@ -1,56 +1,66 @@
+DROP DATABASE IF EXISTS TheHive;
+CREATE DATABASE TheHive;
+use TheHive;
+
 CREATE TABLE users(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(255) NOT NULL,
-    username VARCHAR(25) NOT NULL,
-    password VARCHAR(255) NOT NULL,
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(50) NOT NULL,
+    username VARCHAR(25),
+    password VARCHAR(50),
     reputation_score INT,
     user_type ENUM('OU', 'VIP', 'SU'),
-    status VARCHAR(5) NULL,
     UNIQUE KEY (email),
     UNIQUE KEY (username)
 );
 
-CREATE TABLE groups(
+CREATE TABLE pending_users(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
-    creator_id INT,
-    size INT NOT NULL,
-    FOREIGN KEY(creator) REFERENCES users(id) ON DELETE SET NULL
-);
-
-CREATE TABLE group_membership(
-    user_id INT PRIMARY KEY,
-    group_id INT PRIMARY KEY,
-    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
-    FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE SET NULL
+    email VARCHAR(50) NOT NULL,
+    reference VARCHAR(50) NOT NULL,
+    interest VARCHAR(50) NOT NULL,
+    credential VARCHAR(50) NOT NULL,
+    UNIQUE KEY (email)
 );
 
 CREATE TABLE projects(
-    project_id INT PRIMARY KEY AUTO_INCREMENT,
-    project_name VARCHAR(25) NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(25) NOT NULL,
     creator_id INT,
-    FOREIGN KEY(creator_id) REFERENCES users(id) ON DELETE SET NULL
+    FOREIGN KEY(creator_id) REFERENCES users(id)
+);
+
+CREATE TABLE group_membership(
+    user_id INT, 
+    group_id INT,
+    PRIMARY KEY(user_id, group_id),
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(group_id) REFERENCES projects(id)
 );
 
 CREATE TABLE black_list(
-    blacklister_id INT PRIMARY KEY,
-    blacklisted_id INT PRIMARY KEY,
-    FOREIGN KEY(blacklister_id) REFERENCES users(id)
+    blacklister_id INT,
+    blacklisted_id INT,
+    PRIMARY KEY(blacklister_id, blacklisted_id),
+    FOREIGN KEY(blacklister_id) REFERENCES users(id),
     FOREIGN KEY(blacklisted_id) REFERENCES users(id)
 );
 
 CREATE TABLE white_list(
-    whitelister_id INT PRIMARY KEY,
-    whitelisted_id INT PRIMARY KEY,
-    FOREIGN KEY(whitelister_id) REFERENCES users(id)
+    whitelister_id INT,
+    whitelisted_id INT,
+    PRIMARY KEY(whitelister_id, whitelisted_id),
+    FOREIGN KEY(whitelister_id) REFERENCES users(id),
     FOREIGN KEY(whitelisted_id) REFERENCES users(id)
 );
 
-*Create sample users
-INSERT INTO users VALUES (1, 'su@example.com', 'su', 'ex', 55, 'SU', NULL);
-INSERT INTO users VALUES (2, 'ex1@example.com', 'Example1', 'example', 10, 'OU', NULL);
-INSERT INTO users VALUES (3, 'ex2@example.com', 'Example2', 'example', 20, 'VIP', NULL);
-INSERT INTO users VALUES (4, 'ex3@example.com', 'Ex3', 'ex', 15, 'OU', NULL);
+INSERT INTO users(email, username, password, user_type) VALUES ("niharika@gmail.com", "nalam001", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("michael@gmail.com", "michael002", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("alex@gmail.com", "alex003", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("linda@gmail.com", "linda004", "123", "SU");  
 
-*storing events sceduled in groups, user_type = Ordinary, VIP, SUPER,
-blacklist/whitelist could have column to specify reason user was black/white listed
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Suma", "suma@gmail.com", "reference", "interest", "credential");  
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Aahil Mehran", "aahil@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Hannah Fey", "hannah@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Mansur", "mansur@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Romeo", "romeo@gmail.com", "reference", "interest", "credential");
