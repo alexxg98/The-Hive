@@ -152,9 +152,16 @@ class hexagon(Frame):
         # display date
         date = datetime.datetime.now()
         current_date = date.strftime("%B %d")
-        current_time = date.strftime("%H:%M:%S")
         canvas.create_text(500, 300, text = current_date, font = ("Pursia",20), fill = "black")
-        canvas.create_text(500, 330, text = current_time, fill = "black")
+        canvas.create_text(500, 330, text = " ", fill = "black", tags='timer')
+
+        def time_now():
+            now = datetime.datetime.now()
+            s = '{0:0>2d}:{1:0>2d}:{2:0>2d}'.format(now.hour, now.minute, now.second)
+            canvas.itemconfig('timer', text = s)
+            self.after(100, time_now)
+        time_now()
+
         # greeting for user
         canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
             fill = "#7289DB")
@@ -163,6 +170,8 @@ class hexagon(Frame):
             fill = "#7289DB")
         canvas.create_text(815, 340, text = "MY GROUPS", font = ("Pursia",15),
             fill = "#7289DB")
+
+
 
 def main():
     root = Tk()

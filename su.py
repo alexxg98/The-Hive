@@ -1,7 +1,18 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
-from tkinter import * 
-from tkinter.ttk import * 
-from time import strftime 
+from tkinter import *
+from tkinter.ttk import *
+import datetime
+import mysql.connector
+
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="cscD@t@Bas3",
+    database="TheHive",
+    autocommit=True
+)
+
+cursor = db.cursor()
 
 
 # Class to create the hexagon framework
@@ -16,6 +27,15 @@ class Hexagon(Frame):
 
         self.master.title("Super User")
         self.pack(fill=BOTH, expand=1)
+
+        #Get and store user info from database
+        cursor.execute("SELECT username FROM users WHERE status = 'ON'")
+        name = cursor.fetchone()[0]
+        cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
+        rep_score = cursor.fetchone()[0]
+
+        hello = "Hello " + name
+        cursor.close()
 
         canvas = Canvas(self)
 
@@ -49,11 +69,11 @@ class Hexagon(Frame):
         canvas.create_polygon(user_select_1, outline='black',
             fill='#2C92D6', width=2)
         canvas.create_polygon(user_select_2, outline='black',
-            fill='#37CAEF', width=2)   
+            fill='#37CAEF', width=2)
         canvas.create_polygon(user_select_3, outline='black',
             fill='#3EDAD8', width=2)
         canvas.create_polygon(user_display_name, outline='black',
-            fill='#ffffff', width=2)   
+            fill='#ffffff', width=2)
 
         # hexagon for user select
         s1 = [412,325,390,312,
@@ -98,7 +118,7 @@ class Hexagon(Frame):
             53,563,75,575,
             75,575,97,563,
             97,563,97,538]
-        
+
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
@@ -140,15 +160,26 @@ class Hexagon(Frame):
             fill = "white")
         canvas.create_text(850, 550, text = "Other", font = ("Pursia",15),
             fill = "white")
-        
-        
-        
+
+        # display date
+        date = datetime.datetime.now()
+        current_date = date.strftime("%B %d")
+        canvas.create_text(500, 300, text = current_date, font = ("Pursia",20), fill = "black")
+        canvas.create_text(500, 330, text = " ", fill = "black", tags='timer')
+
+        def time_now():
+            now = datetime.datetime.now()
+            s = '{0:0>2d}:{1:0>2d}:{2:0>2d}'.format(now.hour, now.minute, now.second)
+            canvas.itemconfig('timer', text = s)
+            self.after(100, time_now)
+        time_now()
+
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
         # place holder for username
         canvas.create_text(500, 400, text = "SUPER USER", fill = "black")
         # greeting for user
-        canvas.create_text(120, 35, text = "Hello . . .", font = ("Pursia",25),
+        canvas.create_text(120, 35, text = hello, font = ("Pursia",25),
             fill = "#7289DB")
 
 
@@ -161,12 +192,12 @@ def main():
     root = Tk()
     frame = Hexagon()
     root.resizable(height = None, width = None)
-    
-    root.geometry("1000x800")  
-    # Allowing root window to change 
-    # it's size according to user's need 
-    root.resizable(False, False) 
+
+    root.geometry("1000x800")
+    # Allowing root window to change
+    # it's size according to user's need
+    root.resizable(False, False)
     root.mainloop()
 
 if __name__ == '__main__':
-    main() 
+    main()
