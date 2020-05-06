@@ -85,8 +85,8 @@ class LoginWindow:
             if acct_type == "OU":
                 cursor.close()
                 self.ou()
-            # elif acct_type == "VIP":
-            #     self.vip()
+            elif acct_type == "VIP":
+                self.vip()
             elif acct_type == "SU":
                 cursor.close()
                 self.su()
