@@ -1,4 +1,20 @@
 from tkinter import*
+import mysql.connector
+
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="Csc32200ccny",
+    database="TheHive",
+    autocommit=True
+)
+
+cursor = db.cursor()
+#Get and store user info from database
+cursor.execute("SELECT username FROM users WHERE status = 'ON'")
+name = cursor.fetchone()[0]
+cursor.close()
+username = '[' + name + ']: '
 
 # send message through button
 def Press_Button():
@@ -27,7 +43,7 @@ user_input = StringVar()
 input_field = Entry(window, width = 100, text = user_input)
 input_field.grid(row = 1, column = 0)
 # place holder for username
-username = "Username: "
+# username = "[Username]: "
 
 
 frame = Frame(window)
