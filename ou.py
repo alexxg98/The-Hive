@@ -1,6 +1,8 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
 from tkinter import*
 import datetime
+import sys
+import os
 import mysql.connector
 
 db = mysql.connector.connect(
@@ -178,7 +180,7 @@ def main():
     frame = hexagon()
     # Buttons
     photo1 = PhotoImage(file = r"images\chat.png")
-    button1 = Button(root, image = photo1, bg="#2C92D6", bd=0).place(x=365, y=220)
+    button1 = Button(root, image = photo1, bg="#2C92D6", bd=0, command=chatwindow).place(x=365, y=220)
     photo2 = PhotoImage(file = r"images\doc.png")
     button2 = Button(root, image = photo2, bg="#37CAEF", bd=0).place(x=567, y=230)
     photo3 = PhotoImage(file = r"images\social.png")
@@ -193,6 +195,9 @@ def main():
     root.geometry("1000x800")
     root.resizable(False, False)
     root.mainloop()
+
+def chatwindow():
+    os.system('python chatwindow.py')
 
 
 if __name__ == '__main__':
