@@ -3,6 +3,7 @@ from tkinter import messagebox
 
 import su
 import ou
+import vip
 import welcome
 import mysql.connector
 
@@ -55,6 +56,11 @@ class LoginWindow:
         self.win.destroy()
         ordUser = ou.main()
         ordUser.main()
+
+    def vip(self):
+        self.win.destroy()
+        vipUser = vip.main()
+        vipUser.main()
 
     def su(self):
         self.win.destroy()
