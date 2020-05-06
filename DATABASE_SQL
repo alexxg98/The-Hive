@@ -28,6 +28,7 @@ CREATE TABLE projects(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
     creator_id INT,
+    rank INT,
     FOREIGN KEY(creator_id) REFERENCES users(id)
 );
 
