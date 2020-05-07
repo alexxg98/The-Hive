@@ -1,18 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-
-import mysql.connector
-
+import db
 import welcome
-
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="alfheim",
-    database="TheHive"
-)
-
-cursor = db.cursor()
 
 
 class RegisterWindow:
@@ -46,29 +35,22 @@ class RegisterWindow:
         self.backButton = Button(self.canvas, text="Back", font='Arial 15 bold', bg='#454b54',
                                  fg='#f7cc35', command=self.welcome)
         self.regButton = Button(self.canvas, text="Register", font='Arial 15 bold', bg='#454b54', fg='#f7cc35',
-                                command=lambda: self.reg_btn())
+                                command=self.reg_btn)
 
     def main(self):
         self.canvas.pack(expand=TRUE, fill=BOTH)
-
         self.nameLabel.pack(expand=TRUE)
         self.name.pack(expand=TRUE)
-
         self.emailLabel.pack(expand=TRUE)
         self.email.pack(expand=TRUE)
-
         self.refLabel.pack(expand=TRUE)
         self.reference.pack(expand=TRUE)
-
         self.interestLabel.pack(expand=TRUE)
         self.interest.pack(expand=TRUE)
-
         self.credLabel.pack(expand=TRUE)
         self.credential.pack(expand=TRUE)
-
         self.backButton.pack(expand=TRUE)
         self.regButton.pack(expand=TRUE)
-
         self.win.mainloop()
 
     def reg_btn(self):
@@ -78,8 +60,8 @@ class RegisterWindow:
         interest = self.interest.get()
         credential = self.credential.get()
 
-        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-        account = cursor.fetchone()
+        db.cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        account = db.cursor.fetchone()
 
         if name == "" or email == "" or reference == "" or interest == "" or credential == "":
             messagebox.showwarning("Registration Status", "All fields are required!")
@@ -87,9 +69,8 @@ class RegisterWindow:
             messagebox.showinfo("Registration Status", "Thank You! A SuperUser will review your application "
                                                        "and if approved, an email will be sent to you with "
                                                        "your login details.")
-            cursor.execute('INSERT INTO pending_users (name, email, reference, interest, credential) VALUES (%s, %s, '
-                           '%s, %s, %s)', (name, email, reference, interest, credential))
-            db.commit()
+            db.cursor.execute('INSERT INTO pending_users (name, email, reference, interest, credential) VALUES (%s, '
+                              '%s, %s, %s, %s)', (name, email, reference, interest, credential))
             self.welcome()
         else:
             messagebox.showerror("Registration Status", "Account with this email already exists!")
@@ -98,4 +79,3 @@ class RegisterWindow:
         self.win.destroy()
         wel = welcome.WelcomeWindow()
         wel.main()
-
