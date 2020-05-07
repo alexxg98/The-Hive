@@ -1,15 +1,12 @@
 import mysql.connector
 
+# change details here only once
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="cscD@t@Bas3",
-    database="thehive"
+    passwd="",
+    database="TheHive",
+    autocommit=True
 )
 
 cursor = db.cursor()
-
-cursor.execute("SELECT * FROM users")
-
-result = cursor.fetchall()
-for row in result: print(row)
