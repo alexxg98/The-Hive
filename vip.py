@@ -2,16 +2,7 @@ from tkinter import Label, Tk, Canvas, Frame, BOTH
 from tkinter import*
 import datetime
 import mysql.connector
-
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="cscD@t@Bas3",
-    database="TheHive",
-    autocommit=True
-)
-
-cursor = db.cursor()
+import db
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -26,13 +17,13 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        cursor.execute("SELECT username FROM users WHERE status = 'ON'")
-        name = cursor.fetchone()[0]
-        cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
-        rep_score = cursor.fetchone()[0]
+        db.cursor.execute("SELECT username FROM users WHERE status = 'ON'")
+        name = db.cursor.fetchone()[0]
+        db.cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
+        rep_score = db.cursor.fetchone()[0]
 
         hello = "Hello " + name
-        cursor.close()
+        db.cursor.close()
 
 
         canvas = Canvas(self)

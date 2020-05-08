@@ -7,9 +7,10 @@ CREATE TABLE users(
     email VARCHAR(50) NOT NULL,
     username VARCHAR(25),
     password VARCHAR(50),
-    reputation_score INT,
+    reputation_score INT DEFAULT 0,
     user_type ENUM('OU', 'VIP', 'SU'),
     status VARCHAR(5) NULL,
+    taboo_count INT DEFAULT 0,
     UNIQUE KEY (email),
     UNIQUE KEY (username)
 );
@@ -33,7 +34,7 @@ CREATE TABLE projects(
 );
 
 CREATE TABLE group_membership(
-    user_id INT, 
+    user_id INT,
     group_id INT,
     PRIMARY KEY(user_id, group_id),
     FOREIGN KEY(user_id) REFERENCES users(id),
@@ -56,12 +57,12 @@ CREATE TABLE white_list(
     FOREIGN KEY(whitelisted_id) REFERENCES users(id)
 );
 
-INSERT INTO users(email, username, password, user_type) VALUES ("niharika@gmail.com", "nalam001", "123", "SU");  
-INSERT INTO users(email, username, password, user_type) VALUES ("michael@gmail.com", "michael002", "123", "SU");  
-INSERT INTO users(email, username, password, user_type) VALUES ("alex@gmail.com", "alex003", "123", "SU");  
-INSERT INTO users(email, username, password, user_type) VALUES ("linda@gmail.com", "linda004", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("niharika@gmail.com", "nalam001", "123", "SU");
+INSERT INTO users(email, username, password, user_type) VALUES ("michael@gmail.com", "michael002", "123", "SU");
+INSERT INTO users(email, username, password, user_type) VALUES ("alex@gmail.com", "alex003", "123", "SU");
+INSERT INTO users(email, username, password, user_type) VALUES ("linda@gmail.com", "linda004", "123", "SU");
 
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Suma", "suma@gmail.com", "reference", "interest", "credential");  
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Suma", "suma@gmail.com", "reference", "interest", "credential");
 INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Aahil Mehran", "aahil@gmail.com", "reference", "interest", "credential");
 INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Hannah Fey", "hannah@gmail.com", "reference", "interest", "credential");
 INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Mansur", "mansur@gmail.com", "reference", "interest", "credential");
