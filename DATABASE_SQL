@@ -3,67 +3,77 @@ CREATE DATABASE TheHive;
 use TheHive;
 
 CREATE TABLE users(
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(50) NOT NULL,
     username VARCHAR(25),
-    password VARCHAR(50),
+    email VARCHAR(25),
+    PRIMARY KEY(username, email),
+    password VARCHAR(25),
     reputation_score INT DEFAULT 0,
     user_type ENUM('OU', 'VIP', 'SU'),
     status VARCHAR(5) NULL,
     taboo_count INT DEFAULT 0,
-    UNIQUE KEY (email),
-    UNIQUE KEY (username)
 );
 
 CREATE TABLE pending_users(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    reference VARCHAR(50) NOT NULL,
-    interest VARCHAR(50) NOT NULL,
-    credential VARCHAR(50) NOT NULL,
+    email VARCHAR(25) NOT NULL,
+    reference VARCHAR(25) NOT NULL,
+    interest VARCHAR(25) NOT NULL,
+    credential VARCHAR(25) NOT NULL,
     UNIQUE KEY (email)
 );
 
 CREATE TABLE projects(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
-    creator_id INT,
+    creator VARCHAR(25),
     rank INT,
-    FOREIGN KEY(creator_id) REFERENCES users(id)
+    FOREIGN KEY(creator) REFERENCES users(username)
 );
 
 CREATE TABLE group_membership(
-    user_id INT,
+    username VARCHAR(25), 
     group_id INT,
-    PRIMARY KEY(user_id, group_id),
-    FOREIGN KEY(user_id) REFERENCES users(id),
+    PRIMARY KEY(username, group_id),
+    FOREIGN KEY(username) REFERENCES users(username),
     FOREIGN KEY(group_id) REFERENCES projects(id)
 );
 
 CREATE TABLE black_list(
-    blacklister_id INT,
-    blacklisted_id INT,
-    PRIMARY KEY(blacklister_id, blacklisted_id),
-    FOREIGN KEY(blacklister_id) REFERENCES users(id),
-    FOREIGN KEY(blacklisted_id) REFERENCES users(id)
+    blacklister VARCHAR(25),
+    blacklisted VARCHAR(25),
+    PRIMARY KEY(blacklister, blacklisted),
+    FOREIGN KEY(blacklister) REFERENCES users(username),
+    FOREIGN KEY(blacklisted) REFERENCES users(username)
 );
 
 CREATE TABLE white_list(
-    whitelister_id INT,
-    whitelisted_id INT,
-    PRIMARY KEY(whitelister_id, whitelisted_id),
-    FOREIGN KEY(whitelister_id) REFERENCES users(id),
-    FOREIGN KEY(whitelisted_id) REFERENCES users(id)
+    whitelister VARCHAR(25),
+    whitelisted VARCHAR(25),
+    PRIMARY KEY(whitelister, whitelisted),
+    FOREIGN KEY(whitelister) REFERENCES users(username),
+    FOREIGN KEY(whitelisted) REFERENCES users(username)
 );
 
-INSERT INTO users(email, username, password, user_type) VALUES ("niharika@gmail.com", "nalam001", "123", "SU");
-INSERT INTO users(email, username, password, user_type) VALUES ("michael@gmail.com", "michael002", "123", "SU");
-INSERT INTO users(email, username, password, user_type) VALUES ("alex@gmail.com", "alex003", "123", "SU");
-INSERT INTO users(email, username, password, user_type) VALUES ("linda@gmail.com", "linda004", "123", "SU");
+CREATE TABLE polls(
+    entry VARCHAR(25),
+    votes INT
+);    
 
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Suma", "suma@gmail.com", "reference", "interest", "credential");
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Aahil Mehran", "aahil@gmail.com", "reference", "interest", "credential");
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Hannah Fey", "hannah@gmail.com", "reference", "interest", "credential");
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Mansur", "mansur@gmail.com", "reference", "interest", "credential");
+INSERT INTO users(email, username, password, user_type) VALUES ("niharika@gmail.com", "nalam001", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("michael@gmail.com", "michael002", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("alex@gmail.com", "alex003", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("linda@gmail.com", "linda004", "123", "SU"); 
+INSERT INTO users(email, username, password, user_type) VALUES ("fox@gmail.com", "mfox456", "123", "OU");   
+
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Nicky Minaj", "nicki@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Aster Fallon", "aster@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Adele", "adele@gmail.com", "reference", "interest", "credential");
 INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Romeo", "romeo@gmail.com", "reference", "interest", "credential");
+
+INSERT INTO projects(name, creator) VALUES ("322 Study Group", "mfox456");
+INSERT INTO group_membership VALUES ("mfox456", 1);
+
+SELECT * FROM users; 
+SELECT * FROM projects;
+SELECT username FROM group_membership WHERE group_id = 1;  
