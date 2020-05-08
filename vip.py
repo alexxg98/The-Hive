@@ -23,6 +23,7 @@ class hexagon(Frame):
         rep_score = db.cursor.fetchone()[0]
 
         hello = "Hello " + name
+        scoreDisplay = "Reputation Score: " + str(rep_score)
         db.cursor.close()
 
 
@@ -155,6 +156,9 @@ class hexagon(Frame):
 
         # greeting for user
         canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
+            fill = "#7289DB")
+        # display user score
+        canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
             fill = "#7289DB")
         # My Projects
         canvas.create_text(120, 340, text = "MY PROJECTS", font = ("Pursia",15),

@@ -31,10 +31,11 @@ class hexagon(Frame):
         hello = "Hello " + name
 
         #Put into post file/part later
-        newScore = tabooWord(rep_score, count)
-        db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
-        count += 1
-        db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %count)
+        # newScore = tabooWord(rep_score, count)
+        # db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
+        # count += 1
+        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %count)
+        scoreDisplay = "Reputation Score: " + str(rep_score)
         db.cursor.close()
 
 
@@ -167,6 +168,9 @@ class hexagon(Frame):
 
         # greeting for user
         canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
+            fill = "#7289DB")
+        # display user score
+        canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
             fill = "#7289DB")
         # My Projects
         canvas.create_text(120, 340, text = "MY PROJECTS", font = ("Pursia",15),
