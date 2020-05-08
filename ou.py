@@ -5,7 +5,7 @@ import sys
 import os
 import mysql.connector
 
-from reputationScore import *
+import reputationScore as repScore
 import db
 
 # Class to create the hexagon framework
@@ -21,20 +21,17 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        db.cursor.execute("SELECT username FROM users WHERE status = 'ON'")
-        name = db.cursor.fetchone()[0]
-        db.cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
-        rep_score = db.cursor.fetchone()[0]
-        db.cursor.execute("SELECT taboo_count FROM users WHERE status = 'ON'")
-        count = db.cursor.fetchone()[0]
+        name = db.getchName()
+        rep_score = db.getRepScore()
+        tabooCount = db.getTabooCount()
 
         hello = "Hello " + name
 
         #Put into post file/part later
-        # newScore = tabooWord(rep_score, count)
+        # newScore = repScore.tabooWord(rep_score, count)
         # db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
         # count += 1
-        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %count)
+        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
         db.cursor.close()
 

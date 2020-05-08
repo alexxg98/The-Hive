@@ -17,10 +17,8 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        db.cursor.execute("SELECT username FROM users WHERE status = 'ON'")
-        name = db.cursor.fetchone()[0]
-        db.cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
-        rep_score = db.cursor.fetchone()[0]
+        name = db.getName()
+        rep_score = db.getRepScore()
 
         hello = "Hello " + name
         scoreDisplay = "Reputation Score: " + str(rep_score)
