@@ -22,7 +22,6 @@ class hexagon(Frame):
 
         hello = "Hello " + name
         scoreDisplay = "Reputation Score: " + str(rep_score)
-        db.cursor.close()
 
 
         canvas = Canvas(self)

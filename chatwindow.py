@@ -1,19 +1,9 @@
 from tkinter import*
 import mysql.connector
+import db
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="Csc32200ccny",
-    database="TheHive",
-    autocommit=True
-)
-
-cursor = db.cursor()
 #Get and store user info from database
-cursor.execute("SELECT username FROM users WHERE status = 'ON'")
-name = cursor.fetchone()[0]
-cursor.close()
+name = db.getName()
 username = '[' + name + ']: '
 
 # send message through button

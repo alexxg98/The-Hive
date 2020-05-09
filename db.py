@@ -4,7 +4,7 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="1qaz@wsxEDC",
+    passwd="cscD@t@Bas3",
     database="TheHive",
     autocommit=True
 )

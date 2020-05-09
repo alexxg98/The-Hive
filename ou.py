@@ -4,7 +4,6 @@ import datetime
 import sys
 import os
 import mysql.connector
-
 import reputationScore as repScore
 import db
 
@@ -21,19 +20,18 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        name = db.getName
-        rep_score = db.getRepScore
-        tabooCount = db.getTabooCount
+        name = db.getName()
+        rep_score = db.getRepScore()
+        tabooCount = db.getTabooCount()
 
         hello = "Hello " + name
 
         #Put into post file/part later
-        newScore = repScore.tabooWord(rep_score, count)
-        db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
-        count += 1
-        db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
+        # newScore = repScore.tabooWord(rep_score, tabooCount)
+        # db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
+        # tabooCount += 1
+        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
-        db.cursor.close()
 
 
         canvas = Canvas(self)
