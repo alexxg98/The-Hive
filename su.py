@@ -1,8 +1,19 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
-from tkinter import * 
-from tkinter.ttk import * 
-from time import strftime 
+from tkinter import *
+import datetime
+import sys
+import os
+import mysql.connector
 
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="1qaz@wsxEDC",
+    database="TheHive",
+    autocommit=True
+)
+
+cursor = db.cursor()
 
 # Class to create the hexagon framework
 class Hexagon(Frame):
@@ -13,10 +24,11 @@ class Hexagon(Frame):
         self.initUI()
 
     def initUI(self):
-
+        
         self.master.title("Super User")
         self.pack(fill=BOTH, expand=1)
-
+            
+    
         canvas = Canvas(self)
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
@@ -140,33 +152,98 @@ class Hexagon(Frame):
             fill = "white")
         canvas.create_text(850, 550, text = "Other", font = ("Pursia",15),
             fill = "white")
+       
+        # display date
+        date = datetime.datetime.now()
+        current_date = date.strftime("%B %d")
+        canvas.create_text(500, 385, text = current_date, font = ("Pursia",20), fill = "black")
+        canvas.create_text(500, 415, text = " ", fill = "black", tags='timer')
+
+        def time_now():
+            now = datetime.datetime.now()
+            s = '{0:0>2d}:{1:0>2d}:{2:0>2d}'.format(now.hour, now.minute, now.second)
+            canvas.itemconfig('timer', text = s)
+            self.after(100, time_now)
+
+        # Create a label with the name of the user
+        def write_welcome():
+            #Get and store user info from database
+            cursor.execute("SELECT username FROM users WHERE email = 'michael@gmail.com'")
+            name = cursor.fetchone()[0]
+            cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
+            rep_score = cursor.fetchone()[0]
+
+            hello = "Hello " + name
+            cursor.close()
+            canvas.create_text(120, 35, text = hello, font = ("Pursia",25),
+                    fill = "#7289DB")
         
-        
-        
+        time_now()
+        write_welcome()
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
-        # place holder for username
-        canvas.create_text(500, 400, text = "SUPER USER", fill = "black")
-        # greeting for user
-        canvas.create_text(120, 35, text = "Hello . . .", font = ("Pursia",25),
-            fill = "#7289DB")
 
 
         # Button for social
         # photo = PhotoImage(file = "user.png")
         # Button(canvas, text = 'Click Me !', image = photo).pack()
 
+def button(root):
+
+    # count = 0
+    # def shiftImage(event):
+    #     if count % 2 == 0:
+    #         canvas1.itemconfig(button, image=stopImage)
+    #     else:
+    #         canvas1.itemconfig(button, image=playImage)
+    #     globals()['count'] += 1
+
+    button = Button(root, 
+                text="QUIT", 
+                image = PhotoImage(file = r"images/add.png"),
+                fg="red",
+                # command=quit,
+                bg="#37CAEF", 
+                # bd=0
+                ).place(x=495, y=245)
+
+    # playImage = PhotoImage(file= 'images/add.png')
+    # stopImage = PhotoImage(file='images/icon.png')
+    # blankImage = PhotoImage(file='images/social.png')
+
+    # canvas1 = Canvas(root, width=400, height=400)
+    # button = canvas1.create_image(100, 100, anchor=NW, image=playImage)
+    # blank = canvas1.create_image(100,100, anchor=NW, image=blankImage, state=NORMAL)
+    # canvas1.tag_bind(blank, "<Button-1>", shiftImage)
+    # canvas1.pack()
+
+
+    # photo1 = PhotoImage(file = r"images/chat.png")
+    # button1 = Button(root, image = photo1, bg="#2C92D6", bd=0, command=chatwindow).place(x=365, y=220)
+    # photo2 = PhotoImage(file = r"images/doc.png")
+    # button2 = Button(root, image = photo2, bg="#37CAEF", bd=0).place(x=495, y=245)
+    # photo3 = PhotoImage(file = r"images/social.png")
+    # button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0).place(x=465, y=390)
+    # photo4 = PhotoImage(file = r"images/add.png")
+    # button4 = Button(root, image = photo4, bd=0).place(x=487, y=164)
+    # photo5 = PhotoImage(file = r"images/x.png")
+    # button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
+    # photo6 = PhotoImage(file = r"images/settings.png")
+    # button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
 
 def main():
     root = Tk()
     frame = Hexagon()
-    root.resizable(height = None, width = None)
+    button(root)
+
     
+    root.resizable(height = None, width = None)
     root.geometry("1000x800")  
     # Allowing root window to change 
     # it's size according to user's need 
     root.resizable(False, False) 
     root.mainloop()
+
 
 if __name__ == '__main__':
     main() 
