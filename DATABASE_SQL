@@ -1,49 +1,73 @@
+DROP DATABASE IF EXISTS TheHive;
+CREATE DATABASE TheHive;
+use TheHive;
+
 CREATE TABLE users(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(255) NOT NULL,
-    username VARCHAR(25) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    reputation_score INT,
+    username VARCHAR(25),
+    email VARCHAR(25),
+    PRIMARY KEY(username, email),
+    password VARCHAR(25),
+    reputation_score INT DEFAULT 0,
     user_type ENUM('OU', 'VIP', 'SU'),
-    UNIQUE KEY (email),
-    UNIQUE KEY (username)
+    status VARCHAR(5) NULL,
+    taboo_count INT DEFAULT 0,
 );
 
-CREATE TABLE groups(
+CREATE TABLE pending_users(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
-    creator_id INT,
-    size INT NOT NULL,
-    FOREIGN KEY(creator) REFERENCES users(id) ON DELETE SET NULL
-);
-
-CREATE TABLE group_membership(
-    user_id INT PRIMARY KEY, 
-    group_id INT PRIMARY KEY,
-    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE SET NULL
-    FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE SET NULL
+    email VARCHAR(25) NOT NULL,
+    reference VARCHAR(25) NOT NULL,
+    interest VARCHAR(25) NOT NULL,
+    credential VARCHAR(25) NOT NULL,
+    UNIQUE KEY (email)
 );
 
 CREATE TABLE projects(
-    project_id INT PRIMARY KEY AUTO_INCREMENT,
-    project_name VARCHAR(25) NOT NULL,
-    creator_id INT,
-    FOREIGN KEY(creator_id) REFERENCES users(id) ON DELETE SET NULL
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(25) NOT NULL,
+    description VARCHAR(50) NOT NULL,
+    creator VARCHAR(25),
+    rank INT,
+    FOREIGN KEY(creator) REFERENCES users(username)
+);
+
+CREATE TABLE group_membership(
+    username VARCHAR(25), 
+    group_id INT,
+    PRIMARY KEY(username, group_id),
+    FOREIGN KEY(username) REFERENCES users(username),
+    FOREIGN KEY(group_id) REFERENCES projects(id)
 );
 
 CREATE TABLE black_list(
-    blacklister_id INT PRIMARY KEY,
-    blacklisted_id INT PRIMARY KEY,
-    FOREIGN KEY(blacklister_id) REFERENCES users(id)
-    FOREIGN KEY(blacklisted_id) REFERENCES users(id)
+    blacklister VARCHAR(25),
+    blacklisted VARCHAR(25),
+    PRIMARY KEY(blacklister, blacklisted),
+    FOREIGN KEY(blacklister) REFERENCES users(username),
+    FOREIGN KEY(blacklisted) REFERENCES users(username)
 );
 
 CREATE TABLE white_list(
-    whitelister_id INT PRIMARY KEY,
-    whitelisted_id INT PRIMARY KEY,
-    FOREIGN KEY(whitelister_id) REFERENCES users(id)
-    FOREIGN KEY(whitelisted_id) REFERENCES users(id)
+    whitelister VARCHAR(25),
+    whitelisted VARCHAR(25),
+    PRIMARY KEY(whitelister, whitelisted),
+    FOREIGN KEY(whitelister) REFERENCES users(username),
+    FOREIGN KEY(whitelisted) REFERENCES users(username)
 );
 
-*storing events sceduled in groups, user_type = Ordinary, VIP, SUPER, 
-blacklist/whitelist could have column to specify reason user was black/white listed
+CREATE TABLE polls(
+    entry VARCHAR(25),
+    votes INT
+);    
+
+INSERT INTO users(email, username, password, user_type) VALUES ("niharika@gmail.com", "nalam001", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("michael@gmail.com", "michael002", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("alex@gmail.com", "alex003", "123", "SU");  
+INSERT INTO users(email, username, password, user_type) VALUES ("linda@gmail.com", "linda004", "123", "SU"); 
+INSERT INTO users(email, username, password, user_type) VALUES ("fox@gmail.com", "mfox456", "123", "OU");   
+
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Nicky Minaj", "nicki@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Aster Fallon", "aster@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Adele", "adele@gmail.com", "reference", "interest", "credential");
+INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Romeo", "romeo@gmail.com", "reference", "interest", "credential");
