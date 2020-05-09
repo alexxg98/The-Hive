@@ -1,30 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-import smtplib
-
+import db
 import welcome
-import mysql.connector
-
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="1qaz@wsxEDC",
-    database="TheHive"
-)
-
-cursor = db.cursor()
-
-
-def send_email(receiver):
-    sender = "thehiveof4men@gmail.com"
-    password = "thehive111"
-    message = "Hey, this was sent from Super User"
-
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login(sender, password)
-    server.sendmail(sender, receiver, message)
-    server.quit()
 
 
 class RegisterWindow:
@@ -58,29 +35,22 @@ class RegisterWindow:
         self.backButton = Button(self.canvas, text="Back", font='Arial 15 bold', bg='#454b54',
                                  fg='#f7cc35', command=self.welcome)
         self.regButton = Button(self.canvas, text="Register", font='Arial 15 bold', bg='#454b54', fg='#f7cc35',
-                                command=lambda: self.reg_btn())
+                                command=self.reg_btn)
 
     def main(self):
         self.canvas.pack(expand=TRUE, fill=BOTH)
-
         self.nameLabel.pack(expand=TRUE)
         self.name.pack(expand=TRUE)
-
         self.emailLabel.pack(expand=TRUE)
         self.email.pack(expand=TRUE)
-
         self.refLabel.pack(expand=TRUE)
         self.reference.pack(expand=TRUE)
-
         self.interestLabel.pack(expand=TRUE)
         self.interest.pack(expand=TRUE)
-
         self.credLabel.pack(expand=TRUE)
         self.credential.pack(expand=TRUE)
-
         self.backButton.pack(expand=TRUE)
         self.regButton.pack(expand=TRUE)
-
         self.win.mainloop()
 
     def reg_btn(self):
@@ -90,8 +60,8 @@ class RegisterWindow:
         interest = self.interest.get()
         credential = self.credential.get()
 
-        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-        account = cursor.fetchone()
+        db.cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        account = db.cursor.fetchone()
 
         if name == "" or email == "" or reference == "" or interest == "" or credential == "":
             messagebox.showwarning("Registration Status", "All fields are required!")
@@ -99,7 +69,9 @@ class RegisterWindow:
             messagebox.showinfo("Registration Status", "Thank You! A SuperUser will review your application "
                                                        "and if approved, an email will be sent to you with "
                                                        "your login details.")
-            send_email(email)
+            db.cursor.execute('INSERT INTO pending_users (name, email, reference, interest, credential) VALUES (%s, '
+                              '%s, %s, %s, %s)', (name, email, reference, interest, credential))
+            self.welcome()
         else:
             messagebox.showerror("Registration Status", "Account with this email already exists!")
 

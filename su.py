@@ -61,11 +61,11 @@ class Hexagon(Frame):
         canvas.create_polygon(user_select_1, outline='black',
             fill='#2C92D6', width=2)
         canvas.create_polygon(user_select_2, outline='black',
-            fill='#37CAEF', width=2)   
+            fill='#37CAEF', width=2)
         canvas.create_polygon(user_select_3, outline='black',
             fill='#3EDAD8', width=2)
         canvas.create_polygon(user_display_name, outline='black',
-            fill='#ffffff', width=2)   
+            fill='#ffffff', width=2)
 
         # hexagon for user select
         s1 = [412,325,390,312,
@@ -110,7 +110,7 @@ class Hexagon(Frame):
             53,563,75,575,
             75,575,97,563,
             97,563,97,538]
-        
+
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
@@ -246,4 +246,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main() 
+    main()

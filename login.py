@@ -1,18 +1,10 @@
 from tkinter import *
 from tkinter import messagebox
-
+import ou
+import vip
 import su
 import welcome
-import mysql.connector
-
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="1qaz@wsxEDC",
-    database="TheHive"
-)
-
-cursor = db.cursor()
+import db
 
 
 class LoginWindow:
@@ -34,7 +26,7 @@ class LoginWindow:
         self.backButton = Button(self.canvas, text="Back", font='Arial 20 bold', bg='#454b54',
                                  fg='#f7cc35', command=self.welcome)
         self.logButton = Button(self.canvas, text="Login", font='Arial 20 bold', bg='#454b54', fg='#f7cc35',
-                                command=lambda: self.log_btn())
+                                command=self.log_btn)
 
     def main(self):
         self.canvas.pack(expand=TRUE, fill=BOTH)
@@ -48,6 +40,16 @@ class LoginWindow:
         self.logButton.pack(expand=TRUE)
 
         self.win.mainloop()
+
+    def ou(self):
+        self.win.destroy()
+        ordUser = ou.main()
+        ordUser.main()
+
+    def vip(self):
+        self.win.destroy()
+        vipUser = vip.main()
+        vipUser.main()
 
     def su(self):
         self.win.destroy()
@@ -63,11 +65,24 @@ class LoginWindow:
         username = self.username.get()
         password = self.password.get()
 
-        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
-        account = cursor.fetchone()
+        db.cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
+        account = db.cursor.fetchone()
 
         if account:
-            self.su()
+            # set user status to ON and all other users to NULL
+            # Keep track of which user is logged in on this device
+            db.cursor.execute("UPDATE users SET status = NULL")
+            db.cursor.execute("UPDATE users SET status = 'ON' where username = '%s'" % username)
+
+            # Direct to user page based on type
+            db.cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
+            acct_type = db.cursor.fetchone()[0]
+            if acct_type == "OU":
+                self.ou()
+            elif acct_type == "VIP":
+                self.vip()
+            elif acct_type == "SU":
+                self.su()
         elif username == "" or password == "":
             messagebox.showwarning("Login Status", "All fields are required!")
         else:

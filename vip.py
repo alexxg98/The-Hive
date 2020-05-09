@@ -1,11 +1,7 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
 from tkinter import*
 import datetime
-import sys
-import os
 import mysql.connector
-
-import reputationScore as repScore
 import db
 
 # Class to create the hexagon framework
@@ -17,21 +13,14 @@ class hexagon(Frame):
         self.initUI()
 
     def initUI(self):
-        self.master.title("Ordinary User")
+        self.master.title("VIP User")
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        name = db.getName
-        rep_score = db.getRepScore
-        tabooCount = db.getTabooCount
+        name = db.getName()
+        rep_score = db.getRepScore()
 
         hello = "Hello " + name
-
-        #Put into post file/part later
-        newScore = repScore.tabooWord(rep_score, count)
-        db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
-        count += 1
-        db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
         db.cursor.close()
 
@@ -181,25 +170,22 @@ def main():
     root = Tk()
     frame = hexagon()
     # Buttons
-    photo1 = PhotoImage(file = r"images/chat.png")
-    button1 = Button(root, image = photo1, bg="#2C92D6", bd=0, command=chatwindow).place(x=365, y=220)
-    photo2 = PhotoImage(file = r"images/doc.png")
+    photo1 = PhotoImage(file = r"images\chat.png")
+    button1 = Button(root, image = photo1, bg="#2C92D6", bd=0).place(x=365, y=220)
+    photo2 = PhotoImage(file = r"images\doc.png")
     button2 = Button(root, image = photo2, bg="#37CAEF", bd=0).place(x=567, y=230)
-    photo3 = PhotoImage(file = r"images/social.png")
+    photo3 = PhotoImage(file = r"images\social.png")
     button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0).place(x=465, y=390)
-    photo4 = PhotoImage(file = r"images/add.png")
+    photo4 = PhotoImage(file = r"images\add.png")
     button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
-    photo5 = PhotoImage(file = r"images/x.png")
+    photo5 = PhotoImage(file = r"images\x.png")
     button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
-    photo6 = PhotoImage(file = r"images/settings.png")
+    photo6 = PhotoImage(file = r"images\settings.png")
     button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
 
     root.geometry("1000x800")
     root.resizable(False, False)
     root.mainloop()
-
-def chatwindow():
-    os.system('python chatwindow.py')
 
 
 if __name__ == '__main__':

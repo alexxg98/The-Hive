@@ -4,7 +4,22 @@ Software Engineering Project - Team C
 #### Notes:
 This project uses MySQL for database management.
 To use this code, have MySQL installed and set up. Change the information to connect to the database to your local server (host, user, and passwd).
+## Running the Project
+Clone the repository:
 
+```bash
+$ git clone https://github.com/mgmayagu/The-Hive.git
+```
+
+cd into the respository:
+```bash
+$ cd The-Hive
+```
+
+run the program by:
+```bash
+$ python visitor.py
+```
 
 
 ## Active Teaming System
