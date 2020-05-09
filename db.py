@@ -12,11 +12,11 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 def getName():
-    cursor.execute("SELECT username FROM users WHERE email = 'michael@gmail.com'")
+    cursor.execute("SELECT username FROM users WHERE status = 'ON'")
     return (cursor.fetchone()[0])
 
 def getRepScore():
-    cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
+    cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
     return (cursor.fetchone()[0])
 
 def getTabooCount():
