@@ -26,6 +26,7 @@ CREATE TABLE pending_users(
 CREATE TABLE projects(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
+    description VARCHAR(50) NOT NULL,
     creator VARCHAR(25),
     rank INT,
     FOREIGN KEY(creator) REFERENCES users(username)
@@ -70,10 +71,3 @@ INSERT INTO pending_users(name, email, reference, interest, credential) VALUES (
 INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Aster Fallon", "aster@gmail.com", "reference", "interest", "credential");
 INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Adele", "adele@gmail.com", "reference", "interest", "credential");
 INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Romeo", "romeo@gmail.com", "reference", "interest", "credential");
-
-INSERT INTO projects(name, creator) VALUES ("322 Study Group", "mfox456");
-INSERT INTO group_membership VALUES ("mfox456", 1);
-
-SELECT * FROM users; 
-SELECT * FROM projects;
-SELECT username FROM group_membership WHERE group_id = 1;  
