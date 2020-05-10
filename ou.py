@@ -18,7 +18,7 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        name = db.getchName()
+        name = db.getName()
         rep_score = db.getRepScore()
         tabooCount = db.getTabooCount()
 
