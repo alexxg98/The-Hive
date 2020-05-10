@@ -188,59 +188,37 @@ class Hexagon(Frame):
         # photo = PhotoImage(file = "user.png")
         # Button(canvas, text = 'Click Me !', image = photo).pack()
 
-def button(root):
-
-    # count = 0
-    # def shiftImage(event):
-    #     if count % 2 == 0:
-    #         canvas1.itemconfig(button, image=stopImage)
-    #     else:
-    #         canvas1.itemconfig(button, image=playImage)
-    #     globals()['count'] += 1
-
-    button = Button(root, 
-                text="QUIT", 
-                image = PhotoImage(file = r"images/add.png"),
-                fg="red",
-                # command=quit,
-                bg="#37CAEF", 
-                # bd=0
-                ).place(x=495, y=245)
-
-    # playImage = PhotoImage(file= 'images/add.png')
-    # stopImage = PhotoImage(file='images/icon.png')
-    # blankImage = PhotoImage(file='images/social.png')
-
-    # canvas1 = Canvas(root, width=400, height=400)
-    # button = canvas1.create_image(100, 100, anchor=NW, image=playImage)
-    # blank = canvas1.create_image(100,100, anchor=NW, image=blankImage, state=NORMAL)
-    # canvas1.tag_bind(blank, "<Button-1>", shiftImage)
-    # canvas1.pack()
-
-
-    # photo1 = PhotoImage(file = r"images/chat.png")
-    # button1 = Button(root, image = photo1, bg="#2C92D6", bd=0, command=chatwindow).place(x=365, y=220)
-    # photo2 = PhotoImage(file = r"images/doc.png")
-    # button2 = Button(root, image = photo2, bg="#37CAEF", bd=0).place(x=495, y=245)
-    # photo3 = PhotoImage(file = r"images/social.png")
-    # button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0).place(x=465, y=390)
-    # photo4 = PhotoImage(file = r"images/add.png")
-    # button4 = Button(root, image = photo4, bd=0).place(x=487, y=164)
-    # photo5 = PhotoImage(file = r"images/x.png")
-    # button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
-    # photo6 = PhotoImage(file = r"images/settings.png")
-    # button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
 
 def main():
     root = Tk()
-    frame = Hexagon()
-    button(root)
 
+    # creates heaxagon main screen 
+    frame = Hexagon()
+
+    # Button on main Hex
+    photo4 = PhotoImage(file = r"images/add.png")
+    button4 = Button(root, image = photo4, bg="white", bd=0).place(x=486, y=512)
+    photo2 = PhotoImage(file = r"images/doc.png")
+    button2 = Button(root, image = photo2, bg="#37CAEF", bd=0).place(x=570, y=415)
+    photo3 = PhotoImage(file = r"images/social.png")
+    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0).place(x=465, y=250)
+    photo5 = PhotoImage(file = r"images/x.png")
+    button5 = Button(root, image = photo5, bg="white", bd=0).place(x=375, y=325)
+    photo6 = PhotoImage(file = r"images/settings.png")
+    button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=325)
+    # Button on right
+    photo7 = PhotoImage(file = r"images/hexx.png")
+    button = Button(root, image = photo7, bg="white", bd=0).place(x=909, y=385)
+    button = Button(root, image = photo7, bg="white", bd=0).place(x=909, y=460)
+    button = Button(root, image = photo7, bg="white", bd=0).place(x=909, y=535)
+    # Button on left
+    photo7 = PhotoImage(file = r"images/hex.png")
+    button = Button(root, image = photo7, bg="#2C92D6", bd=0).place(x=60, y=385)
+    button = Button(root, image = photo7, bg="#37CAEF", bd=0).place(x=60, y=460)
+    button = Button(root, image = photo7, bg="#3EDAD8", bd=0).place(x=60, y=535)
     
     root.resizable(height = None, width = None)
     root.geometry("1000x800")  
-    # Allowing root window to change 
-    # it's size according to user's need 
     root.resizable(False, False) 
     root.mainloop()
 

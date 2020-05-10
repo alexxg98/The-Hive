@@ -21,17 +21,17 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        name = db.getName
-        rep_score = db.getRepScore
-        tabooCount = db.getTabooCount
+        name = db.getchName()
+        rep_score = db.getRepScore()
+        tabooCount = db.getTabooCount()
 
         hello = "Hello " + name
 
         #Put into post file/part later
-        newScore = repScore.tabooWord(rep_score, count)
-        db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
-        count += 1
-        db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
+        # newScore = repScore.tabooWord(rep_score, count)
+        # db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
+        # count += 1
+        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
         db.cursor.close()
 
@@ -189,7 +189,7 @@ def main():
     button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0).place(x=465, y=390)
     photo4 = PhotoImage(file = r"images/add.png")
     button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
-    photo5 = PhotoImage(file = r"images/x.png")
+    photo5 = PhotoImage(file = r"images\x.png")
     button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
     photo6 = PhotoImage(file = r"images/settings.png")
     button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
