@@ -159,13 +159,13 @@ class Hexagon(Frame):
         # Create a label with the name of the user
         def write_welcome():
             #Get and store user info from database
-            cursor.execute("SELECT username FROM users WHERE email = 'michael@gmail.com'")
-            name = cursor.fetchone()[0]
-            cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
-            rep_score = cursor.fetchone()[0]
+            db.cursor.execute("SELECT username FROM users WHERE email = 'michael@gmail.com'")
+            name = db.cursor.fetchone()[0]
+            db.cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
+            rep_score = db.cursor.fetchone()[0]
 
             hello = "Hello " + name
-            cursor.close()
+            db.cursor.close()
             canvas.create_text(120, 35, text = hello, font = ("Pursia",25),
                     fill = "#7289DB")
 
