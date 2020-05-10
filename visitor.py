@@ -1,6 +1,6 @@
 from tkinter import *
 import welcome
-import viewingpage
+import viewOU_page
 import db
 import reputationScore as repScore
 
@@ -36,9 +36,9 @@ class VisitorPage:
                                 fg="black", width = 10, height = 2)
         self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2)
         # place holder for top 3 users
-        self.user1 = Button(self.canvas, text=top1Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewingpage(top1Name))
-        self.user2 = Button(self.canvas, text=top2Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewingpage(top2Name))
-        self.user3 = Button(self.canvas, text=top3Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewingpage(top3Name))
+        self.user1 = Button(self.canvas, text=top1Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top1Name))
+        self.user2 = Button(self.canvas, text=top2Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top2Name))
+        self.user3 = Button(self.canvas, text=top3Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top3Name))
 
 
     def main(self):
@@ -63,9 +63,9 @@ class VisitorPage:
         wel = welcome.WelcomeWindow()
         wel.main()
 
-    def viewingpage(self, name):
+    def viewOU_page(self, name):
         self.win.destroy()
-        view = viewingpage.viewPage(name)
+        view = viewOU_page.viewPage(name)
         view.main()
 
 
