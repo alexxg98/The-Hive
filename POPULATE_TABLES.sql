@@ -8,7 +8,12 @@ VALUES
 
 INSERT INTO
 users(email, username, password, reputation_score, user_type)
-("fox@gmail.com", "mfox456", "123", 10, "OU");
+VALUES
+("fox@gmail.com", "mfox456", "123", 10, "OU"),
+("sun@gmail.com", "msun246", "123", 15, "OU"),
+("moon@gmail.com", "lmoon541", "123", 24, "OU"),
+("star@gmail.com", "vstar216", "123", 35, "VIP"),
+("sky@gmail.com", "ssky753", "123", 37, "VIP");
 
 INSERT INTO
 pending_users(name, email, reference, interest, credential)
@@ -21,4 +26,6 @@ VALUES
 INSERT into
 projects(id, name, description, creator, projRank)
 VALUES
-(1, "Group1", "Sample Group/Project #1", "mfox456", 1)
+(1, "Group1", "Sample Group/Project #1", "ssky753", 1),
+(2, "Group1", "Sample Group/Project #2", "lmoon541", 2),
+(3, "Group1", "Sample Group/Project #3", "mfox456", 3);
