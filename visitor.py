@@ -1,7 +1,8 @@
 from tkinter import *
 import welcome
 import viewingpage
-
+import db
+import reputationScore as repScore
 
 class VisitorPage:
 
@@ -18,6 +19,13 @@ class VisitorPage:
         self.topUsersLabel = Label(self.canvas, text="Top 3 User Profiles", bg="#454b54", fg="white",
                                font="Arial 15 bold")
 
+        db.cursor.execute("SELECT username FROM thehive.users ORDER BY reputation_score DESC LIMIT 1")
+        top1Name = db.cursor.fetchone()[0]
+        db.cursor.execute("SELECT username FROM thehive.users ORDER BY reputation_score DESC LIMIT 1,1")
+        top2Name = db.cursor.fetchone()[0]
+        db.cursor.execute("SELECT username FROM thehive.users ORDER BY reputation_score DESC LIMIT 2,1")
+        top3Name = db.cursor.fetchone()[0]
+
 
         self.welButton = Button(self.canvas, text="Login/Register", font='Arial 15 bold', bg='#454b54',
                                 fg="#f7cc35", command=self.welcome)
@@ -26,15 +34,11 @@ class VisitorPage:
                                 fg="black", width = 10, height = 2)
         self.project2 = Button(self.canvas, text="Project 2", font='Arial 20 bold', bg='white',
                                 fg="black", width = 10, height = 2)
-        self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white',
-                                fg="black", width = 10, height = 2)
+        self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2)
         # place holder for top 3 users
-        self.user1 = Button(self.canvas, text="User 1", font='Arial 20 bold', bg='white',
-                                fg="black", width = 10, height = 2, command = self.viewingpage)
-        self.user2 = Button(self.canvas, text="User 2", font='Arial 20 bold', bg='white',
-                                fg="black", width = 10, height = 2)
-        self.user3 = Button(self.canvas, text="User 3", font='Arial 20 bold', bg='white',
-                                fg="black", width = 10, height = 2)
+        self.user1 = Button(self.canvas, text=top1Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewingpage(top1Name))
+        self.user2 = Button(self.canvas, text=top2Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewingpage(top2Name))
+        self.user3 = Button(self.canvas, text=top3Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewingpage(top3Name))
 
 
     def main(self):
@@ -58,10 +62,10 @@ class VisitorPage:
         self.win.destroy()
         wel = welcome.WelcomeWindow()
         wel.main()
-        
-    def viewingpage(self):
+
+    def viewingpage(self, name):
         self.win.destroy()
-        view = viewingpage.viewPage()
+        view = viewingpage.viewPage(name)
         view.main()
 
 

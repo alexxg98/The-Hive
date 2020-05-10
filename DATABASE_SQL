@@ -28,12 +28,12 @@ CREATE TABLE projects(
     name VARCHAR(25) NOT NULL,
     description VARCHAR(50) NOT NULL,
     creator VARCHAR(25),
-    rank INT,
+    projRank INT,
     FOREIGN KEY(creator) REFERENCES users(username)
 );
 
 CREATE TABLE group_membership(
-    username VARCHAR(25), 
+    username VARCHAR(25),
     group_id INT,
     PRIMARY KEY(username, group_id),
     FOREIGN KEY(username) REFERENCES users(username),
@@ -59,4 +59,4 @@ CREATE TABLE white_list(
 CREATE TABLE polls(
     entry VARCHAR(25),
     votes INT
-);    
+);
