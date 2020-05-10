@@ -4,7 +4,7 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="cscD@t@Bas3",
+    passwd="1qaz@wsxEDC",
     database="TheHive",
     autocommit=True
 )
@@ -12,7 +12,7 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 def getName():
-    cursor.execute("SELECT username FROM users WHERE status = 'ON'")
+    cursor.execute("SELECT username FROM users WHERE email = 'michael@gmail.com'")
     return (cursor.fetchone()[0])
 
 def getRepScore():

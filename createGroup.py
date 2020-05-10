@@ -52,6 +52,7 @@ class CreateGroup:
         db.cursor.execute("INSERT INTO projects(name, description) VALUES( %s, %s)", (self.name.get(), description))
 
 
+
 if __name__ == "__main__":
     x = CreateGroup()
     x.main()

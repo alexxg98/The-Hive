@@ -133,6 +133,27 @@ class Hexagon(Frame):
         # Button(canvas, text = 'Click Me !', image = photo).pack()
 
 
+#Get and store user info from database
+# name = db.getName()
+# username = '[' + name + ']: '
+
+# # send message through button
+# def Press_Button():
+#     get_input = input_field.get()
+#     input_field.delete(0, 'end')
+#     messages.configure(state='normal')
+#     messages.insert('end', username + '%s\n'%get_input)
+#     messages.configure(state = "disabled")
+
+# # send message through enter key
+# def Input_Enter(event):
+#     get_input = input_field.get()
+#     messages.configure(state='normal')
+#     messages.insert(INSERT, username + '%s\n'%get_input)
+#     messages.configure(state='disabled')
+#     user_input.set('')
+#     return "break"
+
 def main():
     root = Tk()
     frame = Hexagon()
