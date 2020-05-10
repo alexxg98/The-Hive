@@ -58,9 +58,10 @@ class VisitorPage:
         self.win.destroy()
         wel = welcome.WelcomeWindow()
         wel.main()
+        
     def viewingpage(self):
         self.win.destroy()
-        view = viewingpage.main()
+        view = viewingpage.viewPage()
         view.main()
 
 
