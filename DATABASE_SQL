@@ -28,12 +28,12 @@ CREATE TABLE projects(
     name VARCHAR(25) NOT NULL,
     description VARCHAR(50) NOT NULL,
     creator VARCHAR(25),
-    rank INT,
+    projRank INT,
     FOREIGN KEY(creator) REFERENCES users(username)
 );
 
 CREATE TABLE group_membership(
-    username VARCHAR(25), 
+    username VARCHAR(25),
     group_id INT,
     PRIMARY KEY(username, group_id),
     FOREIGN KEY(username) REFERENCES users(username),
@@ -59,15 +59,4 @@ CREATE TABLE white_list(
 CREATE TABLE polls(
     entry VARCHAR(25),
     votes INT
-);    
-
-INSERT INTO users(email, username, password, user_type) VALUES ("niharika@gmail.com", "nalam001", "123", "SU");  
-INSERT INTO users(email, username, password, user_type) VALUES ("michael@gmail.com", "michael002", "123", "SU");  
-INSERT INTO users(email, username, password, user_type) VALUES ("alex@gmail.com", "alex003", "123", "SU");  
-INSERT INTO users(email, username, password, user_type) VALUES ("linda@gmail.com", "linda004", "123", "SU"); 
-INSERT INTO users(email, username, password, user_type) VALUES ("fox@gmail.com", "mfox456", "123", "OU");   
-
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Nicky Minaj", "nicki@gmail.com", "reference", "interest", "credential");
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Aster Fallon", "aster@gmail.com", "reference", "interest", "credential");
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Adele", "adele@gmail.com", "reference", "interest", "credential");
-INSERT INTO pending_users(name, email, reference, interest, credential) VALUES ("Romeo", "romeo@gmail.com", "reference", "interest", "credential");
+);

@@ -1,10 +1,16 @@
 # The-Hive
-Software Engineering Project - Team C
+Software Engineering Project - Active Teaming System
 
+Contributors - Team C: Alexandria Guo, Linda Wong, Michael Mayaguari, Niharika Alam
+
+A collaborative project for CSC 32200, taught by Professor Jie Wei. This system, named *The Hive*, is built using Python, tkinter, and MySQL.
+
+## Running the Project
 #### Notes:
 This project uses MySQL for database management.
-To use this code, have MySQL installed and set up. Change the information to connect to the database to your local server (host, user, and passwd).
-## Running the Project
+To use this code, have MySQL installed and set up. In db.py, change the information to connect to the database to your local server (host, user, and passwd).
+
+
 Clone the repository:
 
 ```bash
@@ -21,8 +27,8 @@ run the program by:
 $ python visitor.py
 ```
 
-
-## Active Teaming System
+## Project Specifications
+### Purpose
 
 This system will facilitate active teaming of people with similar interest and skill-set to forge groups for a certain do-good project.
 

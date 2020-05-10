@@ -18,7 +18,7 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        name = db.getchName()
+        name = db.getName()
         rep_score = db.getRepScore()
         tabooCount = db.getTabooCount()
 
@@ -163,7 +163,7 @@ class hexagon(Frame):
             fill = "#7289DB")
         canvas.create_text(815, 340, text = "MY GROUPS", font = ("Pursia",15),
             fill = "#7289DB")
-            
+
 def main():
     root = Tk()
     frame = hexagon()
@@ -171,9 +171,9 @@ def main():
     photo1 = PhotoImage(file = r"images\chat.png")
     button1 = Button(root, image = photo1, bg="#2C92D6", bd=0, command=chatwindow).place(x=365, y=220)
     photo2 = PhotoImage(file = r"images\doc.png")
-    button2 = Button(root, image = photo2, bg="#37CAEF", bd=0).place(x=567, y=230)
+    button2 = Button(root, image = photo2, bg="#37CAEF", bd=0, command=postdoc).place(x=567, y=230)
     photo3 = PhotoImage(file = r"images\social.png")
-    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0).place(x=465, y=390)
+    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command=group_page).place(x=465, y=390)
     photo4 = PhotoImage(file = r"images\add.png")
     button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
     photo5 = PhotoImage(file = r"images\x.png")
@@ -186,6 +186,11 @@ def main():
 
 def chatwindow():
     os.system('python chatwindow.py')
+def group_page():
+    os.system('python group_page.py')
+def postdoc():
+    os.system('python postdoc.py')
+
 
 if __name__ == '__main__':
     main()

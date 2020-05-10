@@ -1,19 +1,11 @@
 from tkinter import Label, Tk, Canvas, Frame, BOTH
-from tkinter import * 
+from tkinter import *
 import datetime
 import sys
 import os
 import mysql.connector
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="1qaz@wsxEDC",
-    database="TheHive",
-    autocommit=True
-)
-
-cursor = db.cursor()
+import db
 
 # Class to create the hexagon framework
 class Hexagon(Frame):
@@ -33,11 +25,11 @@ class Hexagon(Frame):
             217,117,217,683,
             217,683,783,683,
             783,683,783,117]
-        
+
 
         canvas.create_polygon(user_select_1, outline='black',
             fill='#2C92D6', width=2)
-        
+
         # Left Side Hexagon
         p1 = [97,388,75,375,
             75,375,53,388,
@@ -57,7 +49,7 @@ class Hexagon(Frame):
             53,563,75,575,
             75,575,97,563,
             97,563,97,538]
-        
+
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
@@ -99,7 +91,7 @@ class Hexagon(Frame):
             fill = "white")
         canvas.create_text(850, 550, text = "Close", font = ("Pursia",15),
             fill = "white")
-       
+
         # display date
         date = datetime.datetime.now()
         current_date = date.strftime("%B %d")
@@ -115,13 +107,13 @@ class Hexagon(Frame):
         # # Create a label with the name of the group
         # def write_group_name():
         #     #Get and store user info from database
-        #     cursor.execute("SELECT name FROM users WHERE email = 'michael@gmail.com'")
-        #     name = cursor.fetchone()[0]
-        #     cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
-        #     rep_score = cursor.fetchone()[0]
-        #     cursor.close()
+        #     db.cursor.execute("SELECT name FROM users WHERE email = 'michael@gmail.com'")
+        #     name = db.cursor.fetchone()[0]
+        #     db.cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
+        #     rep_score = db.cursor.fetchone()[0]
+        #     db.cursor.close()
         #     canvas.create_text(120, 35, text = name, font = ("Pursia",25),fill = "#7289DB")
-        
+
         time_now()
         # write_group_name
         canvas.pack(fill=BOTH, expand=1)
@@ -159,12 +151,12 @@ def main():
     frame = Hexagon()
     root.resizable(height = None, width = None)
 
-    root.geometry("1000x800")  
-    # Allowing root window to change 
-    # it's size according to user's need 
-    root.resizable(False, False) 
+    root.geometry("1000x800")
+    # Allowing root window to change
+    # it's size according to user's need
+    root.resizable(False, False)
     root.mainloop()
 
 
 if __name__ == '__main__':
-    main() 
+    main()
