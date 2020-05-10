@@ -4,16 +4,7 @@ import datetime
 import sys
 import os
 import mysql.connector
-
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    passwd="1qaz@wsxEDC",
-    database="TheHive",
-    autocommit=True
-)
-
-cursor = db.cursor()
+import db
 
 # Class to create the hexagon framework
 class Hexagon(Frame):
@@ -24,11 +15,11 @@ class Hexagon(Frame):
         self.initUI()
 
     def initUI(self):
-        
+
         self.master.title("Super User")
         self.pack(fill=BOTH, expand=1)
-            
-    
+
+
         canvas = Canvas(self)
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
@@ -152,7 +143,7 @@ class Hexagon(Frame):
             fill = "white")
         canvas.create_text(850, 550, text = "Other", font = ("Pursia",15),
             fill = "white")
-       
+
         # display date
         date = datetime.datetime.now()
         current_date = date.strftime("%B %d")
@@ -177,7 +168,7 @@ class Hexagon(Frame):
             cursor.close()
             canvas.create_text(120, 35, text = hello, font = ("Pursia",25),
                     fill = "#7289DB")
-        
+
         time_now()
         write_welcome()
         canvas.pack(fill=BOTH, expand=1)
