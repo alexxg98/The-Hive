@@ -51,7 +51,7 @@ class CreateGroup:
 
     def create_group(self):
         description = self.textBox.get("1.0", "end-1c")
-        db.cursor.execute("INSERT INTO projects(name, description) VALUES( %s, %s)", (self.name.get(), description))
+        db.cursor.execute("INSERT INTO projects(name, description) VALUES(%s, %s)", (self.name.get(), description))
 
 
 if __name__ == "__main__":
