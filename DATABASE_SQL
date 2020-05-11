@@ -40,6 +40,15 @@ CREATE TABLE group_membership(
     FOREIGN KEY(group_id) REFERENCES projects(id)
 );
 
+CREATE TABLE invitations(
+    inviter VARCHAR(25),
+    invited VARCHAR(25),
+    group_id INT,
+    FOREIGN KEY(inviter) REFERENCES users(username),
+    FOREIGN KEY(invited) REFERENCES users(username),
+    FOREIGN KEY(group_id) REFERENCES projects(id)
+);
+
 CREATE TABLE black_list(
     blacklister VARCHAR(25),
     blacklisted VARCHAR(25),
