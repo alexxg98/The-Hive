@@ -71,10 +71,10 @@ CREATE TABLE polls(
 );
 
 CREATE TABLE posts(
-    postid INT,
-    group_id INT,
+    postid INT PRIMARY KEY AUTO_INCREMENT,
+    group_id INT NOT NULL,
     username VARCHAR(25),
-    content VARCHAR(225),
+    content VARCHAR(225) NOT NULL,
     FOREIGN KEY(group_id) REFERENCES projects(id)
     FOREIGN KEY(username) REFERENCES users(username)
     
