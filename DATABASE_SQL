@@ -10,7 +10,7 @@ CREATE TABLE users(
     reputation_score INT DEFAULT 0,
     user_type ENUM('OU', 'VIP', 'SU'),
     status VARCHAR(5) NULL,
-    taboo_count INT DEFAULT 0,
+    taboo_count INT DEFAULT 0
 );
 
 CREATE TABLE pending_users(
