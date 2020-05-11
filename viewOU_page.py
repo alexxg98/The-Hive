@@ -9,6 +9,20 @@ class viewPage:
         repScore = db.cursor.fetchone()[0]
         display_info = name + "\nReputation Score: " + str(repScore)
 
+        # db.cursor.execute("SELECT name FROM projects WHERE creator = '%s'"%name)
+        # proj1 = db.cursor.fetchone()[0]
+        db.cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%name)
+        # projID = db.cursor.fetchone()[0]
+
+        projList = []
+        for row in db.cursor:
+            projList.append(row)
+
+        db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
+        proj1 = db.cursor.fetchone()[0]
+
+
+
         self.win = Tk()
         self.win.title("Top OU Profile")
         self.win.geometry('{}x{}'.format(1000, 600))
@@ -20,8 +34,8 @@ class viewPage:
                         font="Arial 20 bold", bg = 'white')
 
         # place holder for top 3 projects
-        self.project1 = Button(self.canvas, text="Project 1", font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
-        self.project2 = Button(self.canvas, text="Project 2", font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
+        self.project1 = Button(self.canvas, text=proj1, font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
+        self.project2 = Button(self.canvas, text="projList[1]", font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
         self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
         self.back = PhotoImage(file = r"images/back.png")
         self.backButton = Button(self.canvas, image = self.back, command = self.visitor, bd = 0, bg = "black")
