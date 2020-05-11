@@ -1,6 +1,7 @@
 from tkinter import *
 import welcome
 import viewOU_page
+import viewGroup_page
 import db
 import reputationScore as repScore
 
@@ -25,17 +26,22 @@ class VisitorPage:
         top2Name = db.cursor.fetchone()[0]
         db.cursor.execute("SELECT username FROM thehive.users ORDER BY reputation_score DESC LIMIT 2,1")
         top3Name = db.cursor.fetchone()[0]
+        
+        db.cursor.execute("SELECT name FROM thehive.projects WHERE projRank = 1")
+        top1Proj = db.cursor.fetchone()[0]
+        db.cursor.execute("SELECT name FROM thehive.projects WHERE projRank = 2")
+        top2Proj = db.cursor.fetchone()[0]
+        db.cursor.execute("SELECT name FROM thehive.projects WHERE projRank = 3")
+        top3Proj = db.cursor.fetchone()[0]
 
 
         self.welButton = Button(self.canvas, text="Login/Register", font='Arial 15 bold', bg='#454b54',
                                 fg="#f7cc35", command=self.welcome)
-        # place holder for top 3 projects
-        self.project1 = Button(self.canvas, text="Project 1", font='Arial 20 bold', bg='white',
-                                fg="black", width = 10, height = 2)
-        self.project2 = Button(self.canvas, text="Project 2", font='Arial 20 bold', bg='white',
-                                fg="black", width = 10, height = 2)
-        self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2)
-        # place holder for top 3 users
+        #top 3 projects
+        self.project1 = Button(self.canvas, text="Project 1", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top1Proj))
+        self.project2 = Button(self.canvas, text="Project 2", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top2Proj))
+        self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top3Proj))
+        #top 3 users
         self.user1 = Button(self.canvas, text=top1Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top1Name))
         self.user2 = Button(self.canvas, text=top2Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top2Name))
         self.user3 = Button(self.canvas, text=top3Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top3Name))
@@ -66,6 +72,11 @@ class VisitorPage:
     def viewOU_page(self, name):
         self.win.destroy()
         view = viewOU_page.viewPage(name)
+        view.main()
+        
+    def viewGroup_page(self, projName):
+        self.win.destroy()
+        view = viewGroup_page.viewProject(projName)
         view.main()
 
 

@@ -41,16 +41,17 @@ class CreateGroup:
 
     def invite(self):
         for selected_item in self.tree.selection():
-            user = self.tree.item(selected_item, 'values')
-            # send invitation to selected user with group details (name, description, creator)
-
-        for selected_item in self.tree.selection():
+            inviter = db.getName()
+            invited = self.tree.item(selected_item, 'values')
             self.tree.delete(selected_item)
+
+        db.cursor.execute("SELECT LAST_INSERT_ID()")
+        groupID = db.cursor.fetchone()
+        db.cursor.execute("INSERT INTO invitations VALUES(%s, %s, %s)", (inviter, invited[0], groupID[0]))
 
     def create_group(self):
         description = self.textBox.get("1.0", "end-1c")
-        db.cursor.execute("INSERT INTO projects(name, description) VALUES( %s, %s)", (self.name.get(), description))
-
+        db.cursor.execute("INSERT INTO projects(name, description) VALUES(%s, %s)", (self.name.get(), description))
 
 
 if __name__ == "__main__":

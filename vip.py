@@ -23,6 +23,30 @@ class hexagon(Frame):
         hello = "Hello " + name
         scoreDisplay = "Reputation Score: " + str(rep_score)
 
+        # Get group id that user is in
+        db.cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%name)
+        #store all project id in array
+        projList = []
+        for row in db.cursor:
+            projList.append(row)
+
+        ##Store proj name in variable if exist
+        try:
+            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
+            proj1 = db.cursor.fetchone()[0]
+        except:
+            proj1 = "NULL"
+
+        try:
+            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[1])
+            proj2 = db.cursor.fetchone()[0]
+        except:
+            proj2 = "NULL"
+        try:
+            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[2])
+            proj3 = db.cursor.fetchone()[0]
+        except:
+            proj3 = "NULL"
 
         canvas = Canvas(self)
 
@@ -101,11 +125,11 @@ class hexagon(Frame):
         canvas.create_polygon(s2, fill='white', width=1)
         canvas.create_polygon(s3, fill='white', width=1)
 
-        canvas.create_text(150, 400, text = "Project 1", font = ("Pursia",15),
+        canvas.create_text(150, 400, text = proj1, font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(150, 475, text = "Project 2", font = ("Pursia",15),
+        canvas.create_text(150, 475, text = proj2, font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(150, 550, text = "Project 3", font = ("Pursia",15),
+        canvas.create_text(150, 550, text = proj3, font = ("Pursia",15),
             fill = "white")
         # hexagon for groups
         g1 = [795,391,775,380,

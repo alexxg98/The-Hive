@@ -27,5 +27,16 @@ INSERT into
 projects(id, name, description, creator, projRank)
 VALUES
 (1, "Group1", "Sample Group/Project #1", "ssky753", 1),
-(2, "Group1", "Sample Group/Project #2", "lmoon541", 2),
-(3, "Group1", "Sample Group/Project #3", "mfox456", 3);
+(2, "Group2", "Sample Group/Project #2", "lmoon541", 2),
+(3, "Group3", "Sample Group/Project #3", "mfox456", 3),
+(4, "Group4", "Sample Group/Project #4", "vstar216", 4);
+
+INSERT into 
+group_membership(username, group_id) 
+VALUES 
+("ssky753", 1),
+("lmoon541", 2),
+("mfox456", 3),
+("vstar216", 3),
+("msun246", 2),
+("msun246", 1);

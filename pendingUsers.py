@@ -61,8 +61,7 @@ class SuperUser:
         self.list.column(6, width=100)
 
         db.cursor.execute('SELECT * FROM pending_users')
-        records = db.cursor.fetchall()
-        for row in records:
+        for row in db.cursor.fetchall():
             self.list.insert('', END, values=row)
 
         self.acceptButton.pack(expand=TRUE, side=LEFT)
@@ -77,8 +76,6 @@ class SuperUser:
             a, b, c, d, e, f = self.list.item(selected_item, 'values')
             email = c
             username = generate_username(b)
-
-        for selected_item in self.list.selection():
             self.list.delete(selected_item)
 
         db.cursor.execute('INSERT INTO users (email, username, password, user_type) VALUES (%s, %s, %s, "OU")',
@@ -97,8 +94,6 @@ class SuperUser:
         for selected_item in self.list.selection():
             a, b, c, d, e, f = self.list.item(selected_item, 'values')
             email = c
-
-        for selected_item in self.list.selection():
             self.list.delete(selected_item)
 
         db.cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
