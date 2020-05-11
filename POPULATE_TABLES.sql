@@ -40,3 +40,12 @@ VALUES
 ("vstar216", 3),
 ("msun246", 2),
 ("msun246", 1);
+
+INSERT into
+posts(postid, group_id, username, content)
+VALUES
+(1, 1, ssky753, "Hello. Welcome to the group #1!"),
+(1, 2, lmoon541, "Hello. Welcome to the group #2!"),
+(1, 3, mfox456, "Hello. Welcome to the group #3!"),
+(1, 4, vstar216, "Hello. Welcome to the group #4!");
+
