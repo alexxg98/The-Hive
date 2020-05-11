@@ -9,18 +9,30 @@ class viewPage:
         repScore = db.cursor.fetchone()[0]
         display_info = name + "\nReputation Score: " + str(repScore)
 
-        # db.cursor.execute("SELECT name FROM projects WHERE creator = '%s'"%name)
-        # proj1 = db.cursor.fetchone()[0]
+        # Get group id that user is in
         db.cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%name)
-        # projID = db.cursor.fetchone()[0]
-
+        #store all project id in array
         projList = []
         for row in db.cursor:
             projList.append(row)
 
-        db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
-        proj1 = db.cursor.fetchone()[0]
+        ##Store proj name in variable if exist
+        try:
+            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
+            proj1 = db.cursor.fetchone()[0]
+        except:
+            proj1 = "NULL"
 
+        try:
+            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[1])
+            proj2 = db.cursor.fetchone()[0]
+        except:
+            proj2 = "NULL"
+        try:
+            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[2])
+            proj3 = db.cursor.fetchone()[0]
+        except:
+            proj3 = "NULL"
 
 
         self.win = Tk()
@@ -35,8 +47,8 @@ class viewPage:
 
         # place holder for top 3 projects
         self.project1 = Button(self.canvas, text=proj1, font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
-        self.project2 = Button(self.canvas, text="projList[1]", font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
-        self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
+        self.project2 = Button(self.canvas, text=proj2, font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
+        self.project3 = Button(self.canvas, text=proj3, font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
         self.back = PhotoImage(file = r"images/back.png")
         self.backButton = Button(self.canvas, image = self.back, command = self.visitor, bd = 0, bg = "black")
 
