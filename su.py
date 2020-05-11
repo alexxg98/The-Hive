@@ -5,7 +5,7 @@ import os
 import mysql.connector
 import reputationScore as repScore
 import db
-# import visitor
+import visitor
 # import welcome
 
 # Class to create the hexagon framework
@@ -30,7 +30,7 @@ class hexagon(Frame):
         # count += 1
         # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
-        db.cursor.close()
+        # db.cursor.close()
 
         canvas = Canvas(self)
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
@@ -148,7 +148,7 @@ class hexagon(Frame):
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
         # group Labels
-        canvas.create_text(875, 400, text = "White", font = ("Pursia",15),
+        canvas.create_text(875, 400, text = "Schedule", font = ("Pursia",15),
             fill = "white", anchor=E)
         canvas.create_text(875, 475, text = "Complains", font = ("Pursia",15),
             fill = "white", anchor=E)
@@ -187,18 +187,18 @@ def main():
     photo1 = PhotoImage(file = r"images/doc.png")
     right = Button(root, image = photo1, bg="#37CAEF", bd=0, command=postdoc).place(x=570, y=415)
     photo2 = PhotoImage(file = r"images/social.png")
-    top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=group_page(root)).place(x=465, y=250)
+    top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=lambda:group_page(root)).place(x=465, y=250)
     # Aux buttons
     photo3 = PhotoImage(file = r"images/add.png")
     add = Button(root, image = photo3, bg="white", bd=0, command=createGroup).place(x=486, y=512)
     photo4 = PhotoImage(file = r"images/x.png")
-    x = Button(root, image = photo4, bg="white", bd=0, command=quit).place(x=375, y=325)
+    x = Button(root, image = photo4, bg="white", bd=0, command=lambda:logOut(root)).place(x=375, y=325)
     photo5 = PhotoImage(file = r"images/settings.png")
     settings = Button(root, image = photo5, bg="white", bd=0).place(x=596, y=325)
     
     # Button on right
-    button = Button(root,text="BOX", font='Arial 14 bold',bg='white', fg='#f7cc35', bd=0).place(x=906, y=390)
     photo6 = PhotoImage(file = r"images/hex.png")
+    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=385)
     button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=460)
     button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=535)
     # Button on left
@@ -223,12 +223,13 @@ def createGroup():
     os.system('python3 createGroup.py')
 
 def logOut(root):
-    # root.destroy()
-    os.system('python3 welcome.py')
-    # vis = welcome.WelcomeWindow()
-    # vis.main()  
+    root.destroy()
+    win = visitor.VisitorPage()
+    win.main()  
 def group_page(root):
-    os.system('python3 group_page.py')
+    root.destroy()
+    win = visitor.VisitorPage()
+    win.main()  
 
 if __name__ == '__main__':
     main()
