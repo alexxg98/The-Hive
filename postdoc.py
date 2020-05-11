@@ -1,5 +1,6 @@
 from tkinter import*
 from tkinter import scrolledtext
+import sys
 from tkinter.filedialog import askopenfile
 
 class PostDoc:
@@ -20,20 +21,20 @@ class PostDoc:
         self.btn_File = Button(self.buttons_frame, text='File', command = self.open_file)
         self.btn_File.grid(row=0, column=2, padx=(10), pady=10)
 
-        self.submit_btn = Button(self.buttons_frame, text='Submit')
+        self.submit_btn = Button(self.buttons_frame, text='Submit', command = lambda:self.submit())
         self.submit_btn.grid(row=0, column=4, padx=(10), pady=10)
 
-        self.group1 = LabelFrame(self.win, text="Hive Post", padx=5, pady=5, bg = "#36393F", fg = "white")
-        self.group1.grid(row=1, column=0, columnspan=3, padx=10, pady=10, sticky=E+W+N+S)
+        self.frame = LabelFrame(self.win, text="Hive Post", padx=5, pady=5, bg = "#36393F", fg = "white")
+        self.frame.grid(row=1, column=0, columnspan=3, padx=10, pady=10, sticky=E+W+N+S)
 
         self.win.columnconfigure(0, weight=1)
         self.win.rowconfigure(1, weight=1)
 
-        self.group1.rowconfigure(0, weight=1)
-        self.group1.columnconfigure(0, weight=1)
+        self.frame.rowconfigure(0, weight=1)
+        self.frame.columnconfigure(0, weight=1)
 
         # Create the textbox
-        self.textbox = scrolledtext.ScrolledText(self.group1, width=40, height=10)
+        self.textbox = scrolledtext.ScrolledText(self.frame, width=40, height=10)
         self.textbox.grid(row=0, column=0, sticky=E+W+N+S)
         self.win.mainloop()
 
@@ -46,6 +47,10 @@ class PostDoc:
         self.img = PhotoImage(file = "images/add.png")
         self.txtbox.image_create(END, image = self.img) # Example 1
         # self.txtbox.window_create(END, window = Label(txtbox, image = self.img)) # Example 2
+    def submit(self):
+        current_input = self.textbox.get("1.0", END)
+        file = open('POST.txt', 'w')
+        file.write(current_input)
 
 
 postGUI = PostDoc()
