@@ -16,16 +16,26 @@ class Hexagon(Frame):
         self.initUI()
 
     def initUI(self):
-        self.master.title("Super User")
-        self.pack(fill=BOTH, expand=1)
+        self.master.title("Group Page")
+        self.pack(fill=BOTH, expand=TRUE)
         canvas = Canvas(self)
-        #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
-        # heaxagons
+        time_now()
+        # write_group_name
+        canvas.configure(bg='#36393F')
+
+
+        #Get and store user info from database
+        name = db.getName()
+        rep_score = db.getRepScore()
+        tabooCount = db.getTabooCount()
+
+        hello = "Hello " + name       
+       
+        # Box for the blog
         user_select_1 = [783,117,217,117,
             217,117,217,683,
             217,683,783,683,
             783,683,783,117]
-
 
         canvas.create_polygon(user_select_1, outline='black',
             fill='#2C92D6', width=2)
@@ -114,16 +124,7 @@ class Hexagon(Frame):
         #     db.cursor.close()
         #     canvas.create_text(120, 35, text = name, font = ("Pursia",25),fill = "#7289DB")
 
-        time_now()
-        # write_group_name
-        canvas.pack(fill=BOTH, expand=1)
-        canvas.configure(bg='#36393F')
-
-
-        # Button for social
-        # photo = PhotoImage(file = "user.png")
-        # Button(canvas, text = 'Click Me !', image = photo).pack()
-
+        
 
 #Get and store user info from database
 # name = db.getName()
@@ -150,6 +151,18 @@ def main():
     root = Tk()
     frame = Hexagon()
     root.resizable(height = None, width = None)
+
+    # Button on right
+    photo6 = PhotoImage(file = r"images/hex.png")
+    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=385)
+    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=460)
+    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=535)
+    # Button on left
+    photo7 = PhotoImage(file = r"images/hexx.png")
+    button = Button(root, image = photo7, bg="#37CAEF", bd=0).place(x=60, y=385)
+    button = Button(root, image = photo7, bg="#2C92D6", bd=0).place(x=60, y=460)
+    button = Button(root, image = photo7, bg="#3EDAD8", bd=0).place(x=60, y=535)
+
 
     root.geometry("1000x800")
     # Allowing root window to change

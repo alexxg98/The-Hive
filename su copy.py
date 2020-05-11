@@ -5,8 +5,7 @@ import os
 import mysql.connector
 import reputationScore as repScore
 import db
-# import visitor
-# import welcome
+import visitor
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -117,11 +116,11 @@ class hexagon(Frame):
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
         # Left labels
-        canvas.create_text(125, 400, text = "Black", font = ("Pursia",15),
+        canvas.create_text(125, 400, text = "My Projects", font = ("Pursia",15),
             fill = "white", anchor=W)
-        canvas.create_text(125, 475, text = "Pending Users", font = ("Pursia",15),
+        canvas.create_text(125, 475, text = "Users", font = ("Pursia",15),
             fill = "white",anchor=W)
-        canvas.create_text(125, 550, text = "Evaluate Group", font = ("Pursia",15),
+        canvas.create_text(125, 550, text = "Groups", font = ("Pursia",15),
             fill = "white", anchor=W)
 
         # Right Side Hexagon
@@ -148,12 +147,15 @@ class hexagon(Frame):
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
         # group Labels
-        canvas.create_text(875, 400, text = "White", font = ("Pursia",15),
+        canvas.create_text(875, 400, text = "Evaluate", font = ("Pursia",15),
             fill = "white", anchor=E)
         canvas.create_text(875, 475, text = "Complains", font = ("Pursia",15),
             fill = "white", anchor=E)
-        canvas.create_text(875, 550, text = "Kick Out", font = ("Pursia",15),
+        canvas.create_text(875, 550, text = "Other", font = ("Pursia",15),
             fill = "white", anchor=E)
+
+        
+
 
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
@@ -176,10 +178,11 @@ class hexagon(Frame):
         canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
             fill = "#7289DB")
 
-
 def main():
     root = Tk()
     frame = hexagon()
+
+
 
     # Main Hex buttons
     photo = PhotoImage(file = r"images/chat.png")
@@ -187,25 +190,26 @@ def main():
     photo1 = PhotoImage(file = r"images/doc.png")
     right = Button(root, image = photo1, bg="#37CAEF", bd=0, command=postdoc).place(x=570, y=415)
     photo2 = PhotoImage(file = r"images/social.png")
-    top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=group_page(root)).place(x=465, y=250)
+    top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=group_page).place(x=465, y=250)
     # Aux buttons
     photo3 = PhotoImage(file = r"images/add.png")
-    add = Button(root, image = photo3, bg="white", bd=0, command=createGroup).place(x=486, y=512)
+    add = Button(root, image = photo3, bg="white", bd=0).place(x=486, y=512)
     photo4 = PhotoImage(file = r"images/x.png")
-    x = Button(root, image = photo4, bg="white", bd=0, command=quit).place(x=375, y=325)
+    x = Button(root, image = photo4, bg="white", bd=0, command=logOut).place(x=375, y=325)
     photo5 = PhotoImage(file = r"images/settings.png")
     settings = Button(root, image = photo5, bg="white", bd=0).place(x=596, y=325)
-    
     # Button on right
-    button = Button(root,text="BOX", font='Arial 14 bold',bg='white', fg='#f7cc35', bd=0).place(x=906, y=390)
     photo6 = PhotoImage(file = r"images/hex.png")
+    button = Button(root, image = photo6, bg="white", bd=0, command=pendingUsers).place(x=909, y=385)
     button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=460)
     button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=535)
     # Button on left
-    button = Button(root, text="BOX", font='Arial 14 bold',bg='#454b54', fg='#2C92D6', bd=0).place(x=56, y=390)
     photo7 = PhotoImage(file = r"images/hexx.png")
-    button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=pendingUsers).place(x=60, y=460)
-    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=assign_VIP).place(x=60, y=535)
+    button = Button(root, image = photo7, bg="#37CAEF", bd=0).place(x=60, y=385)
+    button = Button(root, image = photo7, bg="#2C92D6", bd=0).place(x=60, y=460)
+    button = Button(root, image = photo7, bg="#3EDAD8", bd=0).place(x=60, y=535)
+        
+
 
     root.geometry("1000x800")
     root.resizable(False, False)
@@ -217,17 +221,11 @@ def postdoc():
     os.system('python3 postdoc.py')
 def pendingUsers():
     os.system('python3 pendingUsers.py')
-def assign_VIP():
-    os.system('python3 assign_VIP.py')
-def createGroup():
-    os.system('python3 createGroup.py')
 
-def logOut(root):
-    # root.destroy()
-    os.system('python3 welcome.py')
-    # vis = welcome.WelcomeWindow()
-    # vis.main()  
-def group_page(root):
+# I need to exit without 
+def logOut():
+    os.system('python3 visitor.py')
+def group_page():
     os.system('python3 group_page.py')
 
 if __name__ == '__main__':

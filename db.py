@@ -16,9 +16,13 @@ def getName():
     return (cursor.fetchone()[0])
 
 def getRepScore():
-    cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
+    cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
     return (cursor.fetchone()[0])
 
 def getTabooCount():
-    cursor.execute("SELECT taboo_count FROM users WHERE status = 'ON'")
+    cursor.execute("SELECT taboo_count FROM users WHERE email = 'michael@gmail.com'")
+    return (cursor.fetchone()[0])
+
+def getGroupName():
+    cursor.execute()
     return (cursor.fetchone()[0])
