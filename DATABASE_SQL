@@ -71,7 +71,7 @@ CREATE TABLE polls(
 );
 
 CREATE TABLE posts(
-    postid INT PRIMARY KEY AUTO_INCREMENT,
+    postid INT,
     group_id INT NOT NULL,
     username VARCHAR(25),
     content VARCHAR(225) NOT NULL,
