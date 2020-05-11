@@ -69,3 +69,13 @@ CREATE TABLE polls(
     entry VARCHAR(25),
     votes INT
 );
+
+CREATE TABLE posts(
+    postid INT,
+    group_id INT,
+    username VARCHAR(25),
+    content VARCHAR(225),
+    FOREIGN KEY(group_id) REFERENCES projects(id)
+    FOREIGN KEY(username) REFERENCES users(username)
+    
+)
