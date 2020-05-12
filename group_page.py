@@ -9,7 +9,7 @@ import visitor
 # import welcome
 
 # Class to create the hexagon framework
-class hexagon(Frame):
+class UI(Frame):
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -123,7 +123,7 @@ class hexagon(Frame):
         time_now()
 def main():
     root = Tk()
-    frame = hexagon()
+    frame = UI()
 
     posts = Text(root, height = 38, width = 70)
     posts.place(x = 250, y = 147)
