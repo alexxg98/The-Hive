@@ -43,7 +43,7 @@ class GroupTasks:
         self.dateEntry = Entry(self.frame, width=10, textvariable=self.deadline)
 
         self.create = Button(self.frame, text="Create", command=self.add)
-        self.view = Button(self.frame, text="View Schedule", command=self.printSchedule)
+        self.view = Button(self.frame, text="View Schedule", command=self.printTasks)
         self.delete = Button(self.frame, text="Clear Schedule", command=self.deleteAll)
 
     def main(self):
@@ -76,7 +76,7 @@ class GroupTasks:
         file_new.write(str(self.table) + '\n')
         file_new.close()
 
-    def printSchedule(self):
+    def printTasks(self):
         self.viewBox.delete(1.0, END)
         if os.stat("text.txt").st_size == 0:
             self.viewBox.insert(INSERT, "No Event Found")
