@@ -29,6 +29,7 @@ class hexagon(Frame):
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
                 # Box for the blog
+        # rectangle
         user_select_1 = [783,117,217,117,
             217,117,217,683,
             217,683,783,683,
@@ -126,7 +127,23 @@ class hexagon(Frame):
 def main():
     root = Tk()
     frame = hexagon()
-    
+
+    posts = Text(root, height = 10, width = 70)
+    posts.place(x = 218, y = 118)
+    quote = """sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample."""
+
+    posts.insert(END, quote)
+
     # Button on left
     photo7 = PhotoImage(file = r"images/hexx.png")
     button = Button(root, image = photo7, bg='#2C92D6',  bd=0, command=polls).place(x=60, y=385)
@@ -164,7 +181,7 @@ def back_bnt(root):
         vip(root)
     elif acct_type == "SU":
         su(root)
-   
+
 def ou(root):
     root.win.destroy()
     ordUser = ou.main()
