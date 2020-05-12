@@ -67,6 +67,7 @@ class PostDoc:
             db.cursor.execute("Update users set reputation_score = %s where username = %s", (newRep, name))
             post = checkT.replaceTaboo(current_input)
         db.cursor.execute("INSERT into posts(postid, group_id, username, content) VALUES (%s, %s, %s, %s)",(postCount,groupID,name,post))
-
+        #Saves post in DB and closes window
+        self.win.destroy()
 
 postGUI = PostDoc()
