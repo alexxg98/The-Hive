@@ -198,6 +198,10 @@ def main():
     button8 = Button(root, image = photo7, bg="white", bd=0, command = lambda:createGroup(root)).place(x=760, y=385)
     button9 = Button(root, image = photo7, bg="white", bd=0, command = lambda: logout(root)).place(x=760, y=460)
 
+    # Button on left
+    photo8 = PhotoImage(file = r"images/hexx.png")
+    button10 = Button(root, image = photo8, bg="#2C92D6", bd=0).place(x=60, y=385)
+    button11 = Button(root, image = photo8, bg="#3EDAD8", bd=0).place(x=60, y=460)
     invite_img = PhotoImage(file = r"images/invites.png")
     invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
 
@@ -207,8 +211,10 @@ def main():
 
 def chatwindow():
     os.system('python chatwindow.py')
+
 def postdoc():
     os.system('python postdoc.py')
+
 def group_page():
     os.system('python group_page')
 
