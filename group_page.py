@@ -1,37 +1,34 @@
-from tkinter import Label, Tk, Canvas, Frame, BOTH
-from tkinter import *
+from tkinter import*
 import datetime
 import sys
 import os
 import mysql.connector
-
+import reputationScore as repScore
 import db
+import visitor
+# import welcome
 
 # Class to create the hexagon framework
-class Hexagon(Frame):
-
+class hexagon(Frame):
     def __init__(self):
         super().__init__()
-
         self.initUI()
-
     def initUI(self):
-        self.master.title("Group Page")
+        self.master.title("Super User")
         self.pack(fill=BOTH, expand=TRUE)
-        canvas = Canvas(self)
-        time_now()
-        # write_group_name
-        canvas.configure(bg='#36393F')
-
 
         #Get and store user info from database
-        name = db.getName()
-        rep_score = db.getRepScore()
-        tabooCount = db.getTabooCount()
+        # name = db.getGroupName()
+        # group_rank = db.getGroupRank(name)
+        # group_description =db.getGroupDescription(name)
+        # hello = "Hello " + name
+        # rankDisplay = "Rank: " + str(group_rank)
+        # description = str(group_description)
+        # db.cursor.close()
+        canvas = Canvas(self)
 
-        hello = "Hello " + name       
-       
-        # Box for the blog
+        #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
+                # Box for the blog
         user_select_1 = [783,117,217,117,
             217,117,217,683,
             217,683,783,683,
@@ -64,12 +61,12 @@ class Hexagon(Frame):
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
         # Left labels
-        canvas.create_text(150, 400, text = "Polls", font = ("Pursia",15),
-            fill = "white")
-        canvas.create_text(150, 475, text = "Users", font = ("Pursia",15),
-            fill = "white")
-        canvas.create_text(150, 550, text = "Groups", font = ("Pursia",15),
-            fill = "white")
+        canvas.create_text(125, 400, text = "Polls", font = ("Pursia",15),
+            fill = "white", anchor=W)
+        canvas.create_text(125, 475, text = "Users", font = ("Pursia",15),
+            fill = "white",anchor=W)
+        canvas.create_text(125, 550, text = "Back", font = ("Pursia",15),
+            fill = "white", anchor=W)
 
         # Right Side Hexagon
         g1 = [947,388,925,375,
@@ -95,13 +92,15 @@ class Hexagon(Frame):
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
         # group Labels
-        canvas.create_text(850, 400, text = "Evaluate", font = ("Pursia",15),
-            fill = "white")
-        canvas.create_text(850, 475, text = "Complains", font = ("Pursia",15),
-            fill = "white")
-        canvas.create_text(850, 550, text = "Close", font = ("Pursia",15),
-            fill = "white")
+        canvas.create_text(875, 400, text = "Chat", font = ("Pursia",15),
+            fill = "white", anchor=E)
+        canvas.create_text(875, 475, text = "Schedule", font = ("Pursia",15),
+            fill = "white", anchor=E)
+        canvas.create_text(875, 550, text = "Post Docs", font = ("Pursia",15),
+            fill = "white", anchor=E)
 
+        canvas.pack(fill=BOTH, expand=1)
+        canvas.configure(bg='#36393F')
         # display date
         date = datetime.datetime.now()
         current_date = date.strftime("%B %d")
@@ -113,62 +112,73 @@ class Hexagon(Frame):
             s = '{0:0>2d}:{1:0>2d}:{2:0>2d}'.format(now.hour, now.minute, now.second)
             canvas.itemconfig('timer', text = s)
             self.after(100, time_now)
-
-        # # Create a label with the name of the group
-        # def write_group_name():
-        #     #Get and store user info from database
-        #     db.cursor.execute("SELECT name FROM users WHERE email = 'michael@gmail.com'")
-        #     name = db.cursor.fetchone()[0]
-        #     db.cursor.execute("SELECT reputation_score FROM users WHERE email = 'michael@gmail.com'")
-        #     rep_score = db.cursor.fetchone()[0]
-        #     db.cursor.close()
-        #     canvas.create_text(120, 35, text = name, font = ("Pursia",25),fill = "#7289DB")
-
-        
-
-#Get and store user info from database
-# name = db.getName()
-# username = '[' + name + ']: '
-
-# # send message through button
-# def Press_Button():
-#     get_input = input_field.get()
-#     input_field.delete(0, 'end')
-#     messages.configure(state='normal')
-#     messages.insert('end', username + '%s\n'%get_input)
-#     messages.configure(state = "disabled")
-
-# # send message through enter key
-# def Input_Enter(event):
-#     get_input = input_field.get()
-#     messages.configure(state='normal')
-#     messages.insert(INSERT, username + '%s\n'%get_input)
-#     messages.configure(state='disabled')
-#     user_input.set('')
-#     return "break"
+        time_now()
+        # greeting for user
+        # canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
+        #     fill = "#7289DB")
+        # # display group rank
+        # canvas.create_text(120, 100, text = rankDisplay, font = ("Pursia",15),
+        #     fill = "#7289DB")
+        # # Display description
+        # canvas.create_text(120, 100, text = description, font = ("Pursia",15),
+        #     fill = "#7289DB")
 
 def main():
     root = Tk()
-    frame = Hexagon()
-    root.resizable(height = None, width = None)
+    frame = hexagon()
+    
+    # Button on left
+    photo7 = PhotoImage(file = r"images/hexx.png")
+    button = Button(root, image = photo7, bg='#2C92D6',  bd=0, command=polls).place(x=60, y=385)
+    button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=user_in_group).place(x=60, y=460)
+    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=lambda:back_bnt(root)).place(x=60, y=535)
 
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
-    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=385)
-    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=460)
-    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=535)
-    # Button on left
-    photo7 = PhotoImage(file = r"images/hexx.png")
-    button = Button(root, image = photo7, bg="#37CAEF", bd=0).place(x=60, y=385)
-    button = Button(root, image = photo7, bg="#2C92D6", bd=0).place(x=60, y=460)
-    button = Button(root, image = photo7, bg="#3EDAD8", bd=0).place(x=60, y=535)
-
+    button = Button(root, image = photo6, bg="white", bd=0, command=chatwindow).place(x=909, y=385)
+    button = Button(root, image = photo6, bg="white", bd=0, command=schedule).place(x=909, y=460)
+    button = Button(root, image = photo6, bg="white", bd=0, command=postdoc).place(x=909, y=535)
 
     root.geometry("1000x800")
-    # Allowing root window to change
-    # it's size according to user's need
     root.resizable(False, False)
     root.mainloop()
+
+def chatwindow():
+    os.system('python3 chatwindow.py')
+def postdoc():
+    os.system('python3 postdoc.py')
+def schedule():
+    os.system('python3 schedule.py')
+def user_in_group():
+    os.system('python3 usersInSystem.py')
+def polls():
+    os.system('python3 polling.py')
+
+def back_bnt(root):
+    username =  db.getName()
+    db.cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
+    acct_type = db.cursor.fetchone()[0]
+    if acct_type == "OU":
+        ou(root)
+    elif acct_type == "VIP":
+        vip(root)
+    elif acct_type == "SU":
+        su(root)
+   
+def ou(root):
+    root.win.destroy()
+    ordUser = ou.main()
+    ordUser.main()
+
+def vip(root):
+    root.win.destroy()
+    vipUser = vip.main()
+    vipUser.main()
+
+def su(root):
+    root.win.destroy()
+    superUser = su.main()
+    superUser.main()
 
 
 if __name__ == '__main__':

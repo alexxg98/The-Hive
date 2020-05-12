@@ -10,7 +10,7 @@ INSERT INTO
 users(email, username, password, reputation_score, user_type)
 VALUES
 ("fox@gmail.com", "mfox456", "123", 10, "OU"),
-("sun@gmail.com", "msun246", "123", 15, "OU"),
+("sun@gmail.com", "msun246", "123", 15, "OU"), 
 ("moon@gmail.com", "lmoon541", "123", 24, "OU"),
 ("star@gmail.com", "vstar216", "123", 35, "VIP"),
 ("sky@gmail.com", "ssky753", "123", 37, "VIP");

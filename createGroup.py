@@ -29,8 +29,8 @@ class CreateGroup:
         self.tree.grid(row=0, column=1, rowspan=5, padx=20)
         self.tree.heading(1, text="Select User")
 
-        Button(self.frame, text="Send Invite", command=self.invite).grid(row=5, column=1, sticky=N)
-        Button(self.frame, text="Create Group", command=self.create_group).grid(row=4, column=0)
+        Button(self.frame, text="Send Invite", bg='#2C92D6', fg='#C5A32A', command=self.invite).grid(row=5, column=1, sticky=N)
+        Button(self.frame, text="Create Group", bg='#2C92D6', fg='#C5A32A',command=self.create_group).grid(row=4, column=0)
 
         db.cursor.execute('SELECT username FROM users')
         users = db.cursor.fetchall()

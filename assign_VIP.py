@@ -34,7 +34,7 @@ class Assing_VIP_UI:
         self.canvas.pack(expand=TRUE, fill=BOTH)
         self.frame = Frame(self.canvas, bg='#454b54', width=600, height=340)
         self.frame.pack(expand=TRUE)
-        self.tree = Treeview(self.frame, columns=2, show="headings", height="7")
+        self.tree = Treeview(self.frame, columns=2, show="headings", height="15")
         self.list = Treeview(self.frame, columns=(1, 2, 3, 4, 5), show="headings", height="15")
 
     def main(self):
@@ -68,41 +68,53 @@ class Assing_VIP_UI:
         for row in users:
             self.tree.insert('', END, values=row)
 
-        
         Button(self.frame, text="Select Group",font='Arial 15 bold', bg='#454b54',
-            fg="#f7cc35", command=self.select).grid(row=2, column=0, sticky = N, pady = 2)
+            fg="#f7cc35", command=lambda:get_group).grid(row=2, column=0, sticky = N, pady = 2)
         Button(self.frame, text="Select VIP user", font='Arial 15 bold', bg='#454b54',
-            fg="#f7cc35", command=self.select).grid(row=2, column=1, sticky = N, pady = 2)
+            fg="#f7cc35", command=self.get_user).grid(row=2, column=1, sticky = N, pady = 2)
         Button(self.frame, text="ASSIGN",font='Arial 15 bold', bg='black',
             fg="red", command=self.assign).grid(row=3, column=1, pady = 2)
 
-        # group_name =
-        # user_name = 
+        # group = get_group()
+        # username = get_user()
+        
         selected_label = "Selected User: " 
         Label(self.frame, text=selected_label, bg="#454b54", fg="white",
         font="Arial 14 bold").grid(row=3, column=0, sticky = SW, pady = 25)
 
         self.win.mainloop()
 
+    def get_group(self):
+        global selected_label
+        for selected_item in self.list.selection():
+            name_of_group = self.list.item(selected_item, 'values')[1]
+        # print(name_of_group)
+        selected_label +=  name_of_group 
+            
+    def get_user(self):
+        global selected_label
+        for selected_item in self.tree.selection():
+            name_of_username = self.tree.item(selected_item, 'values')[0]
+        # print(name_of_username)
+        selected_label +=  name_of_username 
+
+
     def assign(self):
         for selected_item in self.list.selection():
-            a, b, c, d, e, f = self.list.item(selected_item, 'values')
-            email = c
-
+            name_of_group = self.list.item(selected_item, 'values')[1]
+    
         for selected_item in self.list.selection():
-            self.list.delete(selected_item)
+            name_of_username = self.tree.item(selected_item, 'values')[0]
+        
+        email = db.cursor.execute("SELECT email FROM users WHERE username= %s", (name_of_username,))
 
         subject = "Group Assigned for Evaluation"
         content = '''\
-            Dear VIP User, 
+            Dear {username} , 
             I've Assigned you this group for evaluation, as they had requested 
             to close the group.  \
-            '''
+            '''.format(username=name_of_username)
         send_email(subject, content, email)
-
-    def select(self):
-        select 
-
 
 if __name__ == "__main__":
     x = Assing_VIP_UI()

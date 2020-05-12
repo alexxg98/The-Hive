@@ -14,27 +14,19 @@ class hexagon(Frame):
         super().__init__()
         self.initUI()
     def initUI(self):
-        self.master.title("Ordinary User")
+        self.master.title("Super User")
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
         name = db.getName()
         rep_score = db.getRepScore()
         tabooCount = db.getTabooCount()
-
         hello = "Hello " + name
-
-        #Put into post file/part later
-        # newScore = repScore.tabooWord(rep_score, count)
-        # db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
-        # count += 1
-        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
         # db.cursor.close()
-
         canvas = Canvas(self)
+
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
-        # heaxagons
         user_select_1 = [674,401,587,351,
                     587,351,500,401,
                     500,401,500,501,
@@ -94,12 +86,10 @@ class hexagon(Frame):
         canvas.create_polygon(s3, fill='white', width=1)
 
         # Left Side Hexagon
-        p1 = [97,388,75,375,
-            75,375,53,388,
-            53,388,53,413,
-            53,413,75,425,
-            75,425,97,413,
-            97,413,97,388]
+        p1 = [100,375,50,375,
+            50,375,50,425,
+            50,425,100,425,
+            100,425,100,375]
         p2 = [97,463,75,450,
             75,450,53,463,
             53,463,53,488,
@@ -117,7 +107,7 @@ class hexagon(Frame):
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
         # Left labels
-        canvas.create_text(125, 400, text = "Black", font = ("Pursia",15),
+        canvas.create_text(125, 400, text = "Black/White", font = ("Pursia",15),
             fill = "white", anchor=W)
         canvas.create_text(125, 475, text = "Pending Users", font = ("Pursia",15),
             fill = "white",anchor=W)
@@ -148,9 +138,9 @@ class hexagon(Frame):
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
         # group Labels
-        canvas.create_text(875, 400, text = "Schedule", font = ("Pursia",15),
+        canvas.create_text(875, 400, text = "Complains", font = ("Pursia",15),
             fill = "white", anchor=E)
-        canvas.create_text(875, 475, text = "Complains", font = ("Pursia",15),
+        canvas.create_text(875, 475, text = "Schedule", font = ("Pursia",15),
             fill = "white", anchor=E)
         canvas.create_text(875, 550, text = "Kick Out", font = ("Pursia",15),
             fill = "white", anchor=E)
@@ -199,10 +189,10 @@ def main():
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
     button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=385)
-    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=460)
-    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=535)
+    button = Button(root, image = photo6, bg="white", bd=0, command=schedule).place(x=909, y=460)
+    button = Button(root, image = photo6, bg="white", bd=0, command=user_in_sys).place(x=909, y=535)
     # Button on left
-    button = Button(root, text="BOX", font='Arial 14 bold',bg='#454b54', fg='#2C92D6', bd=0).place(x=56, y=390)
+    button = Button(root, text="BOX", font='Arial 14 bold', bg='#2C92D6', fg='#f7cc35', bd=0, command=white_black_box).place(x=56, y=390)
     photo7 = PhotoImage(file = r"images/hexx.png")
     button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=pendingUsers).place(x=60, y=460)
     button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=assign_VIP).place(x=60, y=535)
@@ -221,6 +211,12 @@ def assign_VIP():
     os.system('python3 assign_VIP.py')
 def createGroup():
     os.system('python3 createGroup.py')
+def white_black_box():
+    os.system('python3 boxes.py')
+def schedule():
+    os.system('python3 schedule.py')
+def user_in_sys():
+    os.system('python3 usersInSystem.py')
 
 def logOut(root):
     root.destroy()
@@ -229,7 +225,22 @@ def logOut(root):
 def group_page(root):
     root.destroy()
     win = visitor.VisitorPage()
-    win.main()  
+    win.main() 
+
+def ou(self):
+    self.win.destroy()
+    ordUser = ou.main()
+    ordUser.main()
+
+def vip(self):
+    self.win.destroy()
+    vipUser = vip.main()
+    vipUser.main()
+
+def su(self):
+    self.win.destroy()
+    superUser = su.main()
+    superUser.main()
 
 if __name__ == '__main__':
     main()

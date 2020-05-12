@@ -24,5 +24,12 @@ def getTabooCount():
     return (cursor.fetchone()[0])
 
 def getGroupName():
-    cursor.execute()
+    username = 'michael002';
+    cursor.execute("SELECT name FROM projects WHERE username = '%s'",(username,))
     return (cursor.fetchone()[0])
+
+def getGroupRank():
+    groupName = getGroupName
+    cursor.execute("SELECT projRank FROM projects WHERE username = '%s'",(groupName,))
+    return (cursor.fetchone()[0])
+
