@@ -28,21 +28,27 @@ def getTabooCount():
 
 def getGroupName():
     username = getName()
-    cursor.execute("SELECT name FROM projects WHERE username = '%s'", (username,))
+    cursor.execute("SELECT name from projects A\
+            INNER JOIN group_membership B\
+            on A.id = B.group_id where B.username = %s", (username,))
     return cursor.fetchone()[0]
-
 
 def getGroupRank():
-    groupName = getGroupName
-    cursor.execute("SELECT projRank FROM projects WHERE username = '%s'", (groupName,))
+    groupID = getGroupID()
+    cursor.execute("SELECT projRank FROM projects WHERE id = %d",(groupID,))
     return cursor.fetchone()[0]
 
+def getGroupDescription():
+    groupID = getGroupID()
+    cursor.execute("SELECT description FROM projects WHERE id = %d",(groupID,))
+    return cursor.fetchone()[0]
 
 def getGroupID():
     username = getName()
-    cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'" % username)
+    cursor.execute("SELECT id from projects A\
+                INNER JOIN group_membership B\
+                on A.id = B.group_id where B.username = %s", (username,))
     return cursor.fetchone()[0]
-
 
 def getPostCount():
     groupId = getGroupID()
