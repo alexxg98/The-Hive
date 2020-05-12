@@ -78,7 +78,7 @@ class LoginWindow:
             repScore = db.getRepScore()
             if repScore>30:
                 db.cursor.execute("UPDATE users SET user_type = 'VIP' WHERE status = 'ON'")
-            elif repScore <25:
+            elif repScore <25 and repScore>0:
                 db.cursor.execute("UPDATE users SET user_type = 'OU' WHERE status = 'ON'")
 
             # Direct to user page based on type

@@ -12,7 +12,7 @@ class PostDoc:
         self.win.title('Post Updates')
         self.win.configure(bg = "#36393F")
         self.win.geometry('{}x{}'.format(600, 400))
-        
+
         #Get and store user info from database
         name = db.getName()
         groupID = db.getGroupID()
@@ -25,7 +25,7 @@ class PostDoc:
         self.buttons_frame.configure(bg = "black")
         self.buttons_frame.grid(row=0, column=0, sticky=W+E)
 
-        self.btn_Image = Button(self.buttons_frame, text='Image', command = self.add_image)
+        self.btn_Image = Button(self.buttons_frame, text='Clear', command = self.clear)
         self.btn_Image.grid(row=0, column=0, padx=(10), pady=10)
 
         self.btn_File = Button(self.buttons_frame, text='File', command = self.open_file)
@@ -53,10 +53,8 @@ class PostDoc:
         if self.file is not None:
             self.content = self.file.read()
             self.textbox.insert(INSERT, self.content)
-    def add_image(self):
-        self.img = PhotoImage(file = "images/add.png")
-        self.txtbox.image_create(END, image = self.img) # Example 1
-        # self.txtbox.window_create(END, window = Label(txtbox, image = self.img)) # Example 2
+    def clear(self):
+        self.textbox.delete("1.0","end")
     def submit(self, name, groupID, postCount, tabooCount, reputation):
         current_input = self.textbox.get("1.0", END)
         hasTaboo = checkT.check(current_input)

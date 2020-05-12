@@ -52,5 +52,5 @@ def getGroupID():
     
 def getPostCount():
     groupId = getGroupID()
-    cursor.execute("SELECT postid FROM posts WHERE group_id = '%d' ORDER BY postid DESC LIMIT 1" % groupId)
+    cursor.execute("SELECT postid FROM posts WHERE group_id = '%s' ORDER BY postid DESC LIMIT 1" % groupId)
     return cursor.fetchone()[0]

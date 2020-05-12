@@ -173,9 +173,9 @@ def main():
 
     # Main Hex buttons
     photo = PhotoImage(file = r"images/chat.png")
-    left = Button(root, image = photo, bg="#2C92D6", bd=0, command=chatwindow).place(x=365, y=415)
+    left = Button(root, image = photo, bg="#37CAEF", bd=0, command=chatwindow).place(x=365, y=415)
     photo1 = PhotoImage(file = r"images/doc.png")
-    right = Button(root, image = photo1, bg="#37CAEF", bd=0, command=postdoc).place(x=570, y=415)
+    right = Button(root, image = photo1, bg="#2C92D6", bd=0, command=postdoc).place(x=570, y=415)
     photo2 = PhotoImage(file = r"images/social.png")
     top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=lambda:group_page(root)).place(x=465, y=250)
     # Aux buttons
@@ -185,7 +185,7 @@ def main():
     x = Button(root, image = photo4, bg="white", bd=0, command=lambda:logOut(root)).place(x=375, y=325)
     photo5 = PhotoImage(file = r"images/settings.png")
     settings = Button(root, image = photo5, bg="white", bd=0).place(x=596, y=325)
-    
+
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
     button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=385)
@@ -202,30 +202,30 @@ def main():
     root.mainloop()
 
 def chatwindow():
-    os.system('python3 chatwindow.py')
+    os.system('python chatwindow.py')
 def postdoc():
-    os.system('python3 postdoc.py')
+    os.system('python postdoc.py')
 def pendingUsers():
-    os.system('python3 pendingUsers.py')
+    os.system('python pendingUsers.py')
 def assign_VIP():
-    os.system('python3 assign_VIP.py')
+    os.system('python assign_VIP.py')
 def createGroup():
-    os.system('python3 createGroup.py')
+    os.system('python createGroup.py')
 def white_black_box():
-    os.system('python3 boxes.py')
+    os.system('python boxes.py')
 def schedule():
-    os.system('python3 schedule.py')
+    os.system('python schedule.py')
 def user_in_sys():
-    os.system('python3 usersInSystem.py')
+    os.system('python usersInSystem.py')
 
 def logOut(root):
     root.destroy()
     win = visitor.VisitorPage()
-    win.main()  
+    win.main()
+
 def group_page(root):
     root.destroy()
-    win = visitor.VisitorPage()
-    win.main() 
+    os.system('python group_page.py')
 
 def ou(self):
     self.win.destroy()

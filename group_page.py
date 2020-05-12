@@ -18,14 +18,14 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        name = db.getGroupName()
+        group_name = db.getGroupName()
         group_rank = db.getGroupRank()
         group_description =db.getGroupDescription()
         rankDisplay = "Rank: " + str(group_rank)
-        # db.cursor.close()
+        # db.cursor.close()  
         canvas = Canvas(self)
         # Name of group
-        canvas.create_text(100, 50, text = name, font = ("Pursia",25),
+        canvas.create_text(100, 50, text = group_name, font = ("Pursia",25),
             fill = "#7289DB")
         # display group rank
         canvas.create_text(100, 100, text = rankDisplay, font = ("Pursia",15),
@@ -36,6 +36,7 @@ class hexagon(Frame):
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
                 # Box for the blog
+        # rectangle
         user_select_1 = [783,117,217,117,
             217,117,217,683,
             217,683,783,683,
@@ -123,12 +124,34 @@ class hexagon(Frame):
 def main():
     root = Tk()
     frame = hexagon()
-    
+
+    posts = Text(root, height = 38, width = 70)
+    posts.place(x = 250, y = 147)
+    quote = """sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample.
+    sample sample sample sample sample."""
+
+    posts.insert(END, quote)
+
     # Button on left
     photo7 = PhotoImage(file = r"images/hexx.png")
     button = Button(root, image = photo7, bg='#2C92D6',  bd=0, command=polls).place(x=60, y=385)
     button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=user_in_group).place(x=60, y=460)
-    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=back_bnt(root)).place(x=60, y=535)
+    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=lambda:back_bnt(root)).place(x=60, y=535)
 
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
@@ -161,21 +184,18 @@ def back_bnt(root):
         vip(root)
     elif acct_type == "SU":
         su(root)
-   
+
 def ou(root):
-    root.win.destroy()
-    ordUser = ou.main()
-    ordUser.main()
+    root.destroy()
+    os.system('python3 ou.py')
 
 def vip(root):
-    root.win.destroy()
-    vipUser = vip.main()
-    vipUser.main()
+    root.destroy()
+    os.system('python3 vip.py')
 
 def su(root):
-    root.win.destroy()
-    superUser = su.main()
-    superUser.main()
+    root.destroy()
+    os.system('python3 su.py')
 
 
 if __name__ == '__main__':
