@@ -22,7 +22,7 @@ class hexagon(Frame):
         rep_score = db.getRepScore()
         tabooCount = db.getTabooCount()
         hello = "Hello " + name
-        scoreDisplay = "Reputation Score: " + str(rep_score)
+#         scoreDisplay = "Reputation Score: " + str(rep_score)
         # db.cursor.close()
         canvas = Canvas(self)
 
@@ -162,9 +162,9 @@ class hexagon(Frame):
         # greeting for user
         canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
             fill = "#7289DB")
-        # display user score
-        canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
-            fill = "#7289DB")
+#         # display user score
+#         canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
+#             fill = "#7289DB")
 
 
 def main():
