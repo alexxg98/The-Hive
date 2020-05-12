@@ -34,7 +34,7 @@ try:
     proj2 = db.cursor.fetchone()[0]
 except:
     proj2 = "NULL"
-    
+
 # Class to create the hexagon framework
 class hexagon(Frame):
     def __init__(self):
@@ -190,7 +190,7 @@ def main():
     photo2 = PhotoImage(file = r"images/doc.png")
     button2 = Button(root, image = photo2, bg="#37CAEF", bd=0, command=postdoc).place(x=567, y=230)
     photo3 = PhotoImage(file = r"images/social.png")
-    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command=group_page).place(x=465, y=390)
+    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command = boxes).place(x=465, y=390)
     # photo4 = PhotoImage(file = r"images\add.png")
     # button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
     # photo5 = PhotoImage(file = r"images\x.png")
@@ -201,7 +201,7 @@ def main():
     # Button on right
     photo7 = PhotoImage(file = r"images/hex.png")
     button8 = Button(root, image = photo7, bg="white", bd=0, command = createGroup).place(x=760, y=385)
-    button9 = Button(root, image = photo7, bg="white", bd=0).place(x=760, y=460)
+    button9 = Button(root, image = photo7, bg="white", bd=0, command = lambda: voting(root)).place(x=760, y=460)
     button10 = Button(root, image = photo7, bg="white", bd=0, command = lambda: logout(root)).place(x=760, y=535)
 
         # Button on left
@@ -210,7 +210,7 @@ def main():
     button11 = Button(root, image = photo8, bg="#3EDAD8", bd=0, command = lambda: group_page(proj2)).place(x=60, y=460)
     invite_img = PhotoImage(file = r"images/invites.png")
     invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
-    
+
     invite_img = PhotoImage(file = r"images/invites.png")
     invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = invitepage).place(x=820, y=30)
 
@@ -220,16 +220,20 @@ def main():
 
 def chatwindow():
     os.system('python chatwindow.py')
-    
+
 def postdoc():
     os.system('python postdoc.py')
-    
+
+def boxes():
+    os.system('python boxes.py')
+
 def group_page(group_name):
     #track which group page is being viewed at the moment
     db.cursor.execute("UPDATE projects SET viewing = NULL")
     db.cursor.execute("UPDATE projects SET viewing = 'ON' where name = '%s'" % group_name)
     os.system('python group_page.py')
-
+def voting(root):
+    os.system('python voting.py')
 def logout(root):
     root.destroy()
     os.system('python visitor.py')
