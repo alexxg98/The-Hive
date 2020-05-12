@@ -73,6 +73,13 @@ class LoginWindow:
             # Keep track of which user is logged in on this device
             db.cursor.execute("UPDATE users SET status = NULL")
             db.cursor.execute("UPDATE users SET status = 'ON' where username = '%s'" % username)
+            
+            #check repScore and change if neccessary
+            repScore = db.getRepScore()
+            if repScore>30:
+                db.cursor.execute("UPDATE users SET user_type = 'VIP' WHERE status = 'ON'")
+            elif repScore <25:
+                db.cursor.execute("UPDATE users SET user_type = 'OU' WHERE status = 'ON'")
 
             # Direct to user page based on type
             db.cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
