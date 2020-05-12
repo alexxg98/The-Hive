@@ -36,6 +36,8 @@ class SchedulePage:
         self.create = Button(self.frame, text="Create", command=self.add)
         self.view = Button(self.frame, text="View Schedule", command=self.printSchedule)
         self.delete = Button(self.frame, text="Clear Schedule", command=self.deleteAll)
+        self.groupEntry = Entry(self.frame, width=15, textvariable=self.group)
+        self.dateEntry = Entry(self.frame, width=15, textvariable=self.date)
 
     def main(self):
         self.canvas.pack(expand=TRUE, fill=BOTH)
@@ -43,8 +45,10 @@ class SchedulePage:
         Label(self.frame, text="Add Group, Date, and Time:", bg="#454b54", fg="#f7cc35",
               font="Arial 10 bold").grid(row=0, column=0, columnspan=4)
 
-        Entry(self.frame, width=15, textvariable=self.group).grid(row=1, column=0)
-        Entry(self.frame, width=15, textvariable=self.date).grid(row=1, column=1)
+        self.groupEntry.grid(row=1, column=0)
+        self.groupEntry.insert(0, '-Group Name-')
+        self.dateEntry.grid(row=1, column=1)
+        self.dateEntry.insert(0, '-Date Name-')
 
         self.TimeStartDrop.grid(row=1, column=2)
         self.TimeEndDrop.grid(row=1, column=3)
