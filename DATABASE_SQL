@@ -29,6 +29,7 @@ CREATE TABLE projects(
     description VARCHAR(50) NOT NULL,
     creator VARCHAR(25),
     projRank INT,
+    viewing VARCHAR(5) DEFAULT NULL,
     FOREIGN KEY(creator) REFERENCES users(username)
 );
 
