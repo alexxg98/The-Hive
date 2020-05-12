@@ -33,3 +33,12 @@ def getGroupRank():
     cursor.execute("SELECT projRank FROM projects WHERE username = '%s'",(groupName,))
     return (cursor.fetchone()[0])
 
+def getGroupID():
+    username = getName()
+    cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%username)
+    return (cursor.fetchone()[0])
+
+def getPostCount():
+    groupid = getGroupID()
+    cursor.execute("SELECT postid FROM posts WHERE group_id = '%d' ORDER BY postid DESC LIMIT 1"%groupid)
+    return (cursor.fetchone()[0])

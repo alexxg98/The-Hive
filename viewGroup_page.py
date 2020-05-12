@@ -37,22 +37,27 @@ class viewProject:
         self.canvas = Canvas(self.win, bg='white')
         self.banner = Label(self.canvas, bg = "black", height = 4, width = 600)
 
+        self.usersBanner = Label(self.canvas, bg = "black", height = 21, width = 30)
+        self.groupBanner = Label(self.canvas, bg = "black", height = 21, width = 70)
         self.project = Label(self.canvas, text = projName,
-                        font="Arial 20 bold", bg = 'white')
-        # place holder for top 3 projects
-        self.project1 = Button(self.canvas, text=user1, font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
-        self.project2 = Button(self.canvas, text=user2, font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
-        self.project3 = Button(self.canvas, text=user3, font='Arial 20 bold', bg='white', fg="black", width = 30, height = 2)
+                        font="Arial 20 bold", bg = 'black', fg="white")
+
+        self.project1 = Button(self.canvas, text=user1, font='Arial 15 bold', bg='white', fg="black", width = 30, height = 2)
+        self.project2 = Button(self.canvas, text=user2, font='Arial 15 bold', bg='white', fg="black", width = 30, height = 2)
+        self.project3 = Button(self.canvas, text=user3, font='Arial 15 bold', bg='white', fg="black", width = 30, height = 2)
         self.back = PhotoImage(file = r"images/back.png")
         self.backButton = Button(self.canvas, image = self.back, command = self.visitor, bd = 0, bg = "black")
 
     def main(self):
         self.canvas.pack(expand=TRUE, fill=BOTH)
-        self.project.place(x = 50, y = 380)
+        self.project.place(x = 70, y = 250)
         self.banner.place(x = 0, y= 0)
-        self.project1.place(x = 380, y = 150)
-        self.project2.place(x = 380, y = 250)
-        self.project3.place(x = 380, y = 350)
+        self.usersBanner.place(x = 30, y = 120)
+        self.groupBanner.place(x = 280, y = 120)
+
+        self.project1.place(x = 350, y = 150)
+        self.project2.place(x = 350, y = 250)
+        self.project3.place(x = 350, y = 350)
         self.backButton.place(x = 20, y = 20)
 
         self.win.mainloop()
