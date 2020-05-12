@@ -18,14 +18,21 @@ class hexagon(Frame):
         self.pack(fill=BOTH, expand=TRUE)
 
         #Get and store user info from database
-        # name = db.getGroupName()
-        # group_rank = db.getGroupRank(name)
-        # group_description =db.getGroupDescription(name)
-        # hello = "Hello " + name
-        # rankDisplay = "Rank: " + str(group_rank)
-        # description = str(group_description)
+        name = db.getGroupName()
+        group_rank = db.getGroupRank()
+        group_description =db.getGroupDescription()
+        rankDisplay = "Rank: " + str(group_rank)
         # db.cursor.close()
         canvas = Canvas(self)
+        # Name of group
+        canvas.create_text(100, 50, text = name, font = ("Pursia",25),
+            fill = "#7289DB")
+        # display group rank
+        canvas.create_text(100, 100, text = rankDisplay, font = ("Pursia",15),
+            fill = "#7289DB")
+        # Display description
+        canvas.create_text(100, 125, text = group_description, font = ("Pursia",15),
+            fill = "#7289DB")
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
                 # Box for the blog
@@ -113,16 +120,6 @@ class hexagon(Frame):
             canvas.itemconfig('timer', text = s)
             self.after(100, time_now)
         time_now()
-        # greeting for user
-        # canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
-        #     fill = "#7289DB")
-        # # display group rank
-        # canvas.create_text(120, 100, text = rankDisplay, font = ("Pursia",15),
-        #     fill = "#7289DB")
-        # # Display description
-        # canvas.create_text(120, 100, text = description, font = ("Pursia",15),
-        #     fill = "#7289DB")
-
 def main():
     root = Tk()
     frame = hexagon()
@@ -131,7 +128,7 @@ def main():
     photo7 = PhotoImage(file = r"images/hexx.png")
     button = Button(root, image = photo7, bg='#2C92D6',  bd=0, command=polls).place(x=60, y=385)
     button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=user_in_group).place(x=60, y=460)
-    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=lambda:back_bnt(root)).place(x=60, y=535)
+    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=back_bnt(root)).place(x=60, y=535)
 
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
@@ -150,7 +147,7 @@ def postdoc():
 def schedule():
     os.system('python3 schedule.py')
 def user_in_group():
-    os.system('python3 usersInSystem.py')
+    os.system('python3 usersInGroup.py')
 def polls():
     os.system('python3 polling.py')
 

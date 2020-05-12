@@ -98,7 +98,6 @@ class Assing_VIP_UI:
         # print(name_of_username)
         selected_label +=  name_of_username 
 
-
     def assign(self):
         for selected_item in self.list.selection():
             name_of_group = self.list.item(selected_item, 'values')[1]

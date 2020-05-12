@@ -13,7 +13,7 @@ class SuperUser:
         self.win.title("The Hive")
         self.win.geometry('{}x{}'.format(700, 400))
         self.canvas = Canvas(self.win, bg='#454b54')
-        self.widget = Label(self.canvas, text='Select User to kick out: ', font='Arial 15 bold',fg='white', bg='#454b54')
+        self.widget = Label(self.canvas, text='Users in Group: ', font='Arial 15 bold',fg='white', bg='#454b54')
         self.close_btn = Button(self.canvas, text="Close", font='Arial 15 bold', bg='#454b54',
                                    fg="#f7cc35", command=quit)
         self.list = Treeview(self.canvas, columns=(1, 2, 3, 4, 5), show="headings", height="15")
@@ -31,13 +31,15 @@ class SuperUser:
         self.list.heading(4, text="Type")
         self.list.column(4, width=50)
 
-        db.cursor.execute('SELECT * FROM group_membership')
+        groupID = db.getGroupID()
+        db.cursor.execute("SELECT A.username,email,reputation_score,user_type FROM users A\
+                     JOIN group_membership B on A.username = B.username where B.group_id =%s",(groupID,))
+
         for row in db.cursor.fetchall():
             self.list.insert('', END, values=row)
 
         self.close_btn.pack(expand=TRUE)        
         self.win.mainloop()
-
 
 if __name__ == "__main__":
     x = SuperUser()
