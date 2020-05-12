@@ -9,6 +9,31 @@ import reputationScore as repScore
 import db
 import visitor
 
+#Gloabl Variables
+#Get and store user info from database
+name = db.getName()
+rep_score = db.getRepScore()
+tabooCount = db.getTabooCount()
+
+# Get group id that user is in
+db.cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%name)
+#store all project id in array
+projList = []
+for row in db.cursor:
+    projList.append(row)
+
+##Store proj name in variable if exist; can add more spots if needed using more try/catch blocks
+try:
+    db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
+    proj1 = db.cursor.fetchone()[0]
+except:
+    proj1 = "NULL"
+
+try:
+    db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[1])
+    proj2 = db.cursor.fetchone()[0]
+except:
+    proj2 = "NULL"
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -19,46 +44,9 @@ class hexagon(Frame):
         self.master.title("Ordinary User")
         self.pack(fill=BOTH, expand=TRUE)
 
-        #Get and store user info from database
-        name = db.getName()
-        rep_score = db.getRepScore()
-        tabooCount = db.getTabooCount()
-
         hello = "Hello " + name
 
-        #Put into post file/part later
-        # newScore = repScore.tabooWord(rep_score, count)
-        # db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
-        # count += 1
-        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
-
-        # Get group id that user is in
-        db.cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%name)
-        #store all project id in array
-        projList = []
-        for row in db.cursor:
-            projList.append(row)
-
-        ##Store proj name in variable if exist
-        try:
-            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
-            proj1 = db.cursor.fetchone()[0]
-        except:
-            proj1 = "NULL"
-
-        try:
-            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[1])
-            proj2 = db.cursor.fetchone()[0]
-        except:
-            proj2 = "NULL"
-        # try:
-        #     db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[2])
-        #     proj3 = db.cursor.fetchone()[0]
-        # except:
-        #     proj3 = "NULL"
-
-        db.cursor.close()
 
         canvas = Canvas(self)
         user_select_1 = [500,200,413,150,
@@ -185,7 +173,7 @@ def main():
     photo2 = PhotoImage(file = r"images\doc.png")
     button2 = Button(root, image = photo2, bg="#37CAEF", bd=0, command=postdoc).place(x=567, y=230)
     photo3 = PhotoImage(file = r"images\social.png")
-    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command=group_page).place(x=465, y=390)
+    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0).place(x=465, y=390)
     # photo4 = PhotoImage(file = r"images\add.png")
     # button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
     # photo5 = PhotoImage(file = r"images\x.png")
@@ -200,12 +188,12 @@ def main():
 
     # Button on left
     photo8 = PhotoImage(file = r"images/hexx.png")
-    button10 = Button(root, image = photo8, bg="#2C92D6", bd=0).place(x=60, y=385)
-    button11 = Button(root, image = photo8, bg="#3EDAD8", bd=0).place(x=60, y=460)
+    button10 = Button(root, image = photo8, bg="#2C92D6", bd=0, command = lambda: group_page(proj1)).place(x=60, y=385)
+    button11 = Button(root, image = photo8, bg="#3EDAD8", bd=0, command = lambda: group_page(proj2)).place(x=60, y=460)
     invite_img = PhotoImage(file = r"images/invites.png")
     invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
 
-    root.geometry("1000x800")
+    root.geometry("1000x700")
     root.resizable(False, False)
     root.mainloop()
 
@@ -216,7 +204,10 @@ def postdoc():
     os.system('python postdoc.py')
 
 def group_page():
-    os.system('python group_page')
+    #track which group page is being viewed at the moment
+    db.cursor.execute("UPDATE projects SET viewing = NULL")
+    db.cursor.execute("UPDATE projects SET viewing = 'ON' where name = '%s'" % group_name)
+    os.system('python group_page.py')
 
 def logout(root):
     root.destroy()
