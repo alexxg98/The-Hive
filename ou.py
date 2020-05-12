@@ -203,7 +203,7 @@ def chatwindow():
 def postdoc():
     os.system('python postdoc.py')
 
-def group_page():
+def group_page(group_name):
     #track which group page is being viewed at the moment
     db.cursor.execute("UPDATE projects SET viewing = NULL")
     db.cursor.execute("UPDATE projects SET viewing = 'ON' where name = '%s'" % group_name)
