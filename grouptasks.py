@@ -6,8 +6,9 @@ import db
 
 
 def inputUsers():
-    # get all users from current group (unresolved issue)
-    db.cursor.execute('SELECT username FROM group_membership WHERE group_id = %s', (1, ))
+    # get all users from current group to put into combobox for assigned users
+    groupId = db.getGroupID()
+    db.cursor.execute('SELECT username FROM group_membership WHERE group_id = %s', (groupId, ))
     data = ["-Assigned User-"]
     for row in db.cursor.fetchall():
         data.append(row[0])

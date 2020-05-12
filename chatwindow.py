@@ -29,10 +29,13 @@ def savelog():
     chatMessages = messages.get("1.0", END)
     with open(filename, 'w') as file:
             file.write(chatMessages)
-# clear contents of chat_log.txt
+# clear contents of chat_log.txt and chat window
 def clear_log():
     file = open(filename, 'w+')
     file.truncate(0)
+    messages.configure(state='normal')
+    messages.delete(1.0, END)
+    messages.configure(state='disabled')
 
 
 window = Tk()

@@ -9,6 +9,31 @@ import reputationScore as repScore
 import db
 import visitor
 
+#Gloabl Variables
+#Get and store user info from database
+name = db.getName()
+rep_score = db.getRepScore()
+tabooCount = db.getTabooCount()
+
+# Get group id that user is in
+db.cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%name)
+#store all project id in array
+projList = []
+for row in db.cursor:
+    projList.append(row)
+
+##Store proj name in variable if exist; can add more spots if needed using more try/catch blocks
+try:
+    db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
+    proj1 = db.cursor.fetchone()[0]
+except:
+    proj1 = "NULL"
+
+try:
+    db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[1])
+    proj2 = db.cursor.fetchone()[0]
+except:
+    proj2 = "NULL"
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -16,49 +41,12 @@ class hexagon(Frame):
         super().__init__()
         self.initUI()
     def initUI(self):
-        self.master.title("Ordinary User")
+        self.master.title("VIP User")
         self.pack(fill=BOTH, expand=TRUE)
-
-        #Get and store user info from database
-        name = db.getName()
-        rep_score = db.getRepScore()
-        tabooCount = db.getTabooCount()
 
         hello = "Hello " + name
 
-        #Put into post file/part later
-        # newScore = repScore.tabooWord(rep_score, count)
-        # db.cursor.execute("UPDATE users SET reputation_score = '%d' WHERE status = 'ON'" %newScore)
-        # count += 1
-        # db.cursor.execute("UPDATE users SET taboo_count = '%d' WHERE status = 'ON'" %tabooCount)
         scoreDisplay = "Reputation Score: " + str(rep_score)
-
-        # Get group id that user is in
-        db.cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%name)
-        #store all project id in array
-        projList = []
-        for row in db.cursor:
-            projList.append(row)
-
-        ##Store proj name in variable if exist
-        try:
-            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[0])
-            proj1 = db.cursor.fetchone()[0]
-        except:
-            proj1 = "NULL"
-
-        try:
-            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[1])
-            proj2 = db.cursor.fetchone()[0]
-        except:
-            proj2 = "NULL"
-        try:
-            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[2])
-            proj3 = db.cursor.fetchone()[0]
-        except:
-            proj3 = "NULL"
-
-        db.cursor.close()
 
         canvas = Canvas(self)
         user_select_1 = [500,200,413,150,
@@ -102,15 +90,15 @@ class hexagon(Frame):
               55,484,75,495,
               75,495,95,484,
               95,484,95,466]
-        p3 = [95,541,75,530,
-              75,530,55,541,
-              55,541,55,559,
-              55,559,75,570,
-              75,570,95,559,
-              95,559,95,541]
+#         p3 = [95,541,75,530,
+#               75,530,55,541,
+#               55,541,55,559,
+#               55,559,75,570,
+#               75,570,95,559,
+#               95,559,95,541]
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
-        canvas.create_polygon(p3,fill='#3EDAD8', width=1)
+#         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
 
         # hexagon for user select
         s1 = [520,167,500,156,
@@ -138,8 +126,8 @@ class hexagon(Frame):
             fill = "white")
         canvas.create_text(150, 475, text = proj2, font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(150, 550, text = proj3, font = ("Pursia",15),
-            fill = "white")
+#         canvas.create_text(150, 550, text = proj3, font = ("Pursia",15),
+#             fill = "white")
         # hexagon for groups
         g1 = [795,391,775,380,
               775,380,755,391,
@@ -153,15 +141,15 @@ class hexagon(Frame):
               755,484,775,495,
               775,495,795,484,
               795,484,795,466]
-        g3 = [795,541,775,530,
-              775,530,755,541,
-              755,541,755,559,
-              755,559,775,570,
-              775,570,795,559,
-              795,559,795,541]
+#         g3 = [795,541,775,530,
+#               775,530,755,541,
+#               755,541,755,559,
+#               755,559,775,570,
+#               775,570,795,559,
+#               795,559,795,541]
         canvas.create_polygon(g1, fill='white', width=1)
         canvas.create_polygon(g2, fill='white', width=1)
-        canvas.create_polygon(g3, fill='white', width=1)
+#         canvas.create_polygon(g3, fill='white', width=1)
 
         canvas.create_text(870, 400, text = "Create Group", font = ("Pursia",15),
             fill = "white")
@@ -202,7 +190,7 @@ def main():
     photo2 = PhotoImage(file = r"images/doc.png")
     button2 = Button(root, image = photo2, bg="#37CAEF", bd=0, command=postdoc).place(x=567, y=230)
     photo3 = PhotoImage(file = r"images/social.png")
-    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command=group_page).place(x=465, y=390)
+    button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command = boxes).place(x=465, y=390)
     # photo4 = PhotoImage(file = r"images\add.png")
     # button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
     # photo5 = PhotoImage(file = r"images\x.png")
@@ -213,8 +201,15 @@ def main():
     # Button on right
     photo7 = PhotoImage(file = r"images/hex.png")
     button8 = Button(root, image = photo7, bg="white", bd=0, command = createGroup).place(x=760, y=385)
-    button9 = Button(root, image = photo7, bg="white", bd=0).place(x=760, y=460)
+    button9 = Button(root, image = photo7, bg="white", bd=0, command = lambda: voting(root)).place(x=760, y=460)
     button10 = Button(root, image = photo7, bg="white", bd=0, command = lambda: logout(root)).place(x=760, y=535)
+
+        # Button on left
+    photo8 = PhotoImage(file = r"images/hexx.png")
+    button10 = Button(root, image = photo8, bg="#2C92D6", bd=0, command = lambda: group_page(proj1)).place(x=60, y=385)
+    button11 = Button(root, image = photo8, bg="#3EDAD8", bd=0, command = lambda: group_page(proj2)).place(x=60, y=460)
+    invite_img = PhotoImage(file = r"images/invites.png")
+    invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
 
     invite_img = PhotoImage(file = r"images/invites.png")
     invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = invitepage).place(x=820, y=30)
@@ -225,11 +220,20 @@ def main():
 
 def chatwindow():
     os.system('python chatwindow.py')
+
 def postdoc():
     os.system('python postdoc.py')
-def group_page():
-    os.system('python group_page')
 
+def boxes():
+    os.system('python boxes.py')
+
+def group_page(group_name):
+    #track which group page is being viewed at the moment
+    db.cursor.execute("UPDATE projects SET viewing = NULL")
+    db.cursor.execute("UPDATE projects SET viewing = 'ON' where name = '%s'" % group_name)
+    os.system('python group_page.py')
+def voting(root):
+    os.system('python voting.py')
 def logout(root):
     root.destroy()
     os.system('python visitor.py')
