@@ -11,6 +11,8 @@ import visitor
 #Global variables
 #Get group info
 group_name = db.getGroupName()
+db.cursor.execute("SELECT id FROM projects WHERE viewing = 'ON'")
+groupid = db.cursor.fetchone()[0]
 group_rank = db.getGroupRank()
 group_description =db.getGroupDescription()
 
