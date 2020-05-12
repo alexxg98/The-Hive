@@ -3,10 +3,7 @@ import datetime
 import sys
 import os
 import mysql.connector
-import reputationScore as repScore
 import db
-import visitor
-# import welcome
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -14,17 +11,27 @@ class hexagon(Frame):
         super().__init__()
         self.initUI()
     def initUI(self):
+        # UI bckground Settings
+        canvas = Canvas(self)
         self.master.title("Super User")
         self.pack(fill=BOTH, expand=TRUE)
+        canvas.pack(fill=BOTH, expand=1)
+        canvas.configure(bg='#36393F')
 
         #Get and store user info from database
         name = db.getName()
         rep_score = db.getRepScore()
         tabooCount = db.getTabooCount()
         hello = "Hello " + name
-#         scoreDisplay = "Reputation Score: " + str(rep_score)
+        scoreDisplay = "Reputation Score: " + str(rep_score)
         # db.cursor.close()
-        canvas = Canvas(self)
+
+         # greeting for user
+        canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
+            fill = "#7289DB")
+        # display user score
+        canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
+            fill = "#7289DB")
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
         user_select_1 = [674,401,587,351,
@@ -145,8 +152,6 @@ class hexagon(Frame):
         canvas.create_text(875, 550, text = "Kick Out", font = ("Pursia",15),
             fill = "white", anchor=E)
 
-        canvas.pack(fill=BOTH, expand=1)
-        canvas.configure(bg='#36393F')
         # display date
         date = datetime.datetime.now()
         current_date = date.strftime("%B %d")
@@ -159,14 +164,7 @@ class hexagon(Frame):
             canvas.itemconfig('timer', text = s)
             self.after(100, time_now)
         time_now()
-        # greeting for user
-        canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
-            fill = "#7289DB")
-#         # display user score
-#         canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
-#             fill = "#7289DB")
-
-
+       
 def main():
     root = Tk()
     frame = hexagon()

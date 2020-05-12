@@ -69,14 +69,14 @@ class Assing_VIP_UI:
             self.tree.insert('', END, values=row)
 
         Button(self.frame, text="Select Group",font='Arial 15 bold', bg='#454b54',
-            fg="#f7cc35", command=lambda:get_group).grid(row=2, column=0, sticky = N, pady = 2)
+            fg="#f7cc35", command=self.get_group).grid(row=2, column=0, sticky = N, pady = 2)
         Button(self.frame, text="Select VIP user", font='Arial 15 bold', bg='#454b54',
             fg="#f7cc35", command=self.get_user).grid(row=2, column=1, sticky = N, pady = 2)
         Button(self.frame, text="ASSIGN",font='Arial 15 bold', bg='black',
             fg="red", command=self.assign).grid(row=3, column=1, pady = 2)
 
-        # group = get_group()
-        # username = get_user()
+        group = get_group()
+        username = get_user()
         
         selected_label = "Selected User: " 
         Label(self.frame, text=selected_label, bg="#454b54", fg="white",
@@ -88,15 +88,15 @@ class Assing_VIP_UI:
         global selected_label
         for selected_item in self.list.selection():
             name_of_group = self.list.item(selected_item, 'values')[1]
-        # print(name_of_group)
-        selected_label +=  name_of_group 
+        print(name_of_group)
+        # selected_label +=  name_of_group 
             
     def get_user(self):
         global selected_label
         for selected_item in self.tree.selection():
             name_of_username = self.tree.item(selected_item, 'values')[0]
         # print(name_of_username)
-        selected_label +=  name_of_username 
+        # selected_label +=  name_of_username 
 
     def assign(self):
         for selected_item in self.list.selection():

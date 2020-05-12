@@ -3,27 +3,28 @@ import datetime
 import sys
 import os
 import mysql.connector
-import reputationScore as repScore
 import db
-import visitor
-# import welcome
 
 # Class to create the hexagon framework
 class UI(Frame):
     def __init__(self):
         super().__init__()
         self.initUI()
+        
     def initUI(self):
+        # UI settings
+        canvas = Canvas(self)
         self.master.title("Super User")
         self.pack(fill=BOTH, expand=TRUE)
-
+        canvas.pack(fill=BOTH, expand=1)
+        canvas.configure(bg='#36393F')
+        
         #Get and store user info from database
         group_name = db.getGroupName()
         group_rank = db.getGroupRank()
         group_description =db.getGroupDescription()
         rankDisplay = "Rank: " + str(group_rank)
         # db.cursor.close()  
-        canvas = Canvas(self)
         # Name of group
         canvas.create_text(100, 50, text = group_name, font = ("Pursia",25),
             fill = "#7289DB")
@@ -35,12 +36,11 @@ class UI(Frame):
             fill = "#7289DB")
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
-                # Box for the blog
-        # rectangle
+        # rectangleBox for the blog
         user_select_1 = [783,117,217,117,
-            217,117,217,683,
-            217,683,783,683,
-            783,683,783,117]
+                        217,117,217,683,
+                        217,683,783,683,
+                        783,683,783,117]
 
         canvas.create_polygon(user_select_1, outline='black',
             fill='#2C92D6', width=2)
@@ -106,9 +106,7 @@ class UI(Frame):
             fill = "white", anchor=E)
         canvas.create_text(875, 550, text = "Post Docs", font = ("Pursia",15),
             fill = "white", anchor=E)
-
-        canvas.pack(fill=BOTH, expand=1)
-        canvas.configure(bg='#36393F')
+        
         # display date
         date = datetime.datetime.now()
         current_date = date.strftime("%B %d")
@@ -121,6 +119,7 @@ class UI(Frame):
             canvas.itemconfig('timer', text = s)
             self.after(100, time_now)
         time_now()
+        
 def main():
     root = Tk()
     frame = UI()
