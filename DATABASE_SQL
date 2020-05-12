@@ -75,7 +75,6 @@ CREATE TABLE posts(
     group_id INT NOT NULL,
     username VARCHAR(25),
     content VARCHAR(225) NOT NULL,
-    FOREIGN KEY(group_id) REFERENCES projects(id)
+    FOREIGN KEY(group_id) REFERENCES projects(id),
     FOREIGN KEY(username) REFERENCES users(username)
-    
-)
+);
