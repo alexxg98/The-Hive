@@ -7,6 +7,10 @@ import mysql.connector
 
 import reputationScore as repScore
 import db
+import visitor
+import createGroup
+import schedule
+
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -159,11 +163,11 @@ class hexagon(Frame):
         canvas.create_polygon(g1, fill='white', width=1)
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
-        canvas.create_text(850, 400, text = "Group 1", font = ("Pursia",15),
+        canvas.create_text(870, 400, text = "Create Group", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 475, text = "Group 2", font = ("Pursia",15),
+        canvas.create_text(850, 475, text = "Schedule", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 550, text = "Group 3", font = ("Pursia",15),
+        canvas.create_text(850, 550, text = "Logout", font = ("Pursia",15),
             fill = "white")
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
@@ -187,7 +191,7 @@ class hexagon(Frame):
         # My Projects
         canvas.create_text(120, 340, text = "MY PROJECTS", font = ("Pursia",15),
             fill = "#7289DB")
-        canvas.create_text(815, 340, text = "MY GROUPS", font = ("Pursia",15),
+        canvas.create_text(815, 340, text = "TASKS", font = ("Pursia",15),
             fill = "#7289DB")
 
 def main():
@@ -206,6 +210,12 @@ def main():
     button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
     photo6 = PhotoImage(file = r"images\settings.png")
     button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
+    # Button on right
+    photo7 = PhotoImage(file = r"images/hex.png")
+    button8 = Button(root, image = photo7, bg="white", bd=0, command = lambda:createGroup(root)).place(x=760, y=385)
+    button9 = Button(root, image = photo7, bg="white", bd=0, command = lambda:schedule(root)).place(x=760, y=460)
+    button10 = Button(root, image = photo7, bg="white", bd=0, command = lambda: logout(root)).place(x=760, y=535)
+
     root.geometry("1000x800")
     root.resizable(False, False)
     root.mainloop()
@@ -216,6 +226,19 @@ def postdoc():
     os.system('python postdoc.py')
 def group_page():
     os.system('python group_page')
+
+def logout(root):
+    root.destroy()
+    logout = visitor.VisitorPage()
+    logout.main()
+def schedule(root):
+    root.destroy()
+    schedule = schedule.SchedulePage()
+    schedule.main()
+def createGroup(root):
+    root.destroy()
+    create = createGroup.CreateGroup()
+    create.main()
 
 if __name__ == '__main__':
     main()
