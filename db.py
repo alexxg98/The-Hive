@@ -13,32 +13,38 @@ cursor = db.cursor()
 
 def getName():
     cursor.execute("SELECT username FROM users WHERE status = 'ON'")
-    return (cursor.fetchone()[0])
+    return cursor.fetchone()[0]
+
 
 def getRepScore():
     cursor.execute("SELECT reputation_score FROM users WHERE status = 'ON'")
-    return (cursor.fetchone()[0])
+    return cursor.fetchone()[0]
+
 
 def getTabooCount():
     cursor.execute("SELECT taboo_count FROM users WHERE status = 'ON'")
-    return (cursor.fetchone()[0])
+    return cursor.fetchone()[0]
+
 
 def getGroupName():
-    username = 'michael002';
-    cursor.execute("SELECT name FROM projects WHERE username = '%s'",(username,))
-    return (cursor.fetchone()[0])
+    username = getName()
+    cursor.execute("SELECT name FROM projects WHERE username = '%s'", (username,))
+    return cursor.fetchone()[0]
+
 
 def getGroupRank():
     groupName = getGroupName
-    cursor.execute("SELECT projRank FROM projects WHERE username = '%s'",(groupName,))
-    return (cursor.fetchone()[0])
+    cursor.execute("SELECT projRank FROM projects WHERE username = '%s'", (groupName,))
+    return cursor.fetchone()[0]
+
 
 def getGroupID():
     username = getName()
-    cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'"%username)
-    return (cursor.fetchone()[0])
+    cursor.execute("SELECT group_id FROM group_membership WHERE username = '%s'" % username)
+    return cursor.fetchone()[0]
+
 
 def getPostCount():
-    groupid = getGroupID()
-    cursor.execute("SELECT postid FROM posts WHERE group_id = '%d' ORDER BY postid DESC LIMIT 1"%groupid)
-    return (cursor.fetchone()[0])
+    groupId = getGroupID()
+    cursor.execute("SELECT postid FROM posts WHERE group_id = '%d' ORDER BY postid DESC LIMIT 1" % groupId)
+    return cursor.fetchone()[0]
