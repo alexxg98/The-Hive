@@ -188,11 +188,9 @@ class hexagon(Frame):
         # display user score
         canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
             fill = "#7289DB")
-        # My Projects
         canvas.create_text(120, 340, text = "MY PROJECTS", font = ("Pursia",15),
             fill = "#7289DB")
-        canvas.create_text(815, 340, text = "TASKS", font = ("Pursia",15),
-            fill = "#7289DB")
+
 
 def main():
     root = Tk()
@@ -210,11 +208,15 @@ def main():
     button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
     photo6 = PhotoImage(file = r"images\settings.png")
     button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
+
     # Button on right
     photo7 = PhotoImage(file = r"images/hex.png")
     button8 = Button(root, image = photo7, bg="white", bd=0, command = lambda:createGroup(root)).place(x=760, y=385)
     button9 = Button(root, image = photo7, bg="white", bd=0, command = lambda:schedule(root)).place(x=760, y=460)
     button10 = Button(root, image = photo7, bg="white", bd=0, command = lambda: logout(root)).place(x=760, y=535)
+
+    invite_img = PhotoImage(file = r"images/invites.png")
+    invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
 
     root.geometry("1000x800")
     root.resizable(False, False)
@@ -229,16 +231,19 @@ def group_page():
 
 def logout(root):
     root.destroy()
-    logout = visitor.VisitorPage()
-    logout.main()
+    os.system('python visitor.py')
+
 def schedule(root):
     root.destroy()
-    schedule = schedule.SchedulePage()
-    schedule.main()
+    os.system('python schedule.py')
+
 def createGroup(root):
     root.destroy()
-    create = createGroup.CreateGroup()
-    create.main()
+    os.system('python createGroup.py')
+
+def invitepage(root):
+    root.destroy()
+    os.system('python invitepage.py')
 
 if __name__ == '__main__':
     main()
