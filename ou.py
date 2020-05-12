@@ -8,8 +8,6 @@ import mysql.connector
 import reputationScore as repScore
 import db
 import visitor
-import createGroup
-import schedule
 
 
 # Class to create the hexagon framework
@@ -54,11 +52,11 @@ class hexagon(Frame):
             proj2 = db.cursor.fetchone()[0]
         except:
             proj2 = "NULL"
-        try:
-            db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[2])
-            proj3 = db.cursor.fetchone()[0]
-        except:
-            proj3 = "NULL"
+        # try:
+        #     db.cursor.execute("SELECT name FROM projects WHERE id = '%d'"%projList[2])
+        #     proj3 = db.cursor.fetchone()[0]
+        # except:
+        #     proj3 = "NULL"
 
         db.cursor.close()
 
@@ -104,15 +102,8 @@ class hexagon(Frame):
               55,484,75,495,
               75,495,95,484,
               95,484,95,466]
-        p3 = [95,541,75,530,
-              75,530,55,541,
-              55,541,55,559,
-              55,559,75,570,
-              75,570,95,559,
-              95,559,95,541]
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
-        canvas.create_polygon(p3,fill='#3EDAD8', width=1)
         # hexagon for user select
         s1 = [520,167,500,156,
               500,156,480,167,
@@ -139,8 +130,8 @@ class hexagon(Frame):
             fill = "white")
         canvas.create_text(150, 475, text = proj2, font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(150, 550, text = proj3, font = ("Pursia",15),
-            fill = "white")
+        # canvas.create_text(150, 550, text = proj3, font = ("Pursia",15),
+        #     fill = "white")
         # hexagon for groups
         g1 = [795,391,775,380,
               775,380,755,391,
@@ -154,21 +145,14 @@ class hexagon(Frame):
               755,484,775,495,
               775,495,795,484,
               795,484,795,466]
-        g3 = [795,541,775,530,
-              775,530,755,541,
-              755,541,755,559,
-              755,559,775,570,
-              775,570,795,559,
-              795,559,795,541]
+
         canvas.create_polygon(g1, fill='white', width=1)
         canvas.create_polygon(g2, fill='white', width=1)
-        canvas.create_polygon(g3, fill='white', width=1)
         canvas.create_text(870, 400, text = "Create Group", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 475, text = "Schedule", font = ("Pursia",15),
+        canvas.create_text(850, 475, text = "Logout", font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(850, 550, text = "Logout", font = ("Pursia",15),
-            fill = "white")
+
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
         # display date
@@ -202,18 +186,17 @@ def main():
     button2 = Button(root, image = photo2, bg="#37CAEF", bd=0, command=postdoc).place(x=567, y=230)
     photo3 = PhotoImage(file = r"images\social.png")
     button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command=group_page).place(x=465, y=390)
-    photo4 = PhotoImage(file = r"images\add.png")
-    button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
-    photo5 = PhotoImage(file = r"images\x.png")
-    button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
-    photo6 = PhotoImage(file = r"images\settings.png")
-    button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
+    # photo4 = PhotoImage(file = r"images\add.png")
+    # button4 = Button(root, image = photo4, bg="white", bd=0).place(x=487, y=164)
+    # photo5 = PhotoImage(file = r"images\x.png")
+    # button5 = Button(root, image = photo5, bg="white", bd=0).place(x=379, y=350)
+    # photo6 = PhotoImage(file = r"images\settings.png")
+    # button6 = Button(root, image = photo6, bg="white", bd=0).place(x=596, y=351)
 
     # Button on right
     photo7 = PhotoImage(file = r"images/hex.png")
     button8 = Button(root, image = photo7, bg="white", bd=0, command = lambda:createGroup(root)).place(x=760, y=385)
-    button9 = Button(root, image = photo7, bg="white", bd=0, command = lambda:schedule(root)).place(x=760, y=460)
-    button10 = Button(root, image = photo7, bg="white", bd=0, command = lambda: logout(root)).place(x=760, y=535)
+    button9 = Button(root, image = photo7, bg="white", bd=0, command = lambda: logout(root)).place(x=760, y=460)
 
     invite_img = PhotoImage(file = r"images/invites.png")
     invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
@@ -233,16 +216,10 @@ def logout(root):
     root.destroy()
     os.system('python visitor.py')
 
-def schedule(root):
-    root.destroy()
-    os.system('python schedule.py')
-
 def createGroup(root):
-    root.destroy()
     os.system('python createGroup.py')
 
 def invitepage(root):
-    root.destroy()
     os.system('python invitepage.py')
 
 if __name__ == '__main__':
