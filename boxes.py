@@ -15,7 +15,7 @@ class BlackWhite:
 
     def __init__(self):
         self.win = Tk()
-        self.win.title("The Hive")
+        self.win.title("White/Black List")
         self.win.geometry('{}x{}'.format(800, 450))
         self.canvas = Canvas(self.win, bg='#36393F')
         self.frame = Frame(self.canvas, bg='#36393F', width=600, height=340)
