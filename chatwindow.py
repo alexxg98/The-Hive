@@ -24,10 +24,14 @@ def Input_Enter(event):
     user_input.set('')
     return "break"
 
+filename = 'chat_log.txt'
 def savelog():
     chatMessages = messages.get("1.0", END)
-    file = open('chat_log.txt', 'w')
-    file.write(chatMessages)
+    with open(filename, 'w') as file:
+            file.write(chatMessages)
+
+    # file = open('chat_log.txt', 'w+')
+    # file.close()
 
 window = Tk()
 
@@ -49,9 +53,12 @@ save = Button(window, text = "Save Log", bg = "red", fg = "white", command = lam
 save.grid(row = 1, column = 2)
 
 messages.configure(state='normal')
-with open('chat_log.txt', 'r') as f:
-    messages.insert(INSERT, f.read())
-messages.configure(state='normal')
+try:
+    with open(filename, 'r') as file:
+        messages.insert(INSERT, file.read())
+except IOError:
+    file = open(filename, 'w')
+messages.configure(state='disabled')
 
 window.resizable(False, False)
 window.title("Hive Chat")
