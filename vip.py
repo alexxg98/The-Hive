@@ -95,7 +95,7 @@ class hexagon(Frame):
 #               55,541,55,559,
 #               55,559,75,570,
 #               75,570,95,559,
-              95,559,95,541]
+#               95,559,95,541]
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
 #         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
