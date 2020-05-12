@@ -29,19 +29,21 @@ def savelog():
     chatMessages = messages.get("1.0", END)
     with open(filename, 'w') as file:
             file.write(chatMessages)
+# clear contents of chat_log.txt
+def clear_log():
+    file = open(filename, 'w+')
+    file.truncate(0)
 
-    # file = open('chat_log.txt', 'w+')
-    # file.close()
 
 window = Tk()
 
 chatBox = Scrollbar(window)
 messages = Text(window, wrap='word', state='disabled', yscrollcommand=chatBox.set)
 chatBox.configure(command=messages.yview)
-messages.grid(row = 0, column = 0, columnspan = 3)
+messages.grid(row = 0, column = 0, columnspan = 10)
 
 user_input = StringVar()
-input_field = Entry(window, width = 100, text = user_input, bg="#e6f2ff")
+input_field = Entry(window, width = 90, text = user_input, bg="#e6f2ff")
 input_field.grid(row = 1, column = 0)
 
 frame = Frame(window)
@@ -51,6 +53,8 @@ send = Button(window, text = "Send", command = Press_Button, bg = "black", fg = 
 send.grid(row = 1, column = 1)
 save = Button(window, text = "Save Log", bg = "red", fg = "white", command = lambda: savelog())
 save.grid(row = 1, column = 2)
+save = Button(window, text = "Clear Log", bg = "blue", fg = "white", command = lambda: clear_log())
+save.grid(row = 1, column = 3)
 
 messages.configure(state='normal')
 try:
@@ -59,6 +63,7 @@ try:
 except IOError:
     file = open(filename, 'w')
 messages.configure(state='disabled')
+file.close()
 
 window.resizable(False, False)
 window.title("Hive Chat")
