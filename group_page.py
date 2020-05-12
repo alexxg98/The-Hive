@@ -17,14 +17,9 @@ class hexagon(Frame):
         self.master.title("Super User")
         self.pack(fill=BOTH, expand=TRUE)
 
-        #Get and store user info from database
-        # name = db.getGroupName()
-        # group_rank = db.getGroupRank(name)
-        # group_description =db.getGroupDescription(name)
-        # hello = "Hello " + name
-        # rankDisplay = "Rank: " + str(group_rank)
-        # description = str(group_description)
-        # db.cursor.close()
+        db.cursor.execute("SELECT name FROM projects WHERE viewing = 'ON'")
+        group_name = db.cursor.fetchone()[0]
+        
         canvas = Canvas(self)
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
@@ -115,8 +110,8 @@ class hexagon(Frame):
             self.after(100, time_now)
         time_now()
         # greeting for user
-        # canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
-        #     fill = "#7289DB")
+        canvas.create_text(120, 50, text = group_name, font = ("Pursia",25),
+            fill = "#7289DB")
         # # display group rank
         # canvas.create_text(120, 100, text = rankDisplay, font = ("Pursia",15),
         #     fill = "#7289DB")
