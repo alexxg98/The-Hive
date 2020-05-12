@@ -41,7 +41,7 @@ class hexagon(Frame):
         super().__init__()
         self.initUI()
     def initUI(self):
-        self.master.title("Ordinary User")
+        self.master.title("VIP User")
         self.pack(fill=BOTH, expand=TRUE)
 
         hello = "Hello " + name
