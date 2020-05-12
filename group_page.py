@@ -8,17 +8,20 @@ import db
 import visitor
 # import welcome
 
+#Global variables
+db.cursor.execute("SELECT name FROM projects WHERE viewing = 'ON'")
+group_name = db.cursor.fetchone()[0]
+db.cursor.execute("SELECT id FROM projects WHERE viewing = 'ON'")
+groupid = db.cursor.fetchone()[0]
+
 # Class to create the hexagon framework
 class hexagon(Frame):
     def __init__(self):
         super().__init__()
         self.initUI()
     def initUI(self):
-        self.master.title("Super User")
+        self.master.title("Group Page")
         self.pack(fill=BOTH, expand=TRUE)
-
-        db.cursor.execute("SELECT name FROM projects WHERE viewing = 'ON'")
-        group_name = db.cursor.fetchone()[0]
         
         canvas = Canvas(self)
 
@@ -122,22 +125,36 @@ class hexagon(Frame):
 def main():
     root = Tk()
     frame = hexagon()
+    
+    # Get all post content from DB
+    db.cursor.execute("SELECT content FROM posts WHERE group_id = '%s'"%groupid)
+    #store all content in array
+    postList = []
+    for row in db.cursor:
+        postList.append(row[0])
 
-    posts = Text(root, height = 10, width = 70)
+    posts = Text(root, height = 30, width = 70)
     posts.place(x = 218, y = 118)
-    quote = """sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample."""
-
-    posts.insert(END, quote)
+    # quote = """sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample."""
+    title = "Group Post: Post any updates or things you want to share here.\n\n"
+    posts.insert(END, title)
+    
+    #Display each post and corresponding user
+    for content in postList:
+        db.cursor.execute("SELECT username FROM posts WHERE content = '%s'"%content)
+        username = db.cursor.fetchone()[0]
+        post = username + ": " + content + "\n"
+        posts.insert(END, post)
 
     # Button on left
     photo7 = PhotoImage(file = r"images/hexx.png")
