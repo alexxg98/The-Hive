@@ -8,6 +8,12 @@ import db
 import visitor
 # import welcome
 
+#Global variables
+#Get group info
+group_name = db.getGroupName()
+group_rank = db.getGroupRank()
+group_description =db.getGroupDescription()
+
 # Class to create the hexagon framework
 class UI(Frame):
     def __init__(self):
@@ -22,10 +28,6 @@ class UI(Frame):
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
         
-        #Get and store user info from database
-        group_name = db.getGroupName()
-        group_rank = db.getGroupRank()
-        group_description =db.getGroupDescription()
         rankDisplay = "Rank: " + str(group_rank)
         # db.cursor.close()  
         # Name of group
@@ -127,27 +129,35 @@ def main():
     root = Tk()
     frame = UI()
 
-    posts = Text(root, height = 38, width = 70)
-    posts.place(x = 250, y = 147)
-    quote = """sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample.
-    sample sample sample sample sample."""
+        # Get all post content from DB
+    db.cursor.execute("SELECT content FROM posts WHERE group_id = '%s'"%groupid)
+    #store all content in array
+    postList = []
+    for row in db.cursor:
+        postList.append(row[0])
 
-    posts.insert(END, quote)
+    posts = Text(root, height = 30, width = 70)
+    posts.place(x = 218, y = 118)
+    # quote = """sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample.
+    # sample sample sample sample sample."""
+    title = "Group Post: Post any updates or things you want to share here.\n\n"
+    posts.insert(END, title)
+
+    #Display each post and corresponding user
+    for content in postList:
+        db.cursor.execute("SELECT username FROM posts WHERE content = '%s'"%content)
+        username = db.cursor.fetchone()[0]
+        post = username + ": " + content + "\n"
+        posts.insert(END, post)
 
     # Button on left
     photo7 = PhotoImage(file = r"images/hexx.png")
@@ -161,20 +171,20 @@ def main():
     button = Button(root, image = photo6, bg="white", bd=0, command=schedule).place(x=909, y=460)
     button = Button(root, image = photo6, bg="white", bd=0, command=postdoc).place(x=909, y=535)
 
-    root.geometry("1000x800")
+    root.geometry("1000x700")
     root.resizable(False, False)
     root.mainloop()
 
 def chatwindow():
-    os.system('python3 chatwindow.py')
+    os.system('python chatwindow.py')
 def postdoc():
-    os.system('python3 postdoc.py')
+    os.system('python postdoc.py')
 def schedule():
-    os.system('python3 schedule.py')
+    os.system('python schedule.py')
 def user_in_group():
-    os.system('python3 usersInGroup.py')
+    os.system('python usersInGroup.py')
 def polls():
-    os.system('python3 polling.py')
+    os.system('python polling.py')
 
 def back_bnt(root):
     username =  db.getName()
@@ -189,15 +199,15 @@ def back_bnt(root):
 
 def ou(root):
     root.destroy()
-    os.system('python3 ou.py')
+    os.system('python ou.py')
 
 def vip(root):
     root.destroy()
-    os.system('python3 vip.py')
+    os.system('python vip.py')
 
 def su(root):
     root.destroy()
-    os.system('python3 su.py')
+    os.system('python su.py')
 
 
 if __name__ == '__main__':
