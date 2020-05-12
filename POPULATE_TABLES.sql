@@ -5,6 +5,7 @@ VALUES
 ("michael@gmail.com", "michael002", "123", "SU"),
 ("alex@gmail.com", "alex003", "123", "SU"),
 ("linda@gmail.com", "linda004", "123", "SU");
+UPDATE users SET status = 'ON' where username = 'alex003';
 
 INSERT INTO
 users(email, username, password, reputation_score, user_type)
