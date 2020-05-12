@@ -38,9 +38,9 @@ class VisitorPage:
         self.welButton = Button(self.canvas, text="Login/Register", font='Arial 15 bold', bg='#454b54',
                                 fg="#f7cc35", command=self.welcome)
         #top 3 projects
-        self.project1 = Button(self.canvas, text="Project 1", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top1Proj))
-        self.project2 = Button(self.canvas, text="Project 2", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top2Proj))
-        self.project3 = Button(self.canvas, text="Project 3", font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top3Proj))
+        self.project1 = Button(self.canvas, text= top1Proj, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top1Proj))
+        self.project2 = Button(self.canvas, text= top2Proj, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top2Proj))
+        self.project3 = Button(self.canvas, text= top3Proj, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewGroup_page(top3Proj))
         #top 3 users
         self.user1 = Button(self.canvas, text=top1Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top1Name))
         self.user2 = Button(self.canvas, text=top2Name, font='Arial 20 bold', bg='white', fg="black", width = 10, height = 2, command = lambda: self.viewOU_page(top2Name))
