@@ -24,15 +24,15 @@ class hexagon(Frame):
         rep_score = db.getRepScore()
         tabooCount = db.getTabooCount()
         hello = "Hello " + name
-        scoreDisplay = "Reputation Score: " + str(rep_score)
+#         scoreDisplay = "Reputation Score: " + str(rep_score)
         # db.cursor.close()
 
          # greeting for user
         canvas.create_text(120, 50, text = hello, font = ("Pursia",25),
             fill = "#7289DB")
         # display user score
-        canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
-            fill = "#7289DB")
+#         canvas.create_text(120, 100, text = scoreDisplay, font = ("Pursia",15),
+#             fill = "#7289DB")
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
         user_select_1 = [674,401,587,351,
