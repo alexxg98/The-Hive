@@ -197,6 +197,9 @@ def main():
     button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=pendingUsers).place(x=60, y=460)
     button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=assign_VIP).place(x=60, y=535)
 
+    invite_img = PhotoImage(file = r"images/invites.png")
+    invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
+
     root.geometry("1000x800")
     root.resizable(False, False)
     root.mainloop()
@@ -217,6 +220,9 @@ def schedule():
     os.system('python schedule.py')
 def user_in_sys():
     os.system('python usersInSystem.py')
+def invitepage(root):
+    os.system('python invitepage.py')
+
 
 def logOut(root):
     root.destroy()
