@@ -62,7 +62,8 @@ class PostDoc:
         if hasTaboo:
             tabooCount += 1
             newRep = repScore.tabooWord(reputation, tabooCount)
-            db.cursor.execute("Update users set reputation_score = %s where username = %s", (newRep, name))
+            db.cursor.execute("Update users SET reputation_score = %s where username = %s", (newRep, name))
+            db.cursor.execute("Update users SET taboo_count = %s where username = %s", (tabooCount, name))
             post = checkT.replaceTaboo(current_input)
         db.cursor.execute("INSERT into posts(postid, group_id, username, content) VALUES (%s, %s, %s, %s)",(postCount,groupID,name,post))
         #Saves post in DB and closes window

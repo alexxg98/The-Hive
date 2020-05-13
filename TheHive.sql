@@ -80,3 +80,6 @@ CREATE TABLE posts(
     FOREIGN KEY(group_id) REFERENCES projects(id),
     FOREIGN KEY(username) REFERENCES users(username)
 );
+
+
+

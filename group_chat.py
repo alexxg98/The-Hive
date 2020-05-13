@@ -6,7 +6,8 @@ import db
 #Get and store user info from database
 name = db.getName()
 username = '[' + name + ']: '
-
+groupName = db.getGroupName()
+groupFileName = groupName + '_chat.txt'
 # send message through button
 def Press_Button():
     get_input = input_field.get()
@@ -24,14 +25,13 @@ def Input_Enter(event):
     user_input.set('')
     return "break"
 
-filename = 'chat_log.txt'
 def savelog():
     chatMessages = messages.get("1.0", END)
-    with open(filename, 'w') as file:
+    with open(groupFileName, 'w') as file:
             file.write(chatMessages)
 # clear contents of chat_log.txt and chat window
 def clear_log():
-    file = open(filename, 'w+')
+    file = open(groupFileName, 'w+')
     file.truncate(0)
     messages.configure(state='normal')
     messages.delete(1.0, END)
@@ -61,13 +61,13 @@ save.grid(row = 1, column = 3)
 
 messages.configure(state='normal')
 try:
-    with open(filename, 'r') as file:
+    with open(groupFileName, 'r') as file:
         messages.insert(INSERT, file.read())
 except IOError:
-    file = open(filename, 'w')
+    file = open(groupFileName, 'w')
 messages.configure(state='disabled')
 file.close()
 
 window.resizable(False, False)
-window.title("Public Hive Chat")
+window.title("Group Hive Chat")
 window.mainloop()

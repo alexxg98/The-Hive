@@ -93,10 +93,12 @@ class hexagon(Frame):
         canvas.create_polygon(s3, fill='white', width=1)
 
         # Left Side Hexagon
-        p1 = [100,375,50,375,
-            50,375,50,425,
-            50,425,100,425,
-            100,425,100,375]
+        p1 = [97,388,75,375,
+            75,375,53,388,
+            53,388,53,413,
+            53,413,75,425,
+            75,425,97,413,
+            97,413,97,388]
         p2 = [97,463,75,450,
             75,450,53,463,
             53,463,53,488,
@@ -114,7 +116,7 @@ class hexagon(Frame):
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
         # Left labels
-        canvas.create_text(125, 400, text = "Black/White", font = ("Pursia",15),
+        canvas.create_text(125, 400, text = "Create Group", font = ("Pursia",15),
             fill = "white", anchor=W)
         canvas.create_text(125, 475, text = "Pending Users", font = ("Pursia",15),
             fill = "white",anchor=W)
@@ -172,10 +174,10 @@ def main():
     # Main Hex buttons
     photo = PhotoImage(file = r"images/chat.png")
     left = Button(root, image = photo, bg="#37CAEF", bd=0, command=chatwindow).place(x=365, y=415)
-    photo1 = PhotoImage(file = r"images/doc.png")
-    right = Button(root, image = photo1, bg="#2C92D6", bd=0, command=postdoc).place(x=570, y=415)
+    invite_img = PhotoImage(file = r"images/invites.png")
+    right = Button(root, image = invite_img, bg="#2C92D6", bd=0, command=lambda:invitepage(root)).place(x=570, y=415)
     photo2 = PhotoImage(file = r"images/social.png")
-    top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=lambda:group_page(root)).place(x=465, y=250)
+    top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=white_black_box).place(x=465, y=250)
     # Aux buttons
     photo3 = PhotoImage(file = r"images/add.png")
     add = Button(root, image = photo3, bg="white", bd=0, command=createGroup).place(x=486, y=512)
@@ -186,12 +188,12 @@ def main():
 
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
-    button = Button(root, image = photo6, bg="white", bd=0).place(x=909, y=385)
-    button = Button(root, image = photo6, bg="white", bd=0, command=schedule).place(x=909, y=460)
-    button = Button(root, image = photo6, bg="white", bd=0, command=user_in_sys).place(x=909, y=535)
+    button = Button(root, image = photo6, bg="white", bd=0).place(x=910, y=385)
+    button = Button(root, image = photo6, bg="white", bd=0, command=schedule).place(x=910, y=460)
+    button = Button(root, image = photo6, bg="white", bd=0, command=user_in_sys).place(x=910, y=535)
     # Button on left
-    button = Button(root, text="BOX", font='Arial 14 bold', bg='#2C92D6', fg='#f7cc35', bd=0, command=white_black_box).place(x=56, y=390)
     photo7 = PhotoImage(file = r"images/hexx.png")
+    button = Button(root, image = photo7, bg="#2C92D6", bd=0, command=createGroup).place(x=60, y=385)
     button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=pendingUsers).place(x=60, y=460)
     button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=assign_VIP).place(x=60, y=535)
 
@@ -215,15 +217,18 @@ def schedule():
     os.system('python schedule.py')
 def user_in_sys():
     os.system('python usersInSystem.py')
+def invitepage(root):
+    os.system('python invitepage.py')
+
 
 def logOut(root):
     root.destroy()
     win = visitor.VisitorPage()
     win.main()
 
-def group_page(root):
-    root.destroy()
-    os.system('python group_page.py')
+# def group_page(root):
+#     root.destroy()
+#     os.system('python group_page.py')
 
 def ou(self):
     self.win.destroy()

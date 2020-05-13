@@ -73,7 +73,7 @@ class LoginWindow:
             # Keep track of which user is logged in on this device
             db.cursor.execute("UPDATE users SET status = NULL")
             db.cursor.execute("UPDATE users SET status = 'ON' where username = '%s'" % username)
-            
+
             #check repScore and change if neccessary
             repScore = db.getRepScore()
             if repScore>30:
