@@ -25,7 +25,7 @@ class UI(Frame):
     def initUI(self):
         # UI settings
         canvas = Canvas(self)
-        self.master.title("Super User")
+        self.master.title("Group Page")
         self.pack(fill=BOTH, expand=TRUE)
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
@@ -33,24 +33,24 @@ class UI(Frame):
         rankDisplay = "Rank: " + str(group_rank)
         # db.cursor.close()
         # Name of group
-        canvas.create_text(100, 50, text = group_name, font = ("Pursia",25),
+        canvas.create_text(500, 50, text = group_name, font = ("Pursia",25),
             fill = "#7289DB")
         # display group rank
-        canvas.create_text(100, 100, text = rankDisplay, font = ("Pursia",15),
+        canvas.create_text(500, 100, text = rankDisplay, font = ("Pursia",15),
             fill = "#7289DB")
         # Display description
-        canvas.create_text(100, 125, text = group_description, font = ("Pursia",15),
+        canvas.create_text(500, 125, text = group_description, font = ("Pursia",15),
             fill = "#7289DB")
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
         # rectangleBox for the blog
-        user_select_1 = [783,117,217,117,
-                        217,117,217,683,
-                        217,683,783,683,
-                        783,683,783,117]
+        # user_select_1 = [783,117,217,117,
+        #                 217,117,217,683,
+        #                 217,683,783,683,
+        #                 783,683,783,117]
 
-        canvas.create_polygon(user_select_1, outline='black',
-            fill='#2C92D6', width=2)
+        # canvas.create_polygon(user_select_1, outline='black',
+        #     fill='#2C92D6', width=2)
 
         # Left Side Hexagon
         p1 = [97,388,75,375,
@@ -111,7 +111,7 @@ class UI(Frame):
             fill = "white", anchor=E)
         canvas.create_text(875, 475, text = "Schedule", font = ("Pursia",15),
             fill = "white", anchor=E)
-        canvas.create_text(875, 550, text = "Post Docs", font = ("Pursia",15),
+        canvas.create_text(875, 550, text = "New Post", font = ("Pursia",15),
             fill = "white", anchor=E)
 
         # display date
@@ -132,7 +132,7 @@ def main():
     frame = UI()
 
     posts = Text(root, height = 30, width = 70)
-    posts.place(x = 218, y = 118)
+    posts.place(x = 218, y = 150)
     # quote = """sample sample sample sample sample.
     # sample sample sample sample sample.
     # sample sample sample sample sample.
