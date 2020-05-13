@@ -92,8 +92,7 @@ class SuperUser:
 
     def reject(self):
         for selected_item in self.list.selection():
-            a, b, c, d, e, f = self.list.item(selected_item, 'values')
-            email = c
+            email = self.list.item(selected_item, 'values')[2]
             self.list.delete(selected_item)
 
         db.cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
