@@ -75,9 +75,9 @@ class UI(Frame):
         # Left labels
         canvas.create_text(125, 400, text = "Polls", font = ("Pursia",15),
             fill = "white", anchor=W)
-        canvas.create_text(125, 475, text = "Users", font = ("Pursia",15),
+        canvas.create_text(125, 475, text = "Schedule", font = ("Pursia",15),
             fill = "white",anchor=W)
-        canvas.create_text(125, 550, text = "Back", font = ("Pursia",15),
+        canvas.create_text(125, 550, text = "Tasks", font = ("Pursia",15),
             fill = "white", anchor=W)
 
         # Right Side Hexagon
@@ -106,7 +106,7 @@ class UI(Frame):
         # group Labels
         canvas.create_text(875, 400, text = "Chat", font = ("Pursia",15),
             fill = "white", anchor=E)
-        canvas.create_text(875, 475, text = "Schedule", font = ("Pursia",15),
+        canvas.create_text(875, 475, text = "Users", font = ("Pursia",15),
             fill = "white", anchor=E)
         canvas.create_text(875, 550, text = "New Post", font = ("Pursia",15),
             fill = "white", anchor=E)
@@ -169,13 +169,13 @@ def main():
     # Button on left
     photo7 = PhotoImage(file = r"images/hexx.png")
     button = Button(root, image = photo7, bg='#2C92D6',  bd=0, command=polls).place(x=60, y=385)
-    button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=user_in_group).place(x=60, y=460)
-    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=lambda:back_bnt(root)).place(x=60, y=535)
+    button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=schedule).place(x=60, y=460)
+    button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=tasks).place(x=60, y=535)
 
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
     button = Button(root, image = photo6, bg="white", bd=0, command=chatwindow).place(x=909, y=385)
-    button = Button(root, image = photo6, bg="white", bd=0, command=schedule).place(x=909, y=460)
+    button = Button(root, image = photo6, bg="white", bd=0, command=user_in_group).place(x=909, y=460)
     button = Button(root, image = photo6, bg="white", bd=0, command=postdoc).place(x=909, y=535)
 
     root.geometry("1000x700")
@@ -192,30 +192,8 @@ def user_in_group():
     os.system('python usersInGroup.py')
 def polls():
     os.system('python polling.py')
-
-def back_bnt(root):
-    username =  db.getName()
-    db.cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
-    acct_type = db.cursor.fetchone()[0]
-    if acct_type == "OU":
-        ou(root)
-    elif acct_type == "VIP":
-        vip(root)
-    elif acct_type == "SU":
-        su(root)
-
-def ou(root):
-    root.destroy()
-    os.system('python ou.py')
-
-def vip(root):
-    root.destroy()
-    os.system('python vip.py')
-
-def su(root):
-    root.destroy()
-    os.system('python su.py')
-
+def tasks():
+    os.system('python grouptasks.py')
 
 if __name__ == '__main__':
     main()

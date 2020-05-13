@@ -6,6 +6,9 @@ from email.message import EmailMessage
 from tkinter.ttk import Treeview
 import db
 
+# global variables to update labels
+group = ''
+username = ''
 
 def send_email(subject, content, receiver):
     sender = "thehiveof4men@gmail.com"
@@ -67,36 +70,11 @@ class Assing_VIP_UI:
         users = db.cursor.fetchall()
         for row in users:
             self.tree.insert('', END, values=row)
-
-        Button(self.frame, text="Select Group",font='Arial 15 bold', bg='#454b54',
-            fg="#f7cc35", command=self.get_group).grid(row=2, column=0, sticky = N, pady = 2)
-        Button(self.frame, text="Select VIP user", font='Arial 15 bold', bg='#454b54',
-            fg="#f7cc35", command=self.get_user).grid(row=2, column=1, sticky = N, pady = 2)
-        Button(self.frame, text="ASSIGN",font='Arial 15 bold', bg='black',
-            fg="red", command=self.assign).grid(row=3, column=1, pady = 2)
-
-        group = get_group()
-        username = get_user()
-        
-        selected_label = "Selected User: " 
-        Label(self.frame, text=selected_label, bg="#454b54", fg="white",
-        font="Arial 14 bold").grid(row=3, column=0, sticky = SW, pady = 25)
+            
+        Button(self.frame, text="ASSIGN",font='Arial 15 bold', bg='#454b54',
+            fg="#f7cc35", command=self.assign).grid(row=2, column=1, pady = 2)
 
         self.win.mainloop()
-
-    def get_group(self):
-        global selected_label
-        for selected_item in self.list.selection():
-            name_of_group = self.list.item(selected_item, 'values')[1]
-        print(name_of_group)
-        # selected_label +=  name_of_group 
-            
-    def get_user(self):
-        global selected_label
-        for selected_item in self.tree.selection():
-            name_of_username = self.tree.item(selected_item, 'values')[0]
-        # print(name_of_username)
-        # selected_label +=  name_of_username 
 
     def assign(self):
         for selected_item in self.list.selection():

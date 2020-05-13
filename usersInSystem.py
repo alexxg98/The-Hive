@@ -51,13 +51,12 @@ class SuperUser:
         self.list.heading(5, text="Taboo")
         self.list.column(5, width=50)
 
-        db.cursor.execute(' SELECT username,email,reputation_score,user_type,taboo_count FROM users;')
+        db.cursor.execute(" SELECT username,email,reputation_score,user_type,taboo_count FROM users\
+            WHERE user_type <> 'SU';")
         for row in db.cursor.fetchall():
             self.list.insert('', END, values=row)
 
         self.kickOutbutton.pack(expand=TRUE)
-        # self.close_group.pack(expand=TRUE, side=LEFT)
-        
         self.win.mainloop()
 
     def kickOut(self):

@@ -4,6 +4,7 @@ import sys
 import os
 import mysql.connector
 import db
+import visitor
 
 # Class to create the hexagon framework
 class hexagon(Frame):
@@ -116,7 +117,7 @@ class hexagon(Frame):
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
         # Left labels
-        canvas.create_text(125, 400, text = "Create Group", font = ("Pursia",15),
+        canvas.create_text(125, 400, text = "My Projects", font = ("Pursia",15),
             fill = "white", anchor=W)
         canvas.create_text(125, 475, text = "Pending Users", font = ("Pursia",15),
             fill = "white",anchor=W)
@@ -188,12 +189,12 @@ def main():
 
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
-    button = Button(root, image = photo6, bg="white", bd=0).place(x=910, y=385)
+    button = Button(root, image = photo6, bg="white", bd=0, command= comment).place(x=910, y=385)
     button = Button(root, image = photo6, bg="white", bd=0, command=schedule).place(x=910, y=460)
     button = Button(root, image = photo6, bg="white", bd=0, command=user_in_sys).place(x=910, y=535)
     # Button on left
     photo7 = PhotoImage(file = r"images/hexx.png")
-    button = Button(root, image = photo7, bg="#2C92D6", bd=0, command=createGroup).place(x=60, y=385)
+    button = Button(root, image = photo7, bg="#2C92D6", bd=0, command=viewGroups).place(x=60, y=385)
     button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=pendingUsers).place(x=60, y=460)
     button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=assign_VIP).place(x=60, y=535)
 
@@ -219,16 +220,16 @@ def user_in_sys():
     os.system('python usersInSystem.py')
 def invitepage(root):
     os.system('python invitepage.py')
-
+def viewGroups():
+    os.system('python viewMyProjects.py')
+def comment():
+    os.system('python comment.py')
 
 def logOut(root):
     root.destroy()
+    quit
     win = visitor.VisitorPage()
     win.main()
-
-# def group_page(root):
-#     root.destroy()
-#     os.system('python group_page.py')
 
 def ou(self):
     self.win.destroy()
