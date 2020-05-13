@@ -21,7 +21,7 @@ class UI(Frame):
     def __init__(self):
         super().__init__()
         self.initUI()
-        
+
     def initUI(self):
         # UI settings
         canvas = Canvas(self)
@@ -29,9 +29,9 @@ class UI(Frame):
         self.pack(fill=BOTH, expand=TRUE)
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
-        
+
         rankDisplay = "Rank: " + str(group_rank)
-        # db.cursor.close()  
+        # db.cursor.close()
         # Name of group
         canvas.create_text(100, 50, text = group_name, font = ("Pursia",25),
             fill = "#7289DB")
@@ -113,7 +113,7 @@ class UI(Frame):
             fill = "white", anchor=E)
         canvas.create_text(875, 550, text = "Post Docs", font = ("Pursia",15),
             fill = "white", anchor=E)
-        
+
         # display date
         date = datetime.datetime.now()
         current_date = date.strftime("%B %d")
@@ -126,17 +126,10 @@ class UI(Frame):
             canvas.itemconfig('timer', text = s)
             self.after(100, time_now)
         time_now()
-        
+
 def main():
     root = Tk()
     frame = UI()
-
-        # Get all post content from DB
-    db.cursor.execute("SELECT content FROM posts WHERE group_id = '%s'"%groupid)
-    #store all content in array
-    postList = []
-    for row in db.cursor:
-        postList.append(row[0])
 
     posts = Text(root, height = 30, width = 70)
     posts.place(x = 218, y = 118)
@@ -151,15 +144,28 @@ def main():
     # sample sample sample sample sample.
     # sample sample sample sample sample.
     # sample sample sample sample sample."""
-    title = "Group Post: Post any updates or things you want to share here.\n\n"
-    posts.insert(END, title)
 
+    posts.config(state=NORMAL)
     #Display each post and corresponding user
-    for content in postList:
-        db.cursor.execute("SELECT username FROM posts WHERE content = '%s'"%content)
-        username = db.cursor.fetchone()[0]
-        post = username + ": " + content + "\n"
-        posts.insert(END, post)
+    def displayPosts():
+        posts.delete(1.0, END) #delete texts before re-entering them
+
+        # Get all post content from DB
+        db.cursor.execute("SELECT content FROM posts WHERE group_id = '%s'"%groupid)
+        #store all content in array
+        postList = []
+        for row in db.cursor:
+            postList.append(row[0])
+        title = "Group Post: Post any updates or things you want to share here.\n\n"
+        posts.insert(END, title)
+
+        for content in postList:
+            db.cursor.execute("SELECT username FROM posts WHERE content = '%s'"%content)
+            username = db.cursor.fetchone()[0]
+            post = username + ": " + content
+            posts.insert(END, post)
+        root.after(1000, displayPosts)
+    displayPosts()
 
     # Button on left
     photo7 = PhotoImage(file = r"images/hexx.png")
