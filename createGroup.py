@@ -39,7 +39,7 @@ class CreateGroup:
             self.tree.insert('', END, values=row)
 
         self.win.mainloop()
-        
+
     def invite(self):
         try:
             for selected_item in self.tree.selection():
@@ -57,7 +57,17 @@ class CreateGroup:
 
     def create_group(self):
         description = self.textBox.get("1.0", "end-1c")
-        db.cursor.execute("INSERT INTO projects(name, description) VALUES(%s, %s)", (self.name.get(), description))
+        initialPost = "Hello. Welcome to the group!"
+
+        db.cursor.execute("INSERT INTO projects(name, description, creator) VALUES(%s, %s, %s)", (self.name.get(), description, db.getName()))
+
+        db.cursor.execute("SELECT id FROM projects WHERE name = '%s'" %self.name.get())
+        groupID = db.cursor.fetchone()[0]
+
+        #Creator is auto in group
+        db.cursor.execute("INSERT INTO group_membership VALUES (%s, %s)", (db.getName(), groupID))
+        #Insert intial post to db to display
+        db.cursor.execute("INSERT into posts VALUES (%s, %s, %s, %s)",(1, groupID, db.getName(), initialPost))
 
 
 if __name__ == "__main__":
