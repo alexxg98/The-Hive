@@ -1,6 +1,7 @@
 from tkinter import *
 import login
 import register
+import visitor
 
 
 class WelcomeWindow:
@@ -18,6 +19,8 @@ class WelcomeWindow:
                                 bg='#454b54', fg='#f7cc35', command=self.login)
         self.regButton = Button(self.frame, text="Register", font='Arial 20 bold',
                                 bg='#454b54', fg='#f7cc35', command=self.register)
+        self.backButton = Button(self.frame, text="Back", font='Arial 10',
+                                 bg='#454b54', fg='#f7cc35', command=self.visitor)
 
     def main(self):
         self.canvas.pack(expand=TRUE, fill=BOTH)
@@ -27,6 +30,7 @@ class WelcomeWindow:
         self.regButton.grid(row=0, column=2)
         Label(self.frame, text="The Hive", bg='#36393F',
               font="Arial 20 bold", fg='#f7cc35').grid(row=2, column=1)
+        self.backButton.grid(row=3, column=1)
         self.win.mainloop()
 
     def login(self):
@@ -38,3 +42,8 @@ class WelcomeWindow:
         self.win.destroy()
         reg = register.RegisterWindow()
         reg.main()
+
+    def visitor(self):
+        self.win.destroy()
+        vis = visitor.VisitorPage()
+        vis.main()
