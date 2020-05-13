@@ -67,15 +67,15 @@ class hexagon(Frame):
               55,484,75,495,
               75,495,95,484,
               95,484,95,466]
-#         p3 = [95,541,75,530,
-#               75,530,55,541,
-#               55,541,55,559,
-#               55,559,75,570,
-#               75,570,95,559,
-#               95,559,95,541]
+        p3 = [95,541,75,530,
+              75,530,55,541,
+              55,541,55,559,
+              55,559,75,570,
+              75,570,95,559,
+              95,559,95,541]
         canvas.create_polygon(p1,fill='#2C92D6', width=1)
         canvas.create_polygon(p2,fill='#37CAEF', width=1)
-#         canvas.create_polygon(p3,fill='#3EDAD8', width=1)
+        canvas.create_polygon(p3,fill='#3EDAD8', width=1)
 
         # hexagon for user select
         s1 = [520,167,500,156,
@@ -103,8 +103,8 @@ class hexagon(Frame):
             fill = "white")
         canvas.create_text(150, 475, text = db.getInfo.proj2, font = ("Pursia",15),
             fill = "white")
-#         canvas.create_text(150, 550, text = proj3, font = ("Pursia",15),
-#             fill = "white")
+        canvas.create_text(150, 550, text = "View All", font = ("Pursia",15),
+            fill = "white")
         # hexagon for groups
         g1 = [795,391,775,380,
               775,380,755,391,
@@ -118,15 +118,15 @@ class hexagon(Frame):
               755,484,775,495,
               775,495,795,484,
               795,484,795,466]
-#         g3 = [795,541,775,530,
-#               775,530,755,541,
-#               755,541,755,559,
-#               755,559,775,570,
-#               775,570,795,559,
-#               795,559,795,541]
+        g3 = [795,541,775,530,
+              775,530,755,541,
+              755,541,755,559,
+              755,559,775,570,
+              775,570,795,559,
+              795,559,795,541]
         canvas.create_polygon(g1, fill='white', width=1)
         canvas.create_polygon(g2, fill='white', width=1)
-#         canvas.create_polygon(g3, fill='white', width=1)
+        canvas.create_polygon(g3, fill='white', width=1)
 
         canvas.create_text(870, 400, text = "Create Group", font = ("Pursia",15),
             fill = "white")
@@ -185,8 +185,9 @@ def main():
         # Button on left
     photo8 = PhotoImage(file = r"images/hexx.png")
     button10 = Button(root, image = photo8, bg="#2C92D6", bd=0, command = lambda: group_page(db.getInfo.proj1)).place(x=60, y=385)
-    button11 = Button(root, image = photo8, bg="#3EDAD8", bd=0, command = lambda: group_page(db.getInfo.proj2)).place(x=60, y=460)
-    
+    button11 = Button(root, image = photo8, bg="#37CAEF", bd=0, command = lambda: group_page(db.getInfo.proj2)).place(x=60, y=460)
+    button12 = Button(root, image = photo8, bg="#3EDAD8", bd=0, command = viewGroups).place(x=60, y=535)
+
     root.geometry("1000x800")
     root.resizable(False, False)
     root.mainloop()
@@ -202,6 +203,9 @@ def group_page(group_name):
     db.cursor.execute("UPDATE projects SET viewing = NULL")
     db.cursor.execute("UPDATE projects SET viewing = 'ON' where name = '%s'" % group_name)
     os.system('python group_page.py')
+
+def viewGroups():
+    os.system('python viewMyProjects.py')
 
 def voting(root):
     os.system('python voting.py')
