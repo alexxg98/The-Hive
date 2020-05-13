@@ -37,7 +37,6 @@ CREATE TABLE projects(
 CREATE TABLE group_membership(
     username VARCHAR(25),
     group_id INT,
-    PRIMARY KEY(username, group_id),
     FOREIGN KEY(username) REFERENCES users(username),
     FOREIGN KEY(group_id) REFERENCES projects(id)
 );
