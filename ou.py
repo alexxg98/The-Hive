@@ -101,7 +101,7 @@ class hexagon(Frame):
             fill = "white")
         canvas.create_text(150, 475, text = db.getInfo.proj2, font = ("Pursia",15),
             fill = "white")
-        canvas.create_text(150, 550, text = "View More", font = ("Pursia",15),
+        canvas.create_text(150, 550, text = "View All", font = ("Pursia",15),
             fill = "white")
         # hexagon for groups
         g1 = [795,391,775,380,
