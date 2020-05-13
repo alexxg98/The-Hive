@@ -192,7 +192,7 @@ def createGroup(root):
 def boxes():
     os.system('python boxes.py')
 
-def invitepage(root):
+def invitepage():
     os.system('python invitepage.py')
 
 if __name__ == '__main__':
