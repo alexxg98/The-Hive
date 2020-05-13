@@ -9,7 +9,7 @@ db = mysql.connector.connect(
     autocommit=True
 )
 
-cursor = db.cursor()
+cursor = db.cursor(buffered=True)
 
 def getName():
     cursor.execute("SELECT username FROM users WHERE status = 'ON'")
