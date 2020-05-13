@@ -46,7 +46,7 @@ class ViewProjects:
         #track which group page is being viewed at the moment
         db.cursor.execute("UPDATE projects SET viewing = NULL")
         db.cursor.execute("UPDATE projects SET viewing = 'ON' where name = '%s'" % group_name)
-        os.system('python3 group_page.py')
+        os.system('python group_page.py')
         self.win.destroy()
 
 if __name__ == "__main__":
