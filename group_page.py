@@ -186,7 +186,7 @@ def main():
     root.mainloop()
 
 def chatwindow():
-    os.system('python chatwindow.py')
+    os.system('python group_chat.py')
 def postdoc():
     os.system('python postdoc.py')
 def schedule():
