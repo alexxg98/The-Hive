@@ -165,8 +165,8 @@ def main():
     # Buttons
     photo1 = PhotoImage(file = r"images/chat.png")
     button1 = Button(root, image = photo1, bg="#2C92D6", bd=0, command=chatwindow).place(x=365, y=220)
-    photo2 = PhotoImage(file = r"images/doc.png")
-    button2 = Button(root, image = photo2, bg="#37CAEF", bd=0, command=postdoc).place(x=567, y=230)
+    invite_img = PhotoImage(file = r"images/invites.png")
+    button2 = Button(root, image = invite_img, bg="#37CAEF", bd=0, command=invitepage).place(x=567, y=230)
     photo3 = PhotoImage(file = r"images/social.png")
     button3 = Button(root, image = photo3, bg="#3EDAD8", bd=0, command = boxes).place(x=465, y=390)
     # photo4 = PhotoImage(file = r"images\add.png")
@@ -186,21 +186,13 @@ def main():
     photo8 = PhotoImage(file = r"images/hexx.png")
     button10 = Button(root, image = photo8, bg="#2C92D6", bd=0, command = lambda: group_page(db.getInfo.proj1)).place(x=60, y=385)
     button11 = Button(root, image = photo8, bg="#3EDAD8", bd=0, command = lambda: group_page(db.getInfo.proj2)).place(x=60, y=460)
-    invite_img = PhotoImage(file = r"images/invites.png")
-    invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
-
-    invite_img = PhotoImage(file = r"images/invites.png")
-    invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = invitepage).place(x=820, y=30)
-
+    
     root.geometry("1000x800")
     root.resizable(False, False)
     root.mainloop()
 
 def chatwindow():
     os.system('python chatwindow.py')
-
-def postdoc():
-    os.system('python postdoc.py')
 
 def boxes():
     os.system('python boxes.py')
@@ -210,8 +202,10 @@ def group_page(group_name):
     db.cursor.execute("UPDATE projects SET viewing = NULL")
     db.cursor.execute("UPDATE projects SET viewing = 'ON' where name = '%s'" % group_name)
     os.system('python group_page.py')
+
 def voting(root):
     os.system('python voting.py')
+
 def logout(root):
     root.destroy()
     os.system('python visitor.py')
