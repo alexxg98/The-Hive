@@ -38,16 +38,21 @@ class CreateGroup:
             self.tree.insert('', END, values=row)
 
         self.win.mainloop()
-
+        
     def invite(self):
-        for selected_item in self.tree.selection():
-            inviter = db.getName()
-            invited = self.tree.item(selected_item, 'values')
-            self.tree.delete(selected_item)
+        try:
+            for selected_item in self.tree.selection():
+                inviter = db.getName()
+                invited = self.tree.item(selected_item, 'values')
 
-        db.cursor.execute("SELECT LAST_INSERT_ID()")
-        groupID = db.cursor.fetchone()
-        db.cursor.execute("INSERT INTO invitations VALUES(%s, %s, %s)", (inviter, invited[0], groupID[0]))
+            db.cursor.execute("SELECT LAST_INSERT_ID()")
+            groupID = db.cursor.fetchone()
+            db.cursor.execute("INSERT INTO invitations VALUES(%s, %s, %s)", (inviter, invited[0], groupID[0]))
+
+            for selected_item in self.tree.selection():
+                self.tree.delete(selected_item)
+        except db.mysql.connector.errors.IntegrityError:
+            messagebox.showwarning("Status", "Create Group First!")
 
     def create_group(self):
         description = self.textBox.get("1.0", "end-1c")
