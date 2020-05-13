@@ -176,8 +176,8 @@ def main():
     # Main Hex buttons
     photo = PhotoImage(file = r"images/chat.png")
     left = Button(root, image = photo, bg="#37CAEF", bd=0, command=chatwindow).place(x=365, y=415)
-    photo1 = PhotoImage(file = r"images/doc.png")
-    right = Button(root, image = photo1, bg="#2C92D6", bd=0, command=postdoc).place(x=570, y=415)
+    invite_img = PhotoImage(file = r"images/invites.png")
+    right = Button(root, image = invite_img, bg="#2C92D6", bd=0, command=lambda:invitepage(root)).place(x=570, y=415)
     photo2 = PhotoImage(file = r"images/social.png")
     top = Button(root, image = photo2, bg="#3EDAD8", bd=0, command=white_black_box).place(x=465, y=250)
     # Aux buttons
@@ -198,9 +198,6 @@ def main():
     button = Button(root, image = photo7, bg="#2C92D6", bd=0, command=createGroup).place(x=60, y=385)
     button = Button(root, image = photo7, bg="#37CAEF", bd=0, command=pendingUsers).place(x=60, y=460)
     button = Button(root, image = photo7, bg="#3EDAD8", bd=0, command=assign_VIP).place(x=60, y=535)
-
-    invite_img = PhotoImage(file = r"images/invites.png")
-    invite_btn = Button(root, image = invite_img, bg="#36393F", bd=0, command = lambda:invitepage(root)).place(x=820, y=30)
 
     root.geometry("1000x800")
     root.resizable(False, False)
