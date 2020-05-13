@@ -1,4 +1,5 @@
-tabooList = ["shit", "hell", "die"]
+with open('taboo_words.txt', 'r') as file:
+    tabooList = file.read().splitlines()
 
 def check(input):
     inputText = input
