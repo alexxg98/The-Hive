@@ -30,14 +30,13 @@ CREATE TABLE projects(
     description VARCHAR(50) NOT NULL,
     creator VARCHAR(25),
     projRank INT,
-    viewing VARCHAR(5) DEFAULT NULL,
-    FOREIGN KEY(creator) REFERENCES users(username)
+    viewing VARCHAR(5) DEFAULT NULL
 );
 
 CREATE TABLE group_membership(
     username VARCHAR(25),
     group_id INT,
-    FOREIGN KEY(username) REFERENCES users(username),
+    PRIMARY KEY(username, group_id),
     FOREIGN KEY(group_id) REFERENCES projects(id)
 );
 
@@ -76,9 +75,5 @@ CREATE TABLE posts(
     group_id INT NOT NULL,
     username VARCHAR(25),
     content VARCHAR(225) NOT NULL,
-    FOREIGN KEY(group_id) REFERENCES projects(id),
-    FOREIGN KEY(username) REFERENCES users(username)
+    FOREIGN KEY(group_id) REFERENCES projects(id)
 );
-
-
-
