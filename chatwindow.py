@@ -69,5 +69,5 @@ messages.configure(state='disabled')
 file.close()
 
 window.resizable(False, False)
-window.title("Hive Chat")
+window.title("Public Hive Chat")
 window.mainloop()
