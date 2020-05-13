@@ -6,7 +6,8 @@ import db
 #Get and store user info from database
 name = db.getName()
 username = '[' + name + ']: '
-groupName = db.getGroupName()
+db.cursor.execute("SELECT name FROM projects WHERE viewing = 'ON'")
+groupName = db.cursor.fetchone()[0]
 groupFileName = groupName + '_chat.txt'
 # send message through button
 def Press_Button():
