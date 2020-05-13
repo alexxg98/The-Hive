@@ -148,7 +148,7 @@ class hexagon(Frame):
         canvas.create_polygon(g2, fill='white', width=1)
         canvas.create_polygon(g3, fill='white', width=1)
         # group Labels
-        canvas.create_text(875, 400, text = "Complains", font = ("Pursia",15),
+        canvas.create_text(875, 400, text = "Comment", font = ("Pursia",15),
             fill = "white", anchor=E)
         canvas.create_text(875, 475, text = "Schedule", font = ("Pursia",15),
             fill = "white", anchor=E)
@@ -167,7 +167,7 @@ class hexagon(Frame):
             canvas.itemconfig('timer', text = s)
             self.after(100, time_now)
         time_now()
-       
+
 def main():
     root = Tk()
     frame = hexagon()
@@ -184,8 +184,8 @@ def main():
     add = Button(root, image = photo3, bg="white", bd=0, command=createGroup).place(x=486, y=512)
     photo4 = PhotoImage(file = r"images/x.png")
     x = Button(root, image = photo4, bg="white", bd=0, command=lambda:logOut(root)).place(x=375, y=325)
-    photo5 = PhotoImage(file = r"images/settings.png")
-    settings = Button(root, image = photo5, bg="white", bd=0).place(x=596, y=325)
+    photo5 = PhotoImage(file = r"images/vote.png")
+    settings = Button(root, image = photo5, bg="white", bd=0, command = voting).place(x=596, y=325)
 
     # Button on right
     photo6 = PhotoImage(file = r"images/hex.png")
@@ -204,6 +204,8 @@ def main():
 
 def chatwindow():
     os.system('python chatwindow.py')
+def voting():
+    os.system('python voting.py')
 def postdoc():
     os.system('python postdoc.py')
 def pendingUsers():
