@@ -15,8 +15,10 @@ class PostDoc:
 
         #Get and store user info from database
         name = db.getName()
-        groupID = db.getGroupID()
-        postCount = db.getPostCount()
+        db.cursor.execute("SELECT id FROM projects WHERE viewing = 'ON'")
+        groupID = db.cursor.fetchone()[0]
+        db.cursor.execute("SELECT postid FROM posts WHERE group_id = '%s' ORDER BY postid DESC LIMIT 1" % groupID)
+        postCount = db.cursor.fetchone()[0]
         tabooCount = db.getTabooCount()
         reputation = db.getRepScore()
 
