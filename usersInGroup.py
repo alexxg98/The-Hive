@@ -31,17 +31,17 @@ class SuperUser:
         self.list.heading(4, text="Type")
         self.list.column(4, width=50)
 
-        groupID = db.getGroupID()
+        db.cursor.execute("SELECT id FROM projects WHERE viewing = 'ON'")
+        groupID = db.cursor.fetchone()[0]
         db.cursor.execute("SELECT A.username,email,reputation_score,user_type FROM users A\
                      JOIN group_membership B on A.username = B.username where B.group_id =%s",(groupID,))
 
         for row in db.cursor.fetchall():
             self.list.insert('', END, values=row)
 
-        self.close_btn.pack(expand=TRUE)        
+        self.close_btn.pack(expand=TRUE)
         self.win.mainloop()
 
 if __name__ == "__main__":
     x = SuperUser()
     x.main()
-
