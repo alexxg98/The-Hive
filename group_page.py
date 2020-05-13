@@ -164,7 +164,7 @@ def main():
         for content in postList:
             db.cursor.execute("SELECT username FROM posts WHERE content = '%s'"%content)
             username = db.cursor.fetchone()[0]
-            post = username + ": " + content
+            post = username + ": " + content + '\n'
             posts.insert(END, post)
         root.after(1000, displayPosts)
         posts.config(state=DISABLED)
