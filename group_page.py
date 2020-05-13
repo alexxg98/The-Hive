@@ -5,13 +5,16 @@ import os
 import mysql.connector
 import db
 
-#Global variables
 #Get group info
-group_name = db.getGroupName()
-db.cursor.execute("SELECT id FROM projects WHERE viewing = 'ON'")
-groupid = db.cursor.fetchone()[0]
-group_rank = db.getGroupRank()
-group_description =db.getGroupDescription()
+def viewGroup():
+    db.cursor.execute("SELECT name FROM projects WHERE viewing = 'ON'")
+    viewGroup.group_name = db.cursor.fetchone()[0]
+    db.cursor.execute("SELECT id FROM projects WHERE viewing = 'ON'")
+    viewGroup.groupid = db.cursor.fetchone()[0]
+    db.cursor.execute("SELECT projRank FROM projects WHERE viewing = 'ON'")
+    viewGroup.group_rank = db.cursor.fetchone()[0]
+    db.cursor.execute("SELECT description FROM projects WHERE viewing = 'ON'")
+    viewGroup.group_description =db.cursor.fetchone()[0]
 
 # Class to create the hexagon framework
 class UI(Frame):
@@ -27,16 +30,17 @@ class UI(Frame):
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
 
-        rankDisplay = "Rank: " + str(group_rank)
+        viewGroup()
+        rankDisplay = "Rank: " + str(viewGroup.group_rank)
         # db.cursor.close()
         # Name of group
-        canvas.create_text(500, 50, text = group_name, font = ("Pursia",25),
+        canvas.create_text(500, 50, text = viewGroup.group_name, font = ("Pursia",25),
             fill = "#7289DB")
         # display group rank
         canvas.create_text(500, 100, text = rankDisplay, font = ("Pursia",15),
             fill = "#7289DB")
         # Display description
-        canvas.create_text(500, 125, text = group_description, font = ("Pursia",15),
+        canvas.create_text(500, 125, text = viewGroup.group_description, font = ("Pursia",15),
             fill = "#7289DB")
 
         #  Calculate dimensions: https://www.mathopenref.com/coordpolycalc.html
@@ -144,11 +148,12 @@ def main():
 
     #Display each post and corresponding user
     def displayPosts():
+        viewGroup()
         posts.config(state=NORMAL)
         posts.delete(1.0, END) #delete texts before re-entering them
 
         # Get all post content from DB
-        db.cursor.execute("SELECT content FROM posts WHERE group_id = '%s'"%groupid)
+        db.cursor.execute("SELECT content FROM posts WHERE group_id = '%s'"%viewGroup.groupid)
         #store all content in array
         postList = []
         for row in db.cursor:
