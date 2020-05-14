@@ -40,7 +40,7 @@ $ python visitor.py
 #### Notes:
 * Sample users and projects have been populated into the database if the instructions above have been followed. 
 * To run through and navigate the system, login through one of the three types of users (each type has there only page and features listed below).
-* To test out registration, input your own email to recieve email (or else it will bounce)
+* To test out registration, input your own email to recieve email (registration will still go through but the status email it will bounce)
 
 ## Useful Documents:
 Project Specifications: [System features](http://www-cs.engr.ccny.cuny.edu/~csjie/322/s20/spec_s20.docx)
