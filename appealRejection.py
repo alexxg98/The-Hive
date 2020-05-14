@@ -59,6 +59,9 @@ class AppealRejection:
         db.cursor.execute("SELECT * FROM black_list WHERE blacklisted = %s", (email,))
         blacklisted = db.cursor.fetchone()
 
+        db.cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        registered = db.cursor.fetchone()
+
         if pending:
             db.cursor.execute("SELECT rejected FROM pending_users WHERE email = %s", (email,))
             rejNum = db.cursor.fetchone()[0]
@@ -69,6 +72,8 @@ class AppealRejection:
                 messagebox.showinfo("Registration Status", "Your application has been rejected. You have one chance to appeal. If desired, enter appeal statement.")
         elif blacklisted:
             messagebox.showinfo("Registration Status", "Sorry, your application was rejected twice. You have been placed in our blacklist.")
+        elif registered:
+            messagebox.showinfo("Registration Status", "Your application was approved! Check your email for login information.")
         else:
             messagebox.showinfo("Registration Status", "No application found for entered email.")
 
