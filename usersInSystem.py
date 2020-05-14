@@ -64,13 +64,14 @@ class SuperUser:
             username = self.list.item(selected_item, 'values')[0]
             email = self.list.item(selected_item, 'values')[1]
             self.list.delete(selected_item)
-            
-        db.cursor.execute("DELETE FROM users WHERE username = %s", (username,))
+
+        db.cursor.execute(db.cursor.execute('UPDATE users SET login_time = "LAST" WHERE username = %s', (username,)))
 
         subject = "REMOVED from 'The Hive'"
         content = '''\
             Dear {username}, \n
             You have been REMOVED from out system 'The Hive' for breaking our policies.\n
+            You have one more chance to login for some final processing.\n
             If you believe we've aken a mistake please reach out to a Super User.\n\n
             Best Regards,\n
             The Hive Team

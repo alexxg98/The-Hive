@@ -194,6 +194,11 @@ def viewGroups():
     os.system('python viewMyProjects.py')
 
 def logout(root):
+    #If user is kicked out
+    db.cursor.execute("SELECT login_time FROM users WHERE status = 'ON'")
+    lastTime = db.cursor.fetchone()[0]
+    if lastTime == "LAST":
+        db.cursor.execute("DELETE FROM users WHERE status = 'ON'")
     root.destroy()
     os.system('python visitor.py')
 
