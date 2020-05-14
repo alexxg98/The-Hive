@@ -32,8 +32,6 @@ class SuperUser:
         self.widget = Label(self.canvas, text='Select User to kick out: ', font='Arial 15 bold',fg='white', bg='#454b54')
         self.kickOutbutton = Button(self.canvas, text="Kick Out User", font='Arial 15 bold', bg='#454b54',
                                    fg="#f7cc35", command=self.kickOut)
-        # self.close_group = Button(self.canvas, text="Close Group", font='Arial 15 bold', bg='#454b54',
-        #                            fg="#f7cc35", command=self.closeGropu)
         self.list = Treeview(self.canvas, columns=(1, 2, 3, 4, 5), show="headings", height="15")
 
     def main(self):
@@ -66,6 +64,7 @@ class SuperUser:
             self.list.delete(selected_item)
 
         db.cursor.execute(db.cursor.execute('UPDATE users SET login_time = "LAST" WHERE username = %s', (username,)))
+#         db.cursor.execute(db.cursor.execute('DELETE FROM user WHERE username = %s', (username,)))
 
         subject = "REMOVED from 'The Hive'"
         content = '''\
@@ -77,15 +76,6 @@ class SuperUser:
             The Hive Team
             '''.format(username=username)
         send_email(subject, content, email)
-
-
-    def closeGropu(self):
-        for selected_item in self.list.selection():
-            a, b, c, d, e, f = self.list.item(selected_item, 'values')
-            group_name = c
-            self.list.delete(selected_item)
-        db.cursor.execute("DELETE FROM pending_users WHERE email = %s", (group_name,))
-
 
 if __name__ == "__main__":
     x = SuperUser()
