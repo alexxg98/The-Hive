@@ -4,6 +4,7 @@ import datetime
 import sys
 import os
 import mysql.connector
+from tkinter import messagebox
 
 import reputationScore as repScore
 import db
@@ -17,6 +18,12 @@ class hexagon(Frame):
     def initUI(self):
         self.master.title("Ordinary User")
         self.pack(fill=BOTH, expand=TRUE)
+
+        #If user is kicked out
+        db.cursor.execute("SELECT login_time FROM users WHERE status = 'ON'")
+        lastTime = db.cursor.fetchone()[0]
+        if lastTime == "LAST":
+            messagebox.showwarning("Reminder", "This is the last time you can log in! Finish all required business before logging out as you may not log in again afterwards.")
 
         #Get and store user info from database
         db.getInfo();
@@ -197,7 +204,10 @@ def logout(root):
     #If user is kicked out
     db.cursor.execute("SELECT login_time FROM users WHERE status = 'ON'")
     lastTime = db.cursor.fetchone()[0]
+    db.cursor.execute("SELECT email FROM users WHERE status = 'ON'")
+    email = db.cursor.fetchone()[0]
     if lastTime == "LAST":
+        db.cursor.execute("INSERT INTO black_list VALUES ('KICKED', %s)",(email,))
         db.cursor.execute("DELETE FROM users WHERE status = 'ON'")
     root.destroy()
     os.system('python visitor.py')

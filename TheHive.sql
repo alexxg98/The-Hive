@@ -56,7 +56,6 @@ CREATE TABLE black_list(
     blacklister VARCHAR(25),
     blacklisted VARCHAR(25),
     PRIMARY KEY(blacklister, blacklisted),
-    FOREIGN KEY(blacklister) REFERENCES users(username)
 );
 
 CREATE TABLE white_list(

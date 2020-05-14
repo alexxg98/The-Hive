@@ -19,6 +19,12 @@ class hexagon(Frame):
         canvas.pack(fill=BOTH, expand=1)
         canvas.configure(bg='#36393F')
 
+        #If user is kicked out
+        db.cursor.execute("SELECT login_time FROM users WHERE status = 'ON'")
+        lastTime = db.cursor.fetchone()[0]
+        if lastTime == "LAST":
+            messagebox.showwarning("Reminder", "This is the last time you can log in! Finish all required business before logging out as you may not log in again afterwards.")
+
         #Get and store user info from database
         name = db.getName()
         rep_score = db.getRepScore()
@@ -231,7 +237,10 @@ def logOut(root):
     #If user is kicked out
     db.cursor.execute("SELECT login_time FROM users WHERE status = 'ON'")
     lastTime = db.cursor.fetchone()[0]
+    db.cursor.execute("SELECT email FROM users WHERE status = 'ON'")
+    email = db.cursor.fetchone()[0]
     if lastTime == "LAST":
+        db.cursor.execute("INSERT INTO black_list VALUES ('KICKED', %s)")
         db.cursor.execute("DELETE FROM users WHERE status = 'ON'")
     root.destroy()
     quit
