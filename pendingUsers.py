@@ -35,7 +35,7 @@ class SuperUser:
     def __init__(self):
         self.win = Tk()
         self.win.title("The Hive")
-        self.win.geometry('{}x{}'.format(800, 450))
+        self.win.geometry('{}x{}'.format(1000, 450))
         self.canvas = Canvas(self.win, bg='#454b54')
         self.acceptButton = Button(self.canvas, text="Accept", font='Arial 15 bold', bg='#454b54',
                                    fg="#f7cc35", command=self.accept)
@@ -52,17 +52,17 @@ class SuperUser:
         self.list.heading(2, text="Name")
         self.list.column(2, width=100)
         self.list.heading(3, text="Email")
-        self.list.column(3, width=200)
+        self.list.column(3, width=150)
         self.list.heading(4, text="Reference")
         self.list.column(4, width=100)
         self.list.heading(5, text="Interest")
         self.list.column(5, width=100)
         self.list.heading(6, text="Credential")
         self.list.column(6, width=100)
-        self.list.heading(7, text="Rejected")
-        self.list.column(7, width=10)
+        self.list.heading(7, text="Rejected #")
+        self.list.column(7, width=120)
         self.list.heading(8, text="Appeal")
-        self.list.column(8, width=200)
+        self.list.column(8, width=300)
 
         db.cursor.execute('SELECT * FROM pending_users')
         for row in db.cursor.fetchall():
