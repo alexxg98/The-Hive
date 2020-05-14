@@ -5,7 +5,7 @@ import vip
 import su
 import welcome
 import db
-
+import changePassword
 
 class LoginWindow:
 
@@ -23,9 +23,12 @@ class LoginWindow:
                                fg='#f7cc35')
         self.password = Entry(self.canvas, show='*', font='Arial 20 bold', bg='white')
 
-        self.backButton = Button(self.canvas, text="Back", font='Arial 20 bold', bg='#454b54',
+        self.forgotPassButton = Button(self.canvas, text="Forgot Password", font='Arial 15 bold', bg='#454b54',
+                                 fg='#f7cc35', command=self.forgotPass)
+
+        self.backButton = Button(self.canvas, text="Back", font='Arial 15 bold', bg='#454b54',
                                  fg='#f7cc35', command=self.welcome)
-        self.logButton = Button(self.canvas, text="Login", font='Arial 20 bold', bg='#454b54', fg='#f7cc35',
+        self.logButton = Button(self.canvas, text="Login", font='Arial 15 bold', bg='#454b54', fg='#f7cc35',
                                 command=self.log_btn)
 
     def main(self):
@@ -36,6 +39,7 @@ class LoginWindow:
         self.passLabel.pack(expand=TRUE)
         self.password.pack(expand=TRUE)
 
+        self.forgotPassButton.pack(expand=TRUE)
         self.backButton.pack(expand=TRUE)
         self.logButton.pack(expand=TRUE)
 
@@ -61,6 +65,16 @@ class LoginWindow:
         wel = welcome.WelcomeWindow()
         wel.main()
 
+    def changePass(self):
+        self.win.destroy()
+        chgPass = changePassword.ChangePassword()
+        chgPass.main()
+
+    def forgotPass(self):
+        self.win.destroy()
+        chgPass = changePassword.ChangePassword()
+        chgPass.main()
+
     def log_btn(self):
         username = self.username.get()
         password = self.password.get()
@@ -81,15 +95,21 @@ class LoginWindow:
             elif repScore <25 and repScore>0:
                 db.cursor.execute("UPDATE users SET user_type = 'OU' WHERE status = 'ON'")
 
-            # Direct to user page based on type
-            db.cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
-            acct_type = db.cursor.fetchone()[0]
-            if acct_type == "OU":
-                self.ou()
-            elif acct_type == "VIP":
-                self.vip()
-            elif acct_type == "SU":
-                self.su()
+            #Check if first time login
+            db.cursor.execute("SELECT login_time FROM users WHERE username = '%s'" % username)
+            firstLogin = db.cursor.fetchone()[0]
+            if firstLogin == "FIRST":
+                self.changePass()
+            else:
+                # Direct to user page based on type
+                db.cursor.execute("SELECT user_type FROM users WHERE username = '%s'" % username)
+                acct_type = db.cursor.fetchone()[0]
+                if acct_type == "OU":
+                    self.ou()
+                elif acct_type == "VIP":
+                    self.vip()
+                elif acct_type == "SU":
+                    self.su()
         elif username == "" or password == "":
             messagebox.showwarning("Login Status", "All fields are required!")
         else:

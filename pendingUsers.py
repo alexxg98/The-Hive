@@ -82,7 +82,7 @@ class SuperUser:
             username = generate_username(b)
             self.list.delete(selected_item)
 
-        db.cursor.execute('INSERT INTO users (email, username, password, user_type) VALUES (%s, %s, %s, "OU")',
+        db.cursor.execute('INSERT INTO users (email, username, password, user_type, login_time) VALUES (%s, %s, %s, "OU", "FIRST")',
                           (email, username, password))
         db.cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
 

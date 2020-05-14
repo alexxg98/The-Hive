@@ -11,7 +11,8 @@ CREATE TABLE users(
     user_type ENUM('OU', 'VIP', 'SU'),
     status VARCHAR(5) NULL,
     votes INT DEFAULT 0,
-    taboo_count INT DEFAULT 0
+    taboo_count INT DEFAULT 0,
+    login_time VARCHAR(25)
 );
 
 CREATE TABLE pending_users(
@@ -21,6 +22,8 @@ CREATE TABLE pending_users(
     reference VARCHAR(25) NOT NULL,
     interest VARCHAR(25) NOT NULL,
     credential VARCHAR(25) NOT NULL,
+    rejected INT DEFAULT 0,
+    appeal VARCHAR(225) NULL,
     UNIQUE KEY (email)
 );
 
@@ -53,8 +56,7 @@ CREATE TABLE black_list(
     blacklister VARCHAR(25),
     blacklisted VARCHAR(25),
     PRIMARY KEY(blacklister, blacklisted),
-    FOREIGN KEY(blacklister) REFERENCES users(username),
-    FOREIGN KEY(blacklisted) REFERENCES users(username)
+    FOREIGN KEY(blacklister) REFERENCES users(username)
 );
 
 CREATE TABLE white_list(
