@@ -12,15 +12,11 @@ db.cursor.execute("SELECT name FROM projects WHERE viewing = 'ON'")
 groupName = db.cursor.fetchone()[0]
 groupFileName = groupName + '_chat.txt'
 
-db.cursor.execute("SELECT id FROM projects WHERE viewing = 'ON'")
-groupID = db.cursor.fetchone()[0]
-db.cursor.execute("SELECT postid FROM posts WHERE group_id = '%s' ORDER BY postid DESC LIMIT 1" % groupID)
-postCount = db.cursor.fetchone()[0]
 tabooCount = db.getTabooCount()
 reputation = db.getRepScore()
 
 # send message through button
-def Press_Button(name, groupID, postCount, tabooCount, reputation):
+def Press_Button(name, tabooCount, reputation):
     get_input = input_field.get()
     messages.configure(state='normal')
     hasTaboo = checkT.check(get_input)
@@ -61,9 +57,9 @@ input_field = Entry(window, width = 90, text = user_input, bg="#e6f2ff")
 input_field.grid(row = 1, column = 0)
 
 frame = Frame(window)
-input_field.bind("<Return>",(lambda event: Press_Button(name, groupID, postCount, tabooCount, reputation)))
+input_field.bind("<Return>",(lambda event: Press_Button(name, tabooCount, reputation)))
 frame.grid(row = 0, column = 0)
-send = Button(window, text = "Send", command = lambda: Press_Button(name, groupID, postCount, tabooCount, reputation), bg = "black", fg = "white")
+send = Button(window, text = "Send", command = lambda: Press_Button(name, tabooCount, reputation), bg = "black", fg = "white")
 send.grid(row = 1, column = 1)
 save = Button(window, text = "Save Log", bg = "red", fg = "white", command = lambda: savelog())
 save.grid(row = 1, column = 2)
