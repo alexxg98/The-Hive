@@ -1,6 +1,4 @@
-with open('taboo_words.txt', 'r') as file:
-    tabooList = file.read().splitlines()
-
+tabooList = ['fudge', 'dayamn','yeet', 'die']
 def check(input):
     inputText = input
     for value in tabooList:
