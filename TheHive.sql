@@ -22,6 +22,8 @@ CREATE TABLE pending_users(
     reference VARCHAR(25) NOT NULL,
     interest VARCHAR(25) NOT NULL,
     credential VARCHAR(25) NOT NULL,
+    rejected INT DEFAULT 0,
+    appeal VARCHAR(225) NULL,
     UNIQUE KEY (email)
 );
 
@@ -65,9 +67,7 @@ CREATE TABLE invitations(
 CREATE TABLE black_list(
     blacklister VARCHAR(25),
     blacklisted VARCHAR(25),
-    PRIMARY KEY(blacklister, blacklisted),
-    FOREIGN KEY(blacklister) REFERENCES users(username),
-    FOREIGN KEY(blacklisted) REFERENCES users(username)
+    PRIMARY KEY(blacklister, blacklisted)
 );
 
 CREATE TABLE white_list(
