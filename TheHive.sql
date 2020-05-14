@@ -34,34 +34,42 @@ CREATE TABLE projects(
     creator VARCHAR(25),
     projRank INT,
     viewing VARCHAR(5) DEFAULT NULL,
-	CONSTRAINT fk_pojectcreator_id
-		FOREIGN KEY(creator) 
+    CONSTRAINT fk_pojectcreator_id	
+    	FOREIGN KEY(creator) 
         REFERENCES users(username)
-		ON DELETE CASCADE
+	ON DELETE CASCADE
 );
 
 CREATE TABLE group_membership(
     username VARCHAR(25),
     group_id INT,
     PRIMARY KEY(username, group_id),
-    
     CONSTRAINT fk_user_id
-		FOREIGN KEY (username)
-		REFERENCES users(username)
-		ON DELETE CASCADE,
-	CONSTRAINT fk_projects_id
-		FOREIGN KEY(group_id) 
-        REFERENCES projects(id)
-		ON DELETE CASCADE
+	FOREIGN KEY (username)
+	REFERENCES users(username)
+	ON DELETE CASCADE,
+    CONSTRAINT fk_projects_id
+	FOREIGN KEY(group_id) 
+	REFERENCES projects(id)
+	ON DELETE CASCADE
 );
 
 CREATE TABLE invitations(
     inviter VARCHAR(25),
     invited VARCHAR(25),
     group_id INT,
-    FOREIGN KEY(inviter) REFERENCES users(username),
-    FOREIGN KEY(invited) REFERENCES users(username),
-    FOREIGN KEY(group_id) REFERENCES projects(id)
+    CONSTRAINT fk_inviter
+    	FOREIGN KEY(inviter) 
+    	REFERENCES users(username)
+    	ON DELETE CASCADE,
+    CONSTRAINT fk_invited
+    	FOREIGN KEY(invited) 
+	REFERENCES users(username) 
+    	ON DELETE CASCADE,
+    CONSTRAINT fk_groupId
+    	FOREIGN KEY(group_id) 
+	REFERENCES projects(id)
+	ON DELETE CASCADE
 );
 
 CREATE TABLE black_list(
@@ -74,8 +82,14 @@ CREATE TABLE white_list(
     whitelister VARCHAR(25),
     whitelisted VARCHAR(25),
     PRIMARY KEY(whitelister, whitelisted),
-    FOREIGN KEY(whitelister) REFERENCES users(username),
-    FOREIGN KEY(whitelisted) REFERENCES users(username)
+    CONSTRAINT fk_whitelister
+    	FOREIGN KEY(whitelister) 
+	REFERENCES users(username)
+	ON DELETE CASCADE,
+    CONSTRAINT fk_whitelisted
+    	FOREIGN KEY(whitelisted) 
+	REFERENCES users(username)
+	ON DELETE CASCADE
 );
 
 CREATE TABLE polls(
@@ -89,13 +103,13 @@ CREATE TABLE posts(
     username VARCHAR(25),
     content VARCHAR(225) NOT NULL,
     CONSTRAINT fk_post_usr
-		FOREIGN KEY(username) 
-        REFERENCES users(username)
-		ON DELETE CASCADE,
-	CONSTRAINT fk_post_id
-		FOREIGN KEY(group_id) 
+	FOREIGN KEY(username)   
+	REFERENCES users(username)
+	ON DELETE CASCADE,
+    CONSTRAINT fk_post_id
+	FOREIGN KEY(group_id) 
         REFERENCES projects(id)
-		ON DELETE CASCADE
+	ON DELETE CASCADE
 );
 
 CREATE TABLE comments(
