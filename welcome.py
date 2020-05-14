@@ -2,6 +2,7 @@ from tkinter import *
 import login
 import register
 import visitor
+import appealRejection
 
 
 class WelcomeWindow:
@@ -19,6 +20,8 @@ class WelcomeWindow:
                                 bg='#454b54', fg='#f7cc35', command=self.login)
         self.regButton = Button(self.frame, text="Register", font='Arial 20 bold',
                                 bg='#454b54', fg='#f7cc35', command=self.register)
+        self.appealButton = Button(self.frame, text="Appeal", font='Arial 20 bold',
+                                bg='#454b54', fg='#f7cc35', command=self.appeal)
         self.backButton = Button(self.frame, text="Back", font='Arial 10',
                                  bg='#454b54', fg='#f7cc35', command=self.visitor)
 
@@ -28,6 +31,7 @@ class WelcomeWindow:
         self.logButton.grid(row=0, column=0)
         self.icon.grid(row=1, column=1)
         self.regButton.grid(row=0, column=2)
+        self.appealButton.grid(row=0, column=4)
         Label(self.frame, text="The Hive", bg='#36393F',
               font="Arial 20 bold", fg='#f7cc35').grid(row=2, column=1)
         self.backButton.grid(row=3, column=1)
@@ -42,6 +46,11 @@ class WelcomeWindow:
         self.win.destroy()
         reg = register.RegisterWindow()
         reg.main()
+
+    def appeal(self):
+        self.win.destroy()
+        appeal = appealRejection.AppealRejection()
+        appeal.main()
 
     def visitor(self):
         self.win.destroy()

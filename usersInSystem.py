@@ -64,7 +64,7 @@ class SuperUser:
             username = self.list.item(selected_item, 'values')[0]
             email = self.list.item(selected_item, 'values')[1]
             self.list.delete(selected_item)
-
+            
         db.cursor.execute("DELETE FROM users WHERE username = %s", (username,))
 
         subject = "REMOVED from 'The Hive'"
@@ -89,4 +89,3 @@ class SuperUser:
 if __name__ == "__main__":
     x = SuperUser()
     x.main()
-

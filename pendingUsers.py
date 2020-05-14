@@ -41,7 +41,7 @@ class SuperUser:
                                    fg="#f7cc35", command=self.accept)
         self.rejectButton = Button(self.canvas, text="Reject", font='Arial 15 bold', bg='#454b54',
                                    fg="#f7cc35", command=self.reject)
-        self.list = Treeview(self.canvas, columns=(1, 2, 3, 4, 5, 6), show="headings", height="15")
+        self.list = Treeview(self.canvas, columns=(1, 2, 3, 4, 5, 6, 7, 8), show="headings", height="15")
 
     def main(self):
         self.canvas.pack(expand=TRUE, fill=BOTH)
@@ -59,6 +59,10 @@ class SuperUser:
         self.list.column(5, width=100)
         self.list.heading(6, text="Credential")
         self.list.column(6, width=100)
+        self.list.heading(7, text="Rejected")
+        self.list.column(7, width=10)
+        self.list.heading(8, text="Appeal")
+        self.list.column(8, width=200)
 
         db.cursor.execute('SELECT * FROM pending_users')
         for row in db.cursor.fetchall():
@@ -73,7 +77,7 @@ class SuperUser:
         password = ''.join(random.choice(string.ascii_lowercase) for i in range(6))
 
         for selected_item in self.list.selection():
-            a, b, c, d, e, f = self.list.item(selected_item, 'values')
+            a, b, c, d, e, f, g, h = self.list.item(selected_item, 'values')
             email = c
             username = generate_username(b)
             self.list.delete(selected_item)
@@ -95,19 +99,26 @@ class SuperUser:
             email = self.list.item(selected_item, 'values')[2]
             self.list.delete(selected_item)
 
-        db.cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
+        db.cursor.execute("SELECT rejected FROM pending_users WHERE email = %s", (email,))
+        rejNum = db.cursor.fetchone()[0]
 
-        subject = "Application Denied"
-        content = '''\
-            Sorry, but your application has been denied. \n
-            You have one chance to appeal and the SU will make a final decision to \n 
-            reverse the rejection. If you receive another rejection, then you \n
-            will be put in blacklist forever.  \
-            '''
-        send_email(subject, content, email)
+        if rejNum == 0:
+            rejNum += 1
+            db.cursor.execute("UPDATE pending_users SET rejected = %s WHERE email = %s", (rejNum,email))
+
+            subject = "Application Denied"
+            content = '''\
+                Sorry, but your application has been denied. \n
+                You have one chance to appeal and the SU will make a final decision to \n
+                reverse the rejection. If you receive another rejection, then you \n
+                will be put in blacklist forever.  \
+                '''
+            send_email(subject, content, email)
+        elif rejNum == 1:
+            db.cursor.execute("DELETE FROM pending_users WHERE email = %s", (email,))
+            db.cursor.execute("INSERT INTO black_list VALUES (%s, %s)", (db.getName(), email))
 
 
 if __name__ == "__main__":
     x = SuperUser()
     x.main()
-
