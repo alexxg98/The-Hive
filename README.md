@@ -6,11 +6,22 @@ Contributors - Team C: Alexandria Guo, Linda Wong, Michael Mayaguari, Niharika A
 A collaborative project for CSC 32200, taught by Professor Jie Wei. This system, named *The Hive*, is built using Python, tkinter, and MySQL.
 
 ## Running the Project
-#### Notes:
-This project uses MySQL for database management.
-To use this code, have MySQL installed and set up. In db.py, change the information to connect to the database to your local server (host, user, and passwd).
+#### Requirements
+[Python](https://www.python.org/downloads/)
 
+You must have pip from python3 installed and the *Pretty Table Library:* using the following snippet:
+```bash
+$ pip install PrettyTable
+```
+[MySQL](https://dev.mysql.com/downloads/)
 
+#### Database Setup
+On MySQL Workbench run TheHive.sql and TheHive_POPULATE.sql files. This will create and populate the database so that the project can be tested.
+
+In db.py, change the information to connect to the database to your local server (host, user, and passwd).
+![image](https://user-images.githubusercontent.com/44476083/81892560-67023200-9579-11ea-8763-2f9c209dc3ea.png)
+
+#### To Run:
 Clone the repository:
 
 ```bash
@@ -26,6 +37,35 @@ run the program by:
 ```bash
 $ python visitor.py
 ```
+#### Notes:
+* Sample users and projects have been populated into the database if the instructions above have been followed. 
+* To run through and navigate the system, login through one of the three types of users (each type has there only page and features listed below).
+* To test out registration, input your own email to recieve email (or else it will bounce)
+
+## Useful Documents:
+Project Specifications: [System features](http://www-cs.engr.ccny.cuny.edu/~csjie/322/s20/spec_s20.docx)
+
+Phase 1: [Spec Report](https://github.com/mgmayagu/The-Hive/blob/master/Reports/Spec%20Report%20-%20Team%20C.pdf)
+
+Phase 2: [Design Report](https://github.com/mgmayagu/The-Hive/blob/master/Reports/Spec%20Report%20-%20Team%20C.pdf)
+
+Phase 3: [Final Report](https://github.com/mgmayagu/The-Hive/blob/master/Reports/Final%20Report%20-%20Team%20C.pdf)
+
+## Screenshots
+Landing Page (Visitor)
+![image](https://user-images.githubusercontent.com/44476083/81894818-c1ea5800-957e-11ea-95bf-fb85222d505e.png)
+
+OU Page
+![image](https://user-images.githubusercontent.com/44476083/81895236-cb27f480-957f-11ea-9d75-9c090cd07417.png)
+
+VIP Page
+![image](https://user-images.githubusercontent.com/44476083/81895408-1c37e880-9580-11ea-8f6c-9e863acd46e0.png)
+
+SU Page
+![image](https://user-images.githubusercontent.com/44476083/81895477-412c5b80-9580-11ea-9374-110a167ef333.png)
+
+Group Page
+![image](https://user-images.githubusercontent.com/44476083/81895745-fe1eb800-9580-11ea-8d9d-3f3b3f2c4cf2.png)
 
 ## Project Specifications
 ### Purpose
