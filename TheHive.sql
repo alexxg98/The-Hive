@@ -22,8 +22,6 @@ CREATE TABLE pending_users(
     reference VARCHAR(25) NOT NULL,
     interest VARCHAR(25) NOT NULL,
     credential VARCHAR(25) NOT NULL,
-    rejected INT DEFAULT 0,
-    appeal VARCHAR(225) NULL,
     UNIQUE KEY (email)
 );
 
@@ -33,14 +31,26 @@ CREATE TABLE projects(
     description VARCHAR(50) NOT NULL,
     creator VARCHAR(25),
     projRank INT,
-    viewing VARCHAR(5) DEFAULT NULL
+    viewing VARCHAR(5) DEFAULT NULL,
+	CONSTRAINT fk_pojectcreator_id
+		FOREIGN KEY(creator) 
+        REFERENCES users(username)
+		ON DELETE CASCADE
 );
 
 CREATE TABLE group_membership(
     username VARCHAR(25),
     group_id INT,
     PRIMARY KEY(username, group_id),
-    FOREIGN KEY(group_id) REFERENCES projects(id)
+    
+    CONSTRAINT fk_user_id
+		FOREIGN KEY (username)
+		REFERENCES users(username)
+		ON DELETE CASCADE,
+	CONSTRAINT fk_projects_id
+		FOREIGN KEY(group_id) 
+        REFERENCES projects(id)
+		ON DELETE CASCADE
 );
 
 CREATE TABLE invitations(
@@ -56,6 +66,8 @@ CREATE TABLE black_list(
     blacklister VARCHAR(25),
     blacklisted VARCHAR(25),
     PRIMARY KEY(blacklister, blacklisted),
+    FOREIGN KEY(blacklister) REFERENCES users(username),
+    FOREIGN KEY(blacklisted) REFERENCES users(username)
 );
 
 CREATE TABLE white_list(
@@ -76,5 +88,19 @@ CREATE TABLE posts(
     group_id INT NOT NULL,
     username VARCHAR(25),
     content VARCHAR(225) NOT NULL,
-    FOREIGN KEY(group_id) REFERENCES projects(id)
+    CONSTRAINT fk_post_usr
+		FOREIGN KEY(username) 
+        REFERENCES users(username)
+		ON DELETE CASCADE,
+	CONSTRAINT fk_post_id
+		FOREIGN KEY(group_id) 
+        REFERENCES projects(id)
+		ON DELETE CASCADE
+);
+
+CREATE TABLE comments(
+    commentator VARCHAR(25),
+    userdirected VARCHAR(25),
+    comment VARCHAR(200),
+    comment_type INTEGER
 );
